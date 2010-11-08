@@ -1,0 +1,37 @@
+Roadmap
+
+- [ ] 1.1.0
+	- [ ] Dashboard
+	- [ ] SubTareas
+	- [ ] Time Tracking
+	- [ ] Filtros Personalizables
+	- [ ] Workflow Perzonalizable
+	- [ ] Subscribirse a Notificaciones de cambios
+	- [ ] Poder dar de alta incidencias facilmente en la lista principal
+		- [ ] Poder hacer subtareas tambien
+	- [ ] Autenticacion con LDAP/Active Directory
+	- [ ] Reportes
+- [ ] A futuro
+	- [ ] Sabores del Sistema
+		- [ ] Agile
+			- [ ] Scrum
+			- [ ] Xp
+		- [ ] Software Proyecto Management
+			- [ ] Code Reviews
+			- [ ] Continuous Integration
+		- [ ] Generic Proyecto Management
+		- [ ] Colaborative Get Things Done
+	- [ ] Arquitectura de Plugins
+	- [ ] Integracion con los IDE's mas importantes
+	- [ ] Integracion con sistemas de control de versiones
+	- [ ] Wiki
+	- [ ] Campos personalizables
+- [ ] Muy a Futuro
+	- [ ] Mercury en la nube
+
+
+Requisitos para instalar mercury
+
+Java 1.6+
+Java Application Server (Tomcat)
+Una base de datos (PostgreSQL)
