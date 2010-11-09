@@ -12,7 +12,7 @@
     <g:link controller="issues">Incidencias</g:link></li>
 
   <li <g:if test="${selected == 'new'}">class="selected"</g:if>>
-    <a href='${ctx}/new'>Nueva Incidencia</a></li>
+    <g:link controller="issues" action="create">Nueva Incidencia</g:link></li>
 
   <li <g:if test="${selected == 'release'}">class="selected"</g:if>>
     <a href='${ctx}/project'>Entregas</a></li>

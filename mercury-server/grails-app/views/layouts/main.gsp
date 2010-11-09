@@ -25,10 +25,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <title>Mercury</title>
   <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
-  <link rel="stylesheet" href="${resource(dir: 'css', file: 'base.css')}"/>
   <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'reset-min.css')}"/>
+  <link rel="stylesheet" href="${resource(dir: 'css', file: 'base.css')}"/>
+  <link rel="stylesheet" href="${resource(dir: 'css', file: 'styledButton.css')}"/>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+  <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.styledButton.js')}"></script>
   %{--<script type="text/javascript" src="/mercury-web/js/global.js${cmpVersion}"></script>--}%
   <g:layoutHead/>
 </head>

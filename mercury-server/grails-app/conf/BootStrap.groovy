@@ -7,8 +7,6 @@ class BootStrap {
 
   def init = {servletContext ->
     def admin = User.findByUsername("cesar.reyes")
-    println springSecurityService.encodePassword("21Tangolunda")
-    println admin.password
 //    if (admin) {
 //      if (!admin.authorities) {
 //        def role = new Role(authority: "ROLE_ADMIN", description: "Administrator")

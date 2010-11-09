@@ -4,6 +4,7 @@ import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Issue
 import grails.converters.XML
 import org.nopalsoft.mercury.domain.Project
+import org.nopalsoft.mercury.domain.IssueType
 
 class IssueFilter{
   int id
@@ -46,6 +47,33 @@ class IssuesController {
   def view = {
     def issue = Issue.findByCode(params.id)
     [issue: issue]
+  }
+
+  def create = {
+    def project = Project.get(session.project.id)
+    [issue: new Issue(), project: project]
+  }
+
+  def save = {
+    if(request.isPost()){
+      println 'post'
+      def issue = new Issue()
+      issue.properties = params
+      if (!issue.hasErrors() && issueService.newIssue(issue)) {
+        println 'save'
+        flash.message = "Se creo correctamente."
+        redirect(action:'view', params:[id:issue.code])
+      }
+      else {
+        println 'save false'
+        def project = Project.get(session.project.id)
+        render(view:'create', model:[issue:issue, project: project])
+        return ;
+      }
+    }else{
+      println 'post false'
+      render(view:'create')
+    }
   }
 
   def listAsXML = {

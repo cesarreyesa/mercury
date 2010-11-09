@@ -167,11 +167,54 @@ padding: 1em;
 #content h2 { margin: 0 0 .5em 0; }
 
 
-.issue h1{
+#container h1{
     font-size:large;
     margin-bottom:.5em;
 }
 
+.form .row{
+    margin-bottom:10px;
+}
 
+.form .row .box{
+    float:left;
+    padding-right:20px;
+}
 
+.form .row .box label{
+    display:block;
+}
 
+.form .buttons{
+    clear:both;
+    margin-top:20px;
+    padding-top:20px;
+    margin-bottom:20px;
+}
+
+fieldset{
+    padding:10px;
+}
+
+div.errors {
+    background: #fff3f3;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 5px 0;
+    padding: 5px 0 5px 0;
+}
+div.errors ul {
+    list-style: none;
+    padding: 0;
+}
+div.errors li {
+    background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
+    line-height: 16px;
+    padding-left: 30px;
+}
+input.errors {
+    border: 1px solid red;
+}
+textarea.errors {
+    border: 1px solid red;
+}

@@ -11,8 +11,6 @@
 <head>
   <title>${issue.summary}</title>
   <meta name="layout" content="main"/>
-  <link rel="stylesheet" href="${resource(dir: 'css', file: 'styledButton.css')}"/>
-  <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.styledButton.js')}"></script>
 </head>
 <body>
 

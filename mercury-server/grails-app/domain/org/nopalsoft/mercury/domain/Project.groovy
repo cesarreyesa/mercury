@@ -9,7 +9,7 @@ class Project {
   User lead
 //  private Milestone currentMilestone;
 //  private List<Component> components = new ArrayList<Component>();
-//  private List<User> users = new ArrayList<User>();
+  static hasMany = [users:User]
 
   static constraints = {
     code(blank: false)
@@ -19,6 +19,7 @@ class Project {
   
   static mapping = {
     version false
+    users joinTable:[name:'projetc_user', key:'project_id', column:'user_id']
   }
 
 }

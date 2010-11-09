@@ -14,7 +14,7 @@ environments {
   development {
     dataSource {
 //			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-      dbCreate = "update"
+//      dbCreate = "update"
       url = "jdbc:postgresql://localhost:5432/mercury"
       username = "nopal"
       password = "lapon"

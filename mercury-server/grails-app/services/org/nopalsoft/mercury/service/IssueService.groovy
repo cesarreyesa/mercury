@@ -11,12 +11,15 @@ import org.hibernate.Criteria
 import org.hibernate.SessionFactory
 import org.springframework.orm.hibernate3.HibernateTemplate
 import org.hibernate.criterion.Projections
+import org.nopalsoft.mercury.domain.Status
 
 class IssueService {
 
   boolean transactional = true
 
   def sessionFactory
+  def springSecurityService
+//  def mailService
 
   public Integer getTotalIssues(Project project) {
     return Issue.executeQuery("select count(*) from Issue where project = ?", [project])[0];
@@ -174,4 +177,62 @@ class IssueService {
     }
     return crit
   }
+
+  public boolean newIssue(Issue issue) {
+
+    issue.setDate(new Date());
+    issue.setLastUpdated(issue.getDate());
+
+    // obtiene el estado para asignarle del workflow
+//    Workflow workflow = getWorkflow(issue.getIssueType().getCode());
+//    Status status = (Status) entityManager.get(Status.class, new Criteria().add(Restrictions.eq("name", workflow.initialStatus())));
+    Status status = Status.findByCode('open');
+    issue.setStatus(status);
+    // obtiene el codigo generado.
+    Integer lastId = issue.project.getLastIssueId() == null || issue.project.getLastIssueId() == 0 ? 0 : issue.project.getLastIssueId();
+    issue.setCode(issue.project.getCode() + "-" + String.valueOf((lastId + 1)));
+
+    issue.project.setLastIssueId(lastId + 1);
+
+    if(!issue.save(flush: true)){
+      return false
+    }
+//        logIssue(issue, null);
+    User lead = issue.getProject().getLead();
+    User createdBy = User.get(springSecurityService.principal.id)
+    def usersToSend = []
+    // agregamos al lead siempre y cuando no sea el que crea la incidencia
+    if(!lead.equals(createdBy))
+      usersToSend << lead
+    // agregamos al assignee siempre y cuando no sea el que crea la incidencia y no sea el lead
+    if(issue.assignee != null && !issue.assignee.equals(createdBy))
+      usersToSend << issue.assignee
+
+    usersToSend.addAll(issue.watchers.asList())
+
+    usersToSend.unique().each {User user ->
+      try {
+//        mailService.sendMail {
+//          to grailsApplication.config.sendMailsTo
+//          subject "Nueva subscripcion al newsletter"
+//          body view:"/emails/newsletterSignup", model:params.clone()
+//        }
+
+
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom(configuration.getMailFrom());
+//        message.setTo(user.getEmail());
+//        message.setSubject("[NUEVA " + issue.getCode() + "] " + issue.getSummary());
+//        ModelMap model = new ModelMap("issue", issue);
+//        model.put("bundle", ResourceBundle.getBundle(BUNDLE_KEY, LocaleContextHolder.getLocale()));
+//        model.put("baseUrl", configuration.getBaseUrl());
+//        model.put("createdBy", createdBy);
+//        mailEngine.sendMessage(message, "newIssue.vm", model, false);
+      } catch (Exception ex) {
+        // no hacemos nada
+      }
+    }
+    return true
+  }
+
 }
