@@ -56,22 +56,18 @@ class IssuesController {
 
   def save = {
     if(request.isPost()){
-      println 'post'
       def issue = new Issue()
       issue.properties = params
-      if (!issue.hasErrors() && issueService.newIssue(issue)) {
-        println 'save'
+      if (issueService.newIssue(issue)) {
         flash.message = "Se creo correctamente."
         redirect(action:'view', params:[id:issue.code])
       }
       else {
-        println 'save false'
         def project = Project.get(session.project.id)
         render(view:'create', model:[issue:issue, project: project])
         return ;
       }
     }else{
-      println 'post false'
       render(view:'create')
     }
   }

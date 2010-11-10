@@ -180,25 +180,31 @@ class IssueService {
 
   public boolean newIssue(Issue issue) {
 
-    issue.setDate(new Date());
-    issue.setLastUpdated(issue.getDate());
+    issue.date = new Date();
+    issue.lastUpdated = issue.date;
 
     // obtiene el estado para asignarle del workflow
 //    Workflow workflow = getWorkflow(issue.getIssueType().getCode());
 //    Status status = (Status) entityManager.get(Status.class, new Criteria().add(Restrictions.eq("name", workflow.initialStatus())));
     Status status = Status.findByCode('open');
-    issue.setStatus(status);
+    issue.status = status;
     // obtiene el codigo generado.
-    Integer lastId = issue.project.getLastIssueId() == null || issue.project.getLastIssueId() == 0 ? 0 : issue.project.getLastIssueId();
-    issue.setCode(issue.project.getCode() + "-" + String.valueOf((lastId + 1)));
+    Integer lastId = issue.project.lastIssueId ?: 0;
+    issue.code = issue.project.code + "-" + String.valueOf((lastId + 1));
 
-    issue.project.setLastIssueId(lastId + 1);
+    println issue.code
+
+    issue.project.lastIssueId = lastId + 1;
+
+    if(!issue.validate()){
+      return false
+    }
 
     if(!issue.save(flush: true)){
       return false
     }
 //        logIssue(issue, null);
-    User lead = issue.getProject().getLead();
+    User lead = issue.project.lead;
     User createdBy = User.get(springSecurityService.principal.id)
     def usersToSend = []
     // agregamos al lead siempre y cuando no sea el que crea la incidencia
@@ -208,7 +214,7 @@ class IssueService {
     if(issue.assignee != null && !issue.assignee.equals(createdBy))
       usersToSend << issue.assignee
 
-    usersToSend.addAll(issue.watchers.asList())
+    //usersToSend.addAll(issue.watchers.asList())
 
     usersToSend.unique().each {User user ->
       try {

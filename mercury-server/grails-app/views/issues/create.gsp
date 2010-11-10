@@ -16,6 +16,7 @@
 <h1>Nueva incidencia</h1>
 
 <g:form action="save" name="issueForm">
+  <g:hiddenField name="project.id" value="${project.id}"/>
   <div class="form">
     <g:hasErrors bean="${issue}">
        <div class="errors">
@@ -28,7 +29,7 @@
           <label>Resumen:</label>
         </div>
         <div class="field">
-          <g:textField name="summary" style="width:500px;"/>
+          <g:textField name="summary" value="${issue.summary}" style="width:500px;"/>
         </div>
       </div>
       <div class="row">
@@ -36,17 +37,17 @@
           <label>Descripcion:</label>
         </div>
         <div class="field">
-          <g:textArea name="description" style="width:500px;height:100px;"/>
+          <g:textArea name="description" value="${issue.description}" style="width:500px;height:100px;"/>
         </div>
       </div>
       <div class="row">
         <div class="box">
           <label>Tipo de incidencia</label>
-          <g:select name="issueType.id" from="${IssueType.list()}" optionKey="id" optionValue="name"/>
+          <g:select name="issueType.id" value="${issue.issueType?.id}" from="${IssueType.list()}" optionKey="id" optionValue="name"/>
         </div>
         <div class="box">
           <label>Prioridad</label>
-          <g:select name="priority.id" from="${Priority.list()}" optionKey="id" optionValue="name" />
+          <g:select name="priority.id" value="${issue.priority?.id}" from="${Priority.list()}" optionKey="id" optionValue="name" />
         </div>
       </div>
       <div class="buttons">
@@ -59,13 +60,13 @@
         <div class="row">
           <div class="box">
             <label>Reportador:</label>
-            <g:select name="reporter.id" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+            <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
           </div>
         </div>
         <div class="row">
           <div class="box">
             <label>Asignado a:</label>
-            <g:select name="assignee.id" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+            <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
           </div>
         </div>
         <div class="row">

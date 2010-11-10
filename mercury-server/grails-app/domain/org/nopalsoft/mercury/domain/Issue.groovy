@@ -54,9 +54,11 @@ class Issue {
     description (nullable:true, maxSize:4000)
     date (blank:false)
     dueDate (nullable:true)
+    resolution(nullable:true)
   }
 
   static mapping = {
+    id generator: 'increment'
     version false
     priority column:'priority'
     date column:'date_'
