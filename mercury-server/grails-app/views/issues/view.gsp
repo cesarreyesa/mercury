@@ -52,7 +52,7 @@
 </div>
 <div id="content" class="issue">
   <div class="issue-menu">
-    <span class="gbutton" id="resolve">
+    <span id="resolve">
       Resolver
       <ul>
         <li>1</li>
@@ -60,9 +60,9 @@
         <li>3</li>
       </ul>
     </span>
-    <span id="assign" class="gbutton">Asignar</span>
-    <span id="attach" class="gbutton">Adjuntar archivos</span>
-    <span id="edit" class="gbutton">Editar</span>
+    <span id="assign">Asignar</span>
+    <span id="attach">Adjuntar archivos</span>
+    <span id="edit">Editar</span>
     <div style="float:right;">
       <span id="back"><<</span>
       <span id="next">>></span>
@@ -77,7 +77,13 @@
         });
         $("#assign").styledButton({
           'orientation' : 'alone',
-          'action' : function () { alert( 'omfg' ) },
+          'action' : function () {
+            $(function() {
+		      $( "#assignIssueDialog").dialog({
+                height: 240, width:550, modal: true
+              });
+	        });
+          },
         });
         $("#attach").styledButton({
           'orientation' : 'alone',
@@ -127,6 +133,28 @@
   </div>
 </div>
 
+<div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
+  <g:form>
+    <div class="form">
+      <div class="row">
+        <div class="label">
+          <label>Asignar a:</label>
+        </div>
+        <div class="field">
+          <g:select name="assignee.id" value="${issue.assignee?.id}" from="${issue.project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          <label>Comentario:</label>
+        </div>
+        <div class="field">
+          <g:textArea name="comment" style="width:500px;height:100px;"/>
+        </div>
+      </div>
+    </div>
+  </g:form>
+</div>
 
 </body>
 </html>

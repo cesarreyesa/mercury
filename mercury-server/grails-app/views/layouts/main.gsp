@@ -28,8 +28,11 @@
   <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'reset-min.css')}"/>
   <link rel="stylesheet" href="${resource(dir: 'css', file: 'base.css')}"/>
   <link rel="stylesheet" href="${resource(dir: 'css', file: 'styledButton.css')}"/>
+  <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.6.custom.css')}"/>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+  %{--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>--}%
+  <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.8.6.custom.min.js')}"></script>
   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.styledButton.js')}"></script>
   %{--<script type="text/javascript" src="/mercury-web/js/global.js${cmpVersion}"></script>--}%
   <g:layoutHead/>
