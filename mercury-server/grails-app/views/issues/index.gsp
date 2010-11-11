@@ -110,7 +110,7 @@
     </g:each>
     <tr>
       <td colspan="4" class="paginator">
-        <g:paginate next="Siguiente" prev="Atras" maxsteps="4" max="20" total="${totalIssues}"/>
+        <g:paginate next="Siguiente" prev="Atras" maxsteps="4" max="20" total="${totalIssues}" params="${[filter: currentFilter.id]}"/>
       </td>
     </tr>
     </tbody>
