@@ -14,7 +14,6 @@ class Project {
   static constraints = {
     code(blank: false)
     name(blank: false)
-    description(blank: false)
   }
   
   static mapping = {

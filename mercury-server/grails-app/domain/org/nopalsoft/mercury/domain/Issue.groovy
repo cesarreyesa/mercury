@@ -50,11 +50,13 @@ class Issue {
   User reporter
 
   static constraints = {
+    code (unique:true)
     summary (blank:false)
     description (nullable:true, maxSize:4000)
     date (blank:false)
     dueDate (nullable:true)
     resolution(nullable:true)
+    assignee(nullable:true)
   }
 
   static mapping = {

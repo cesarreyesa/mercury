@@ -203,6 +203,9 @@ class IssueService {
     if(!issue.save(flush: true)){
       return false
     }
+
+    issue.project.save(flush:true)
+
 //        logIssue(issue, null);
     User lead = issue.project.lead;
     User createdBy = User.get(springSecurityService.principal.id)

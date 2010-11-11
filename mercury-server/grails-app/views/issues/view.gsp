@@ -42,7 +42,7 @@
     </tr>
     <tr>
       <td>Asignado a</td>
-      <td>${issue.assignee.fullName}</td>
+      <td>${issue.assignee?.fullName}</td>
     </tr>
     <tr>
       <td>Subscriptores</td>

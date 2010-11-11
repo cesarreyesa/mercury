@@ -51,7 +51,10 @@ class IssuesController {
 
   def create = {
     def project = Project.get(session.project.id)
-    [issue: new Issue(), project: project]
+    def issue = new Issue()
+    def user = User.get(springSecurityService.principal.id)
+    issue.reporter = user
+    [issue: issue, project: project]
   }
 
   def save = {

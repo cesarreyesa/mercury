@@ -60,31 +60,34 @@
         <div class="row">
           <div class="box">
             <label>Reportador:</label>
-            <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+            <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" />
           </div>
         </div>
         <div class="row">
           <div class="box">
             <label>Asignado a:</label>
-            <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+            <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
           </div>
         </div>
         <div class="row">
           <div class="box">
             <label>Observadores</label>
-            <g:select name="watcher" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+            <g:select name="watcher" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
           </div>
         </div>
       </fieldset>
     </div>
   </div>
   <script type="text/javascript">
-    $(document).ready( function () {
-        $("#save").styledButton({
-          'orientation' : 'alone',
-          'action' : function () { $('#issueForm').trigger('submit'); }
-        });
-    } );
+    $(document).ready(function () {
+      $('#summary').focus();
+      $("#save").styledButton({
+        'orientation' : 'alone',
+        'action' : function () {
+          $('#issueForm').trigger('submit');
+        }
+      });
+    });
 
   </script>
 
