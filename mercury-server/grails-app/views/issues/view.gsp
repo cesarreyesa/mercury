@@ -73,7 +73,7 @@
 
   <p style="margin-bottom:20px;">${issue.description}</p>
   <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
-    <h2>Historia (0)</h2>
+    <h2>Historia (${logs.size()})</h2>
     <div id="logs" style="font-size:x-small;">
       <g:each in="${logs}" var="log">
         <div class="comment" style="margin: 10px;5px;">
