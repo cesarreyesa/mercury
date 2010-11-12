@@ -12,6 +12,9 @@ import org.hibernate.SessionFactory
 import org.springframework.orm.hibernate3.HibernateTemplate
 import org.hibernate.criterion.Projections
 import org.nopalsoft.mercury.domain.Status
+import org.springframework.util.Assert
+import org.nopalsoft.mercury.domain.IssueLog
+import org.nopalsoft.mercury.domain.LogChange
 
 class IssueService {
 
@@ -242,6 +245,106 @@ class IssueService {
       }
     }
     return true
+  }
+
+  public void reassignIssue(Issue issue, String assignee, String comment) {
+    reassignIssue(issue, User.findByUsername(assignee), comment);
+  }
+
+  public void reassignIssue(Issue issue, User assignee, String comment) {
+    Assert.notNull(issue, "El issue es nulo");
+
+    // Log changes and add comment
+    issue.setLastUpdated(new Date());
+
+    issue.setAssignee(assignee);
+
+    logIssue(issue, comment);
+    issue.save();
+
+    User assignedBy = User.get(springSecurityService.principal.id)
+
+    def usersToSend = []
+    if(!assignedBy.equals(assignee))
+      usersToSend << assignee
+//    usersToSend.addAll(issue.watchers.asList())
+
+    usersToSend.unique().each {User user ->
+      try {
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setFrom(configuration.getMailFrom());
+//        message.setTo(assignee.getEmail());
+//        message.setSubject("[" + issue.getCode() + "] " + issue.getSummary());
+//        ModelMap model = new ModelMap("issue", issue);
+//        model.put("bundle", ResourceBundle.getBundle(BUNDLE_KEY, LocaleContextHolder.getLocale()));
+//        model.put("baseUrl", configuration.getBaseUrl());
+//        model.put("createdBy", assignedBy);
+//        model.put("comment", comment);
+//        mailEngine.sendMessage(message, "assignedIssue.vm", model, false);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+        // no hacemos nada
+      }
+    }
+  }
+
+  private void logIssue(Issue issue, String comment) {
+    def log = new IssueLog()
+
+    // obtiene la incidencia actual y trae los cambios
+//    def oldIssue = (Issue) entityManager.get(Issue.class, issue.getId(), true)
+    def oldIssue = Issue.get(issue.id)
+
+    def changes = getChanges(oldIssue, issue)
+    if(changes) log.changes << changes
+
+    log.date = new Date()
+
+    // si existe un comentario lo agrega.
+    if (comment != null) log.comment = comment
+
+    // obtiene al usuario
+    User user = User.get(springSecurityService.principal.id)
+    log.user = user;
+    log.issue = issue;
+
+    if(!log.save(flush:true))
+      println log.errors
+  }
+
+  private List<LogChange> getChanges(Issue oldIssue, Issue newIssue) {
+    def changes = new ArrayList<LogChange>()
+    if (!oldIssue.summary.equals(newIssue.summary)) {
+      changes << new LogChange("summary", oldIssue.summary, newIssue.summary)
+    }
+//    if (oldIssue.getEnvironment() != null && !oldIssue.getEnvironment().equals(newIssue.getEnvironment())) {
+//      changes.add(new LogChange("environment", oldIssue.getEnvironment(), newIssue.getEnvironment()));
+//    }
+    if (oldIssue.description != null && !oldIssue.description.equals(newIssue.description)) {
+      changes << new LogChange("description", oldIssue.description, newIssue.description)
+    }
+    if (!oldIssue.status.equals(newIssue.status)) {
+      changes << new LogChange("status", oldIssue.status.name, newIssue.status.name)
+    }
+    if (oldIssue.dueDate != null && (!oldIssue.dueDate.equals(newIssue.dueDate))) {
+      changes << new LogChange("dueDate", oldIssue.dueDate.toString(), newIssue.dueDate.toString())
+    }
+    if (!oldIssue.issueType.equals(newIssue.issueType)) {
+      changes << new LogChange("issueType", oldIssue.issueType.name, newIssue.issueType.name)
+    }
+//    if (oldIssue.resolution != null && !oldIssue.resolution.equals(newIssue.resolution)) {
+//      changes.add(new LogChange("resolution", oldIssue.getResolution().getName(), newIssue.getResolution().getName()));
+//    }
+    if (!oldIssue.priority.equals(newIssue.priority)) {
+      changes << new LogChange("priority", oldIssue.priority.name, newIssue.priority.name)
+    }
+    if (oldIssue.assignee != null && !oldIssue.assignee.equals(newIssue.assignee)) {
+      changes << new LogChange("assignee", oldIssue.assignee.fullName, newIssue.assignee?.fullName)
+    }
+    if (!oldIssue.reporter.equals(newIssue.reporter)) {
+      changes << new LogChange("reporter", oldIssue.reporter.fullName, newIssue.reporter.fullName)
+    }
+    return changes
   }
 
 }

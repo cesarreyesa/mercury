@@ -5,6 +5,7 @@ import org.nopalsoft.mercury.domain.Issue
 import grails.converters.XML
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.IssueType
+import org.nopalsoft.mercury.domain.IssueLog
 
 class IssueFilter{
   int id
@@ -46,7 +47,7 @@ class IssuesController {
 
   def view = {
     def issue = Issue.findByCode(params.id)
-    [issue: issue]
+    [issue: issue, logs: IssueLog.findAllByIssue(issue)]
   }
 
   def create = {
@@ -73,6 +74,13 @@ class IssuesController {
     }else{
       render(view:'create')
     }
+  }
+
+  def assignIssue = {
+    def issue = Issue.findByCode(params.id)
+    issueService.reassignIssue issue, User.get(params.int('assignee.id')), params.comment
+    flash.message = "Se asigno correctamente"
+    redirect(action:'view', params:[id:issue.code])
   }
 
   def listAsXML = {

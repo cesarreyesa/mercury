@@ -68,42 +68,6 @@
       <span id="next">>></span>
     </div>
   </div>
-  <script type="text/javascript">
-    $(document).ready( function () {
-        $("#resolve").styledButton({
-          'orientation' : 'alone',
-          'action' : function () { alert( 'omfg' ) },
-          'dropdown' : { 'element' : 'ul' },
-        });
-        $("#assign").styledButton({
-          'orientation' : 'alone',
-          'action' : function () {
-            $(function() {
-		      $( "#assignIssueDialog").dialog({
-                height: 240, width:550, modal: true
-              });
-	        });
-          },
-        });
-        $("#attach").styledButton({
-          'orientation' : 'alone',
-          'action' : function () { alert( 'omfg' ) },
-        });
-        $("#edit").styledButton({
-          'orientation' : 'alone',
-          'action' : function () { alert( 'omfg' ) },
-        });
-        $("#back").styledButton({
-          'orientation' : 'alone',
-          'action' : function () { alert( 'omfg' ) },
-        });
-        $("#next").styledButton({
-          'orientation' : 'alone',
-          'action' : function () { alert( 'omfg' ) },
-        });
-    } );
-
-  </script>
 
   <h1 style="margin-top:10px;">${issue.code} ${issue.summary}</h1>
 
@@ -111,7 +75,24 @@
   <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
     <h2>Historia (0)</h2>
     <div id="logs" style="font-size:x-small;">
-
+      <g:each in="${logs}" var="log">
+        <div class="comment" style="margin: 10px;5px;">
+            <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
+                ${log.user.fullName} ${log.date}
+            </div>
+              %{--<g:if test="${log.changes}">--}%
+                %{--<ul>--}%
+                  %{--<g:each in="${log.changes}" var="change">--}%
+                      %{--<g:set var="property" value="issue.${change.property}"/>--}%
+                      %{--<li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>--}%
+                  %{--</g:each>--}%
+                %{--</ul>--}%
+              %{--</g:if>--}%
+            <div>
+                ${log.comment}
+            </div>
+        </div>
+      </g:each>
     </div>
     <div style="margin: 5px;">
       <form onsubmit="
@@ -133,8 +114,8 @@
   </div>
 </div>
 
-<div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
-  <g:form>
+<div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;" class="normal-dialog">
+  <g:form action="assignIssue" id="${issue.code}">
     <div class="form">
       <div class="row">
         <div class="label">
@@ -152,9 +133,49 @@
           <g:textArea name="comment" style="width:500px;height:100px;"/>
         </div>
       </div>
+      <div class="row">
+        <g:submitButton name="assignIssue" value="Asignar" />
+      </div>
     </div>
   </g:form>
 </div>
+
+<script type="text/javascript">
+  $(function(){
+    $("#resolve").styledButton({
+      'orientation' : 'alone',
+      'action' : function () { alert( 'omfg' ) },
+      'dropdown' : { 'element' : 'ul' }
+    });
+    $("#assign").styledButton({
+      'orientation' : 'alone',
+      'action' : function () {
+        var position = $(this).position();
+        $( "#assignIssueDialog").dialog({
+          width:550, modal: true, position: [position.left, position.top + $(this).height()]
+        });
+      }
+    });
+    $("#attach").styledButton({
+      'orientation' : 'alone',
+      'action' : function () { alert( 'omfg' ) }
+    });
+    $("#edit").styledButton({
+      'orientation' : 'alone',
+      'action' : function () { alert( 'omfg' ) }
+    });
+    $("#back").styledButton({
+      'orientation' : 'alone',
+      'action' : function () { alert( 'omfg' ) }
+    });
+    $("#next").styledButton({
+      'orientation' : 'alone',
+      'action' : function () { alert( 'omfg' ) }
+    });
+
+    $( "#assignIssue").button();
+  });
+</script>
 
 </body>
 </html>
