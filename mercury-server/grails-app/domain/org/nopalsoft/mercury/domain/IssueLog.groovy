@@ -6,7 +6,6 @@ class IssueLog {
   User user
   Date date
   String comment
-  List changes
   static hasMany = [changes:LogChange]
 
   static constraints = {
@@ -18,7 +17,5 @@ class IssueLog {
     version false
     date column: 'date_'
     comment column: 'comment_'
-    changes column:'issue_log_id'
-//    changes joinColumn:[name:"issue_log_id", updatable: true]
   }
 }

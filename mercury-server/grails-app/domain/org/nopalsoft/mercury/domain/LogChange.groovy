@@ -2,10 +2,13 @@ package org.nopalsoft.mercury.domain
 
 class LogChange {
 
-  static belongsTo = IssueLog
+  static belongsTo = [issueLog:IssueLog]
   String property
   String originalValue
   String newValue
+
+  public LogChange(){
+  }
 
   public LogChange(String property, String originalValue, String newValue) {
       this.property = property;

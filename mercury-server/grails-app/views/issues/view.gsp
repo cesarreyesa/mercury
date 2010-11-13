@@ -80,14 +80,14 @@
             <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
                 ${log.user.fullName} ${log.date}
             </div>
-              %{--<g:if test="${log.changes}">--}%
-                %{--<ul>--}%
-                  %{--<g:each in="${log.changes}" var="change">--}%
-                      %{--<g:set var="property" value="issue.${change.property}"/>--}%
-                      %{--<li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>--}%
-                  %{--</g:each>--}%
-                %{--</ul>--}%
-              %{--</g:if>--}%
+              <g:if test="${log.changes}">
+                <ul>
+                  <g:each in="${log.changes}" var="change">
+                      <g:set var="property" value="issue.${change.property}"/>
+                      <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>
+                  </g:each>
+                </ul>
+              </g:if>
             <div>
                 ${log.comment}
             </div>
