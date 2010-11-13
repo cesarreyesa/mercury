@@ -106,6 +106,7 @@
         <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
         <td><g:link action="view" id="${issue.code}">${issue.summary}</g:link></td>
         <td>${issue.reporter.fullName}</td>
+        <td><g:if test="${issue.attachments}">[A]</g:if></td>
       </tr>
     </g:each>
     <tr>

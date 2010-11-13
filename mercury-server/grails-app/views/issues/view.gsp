@@ -61,7 +61,7 @@
       </ul>
     </span>
     <span id="assign">Asignar</span>
-    <span id="attach">Adjuntar archivos</span>
+    <span id="attach">Adjuntar archivos (${issue.attachments.size()})</span>
     <span id="edit">Editar</span>
     <div style="float:right;">
       <span id="back"><<</span>
@@ -114,7 +114,7 @@
   </div>
 </div>
 
-<div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;" class="normal-dialog">
+<div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
   <g:form action="assignIssue" id="${issue.code}">
     <div class="form">
       <div class="row">
@@ -140,6 +140,32 @@
   </g:form>
 </div>
 
+<div id="addAttachmentDialog" title="Agregar archivo adjunto" style="display:none;">
+  <g:uploadForm action="addAttachment" id="${issue.code}">
+    <div class="form">
+      <div class="row">
+        <div class="label">
+          <label>Archivo:</label>
+        </div>
+        <div class="field">
+          <input type="file" name="file"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="label">
+          <label>Descripcion:</label>
+        </div>
+        <div class="field">
+          <g:textField name="description"/>
+        </div>
+      </div>
+      <div class="row">
+        <g:submitButton name="addAttachment" value="Adjuntar archivo" />
+      </div>
+    </div>
+  </g:uploadForm>
+</div>
+
 <script type="text/javascript">
   $(function(){
     $("#resolve").styledButton({
@@ -158,7 +184,12 @@
     });
     $("#attach").styledButton({
       'orientation' : 'alone',
-      'action' : function () { alert( 'omfg' ) }
+      'action' : function () {
+        var position = $(this).position();
+        $( "#addAttachmentDialog").dialog({
+          width:550, modal: true, position: [position.left, position.top + $(this).height()]
+        });
+      }
     });
     $("#edit").styledButton({
       'orientation' : 'alone',

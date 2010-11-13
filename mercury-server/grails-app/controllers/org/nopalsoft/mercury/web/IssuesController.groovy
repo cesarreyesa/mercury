@@ -6,6 +6,7 @@ import grails.converters.XML
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.IssueType
 import org.nopalsoft.mercury.domain.IssueLog
+import org.nopalsoft.mercury.domain.IssueAttachment
 
 class IssueFilter{
   int id
@@ -81,6 +82,26 @@ class IssuesController {
     issueService.reassignIssue issue, User.get(params.int('assignee.id')), params.comment
     flash.message = "Se asigno correctamente"
     redirect(action:'view', params:[id:issue.code])
+  }
+
+  def addAttachment = {
+    def issue = Issue.findByCode(params.id)
+    def file = request.getFile('file')
+    def fileName
+    if(file && !file.empty && file.size < (1024*5000)){
+      fileName = grailsApplication.config.attachmentsPath + issue.getId().toString() + "/" + file.name
+      file.transferTo(new File(fileName))
+
+      def attachment = new IssueAttachment(fileName, params.description, User.get(params.int('assignee.id')), new Date());
+      issue.addToAttachments(attachment);
+      issueService.saveIssue(issue, "<b>attachment</b> <i>" + fileName + "</i> added<br/>" + description);
+
+      flash.message = "Se agrego el attachment correctamente"
+      redirect(action:'view', params:[id:issue.code])
+
+    }else{
+      redirect(action:'view', params:[id:issue.code])
+    }
   }
 
   def listAsXML = {

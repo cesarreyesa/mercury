@@ -247,6 +247,14 @@ class IssueService {
     return true
   }
 
+  public void saveIssue(Issue issue, String comment){
+    issue.lastUpdated = new Date()
+
+    logIssue(issue, comment)
+
+    issue.save(flush:true)
+  }
+
   public void reassignIssue(Issue issue, String assignee, String comment) {
     reassignIssue(issue, User.findByUsername(assignee), comment);
   }

@@ -37,6 +37,8 @@ class Issue {
   Resolution resolution
   Priority priority
 
+  static hasMany = [attachments:IssueAttachment]
+
 //  @ManyToMany(cascade = CascadeType.ALL)
 //  @JoinTable(name = "issue_watcher",
 //  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -87,10 +89,6 @@ class Issue {
 //  @ManyToOne
 //  @JoinColumn(name = "milestone_id", nullable = true)
 //  Milestone milestone;
-//
-//  @OneToMany(cascade = CascadeType.ALL)
-//  @JoinColumn(name = "issue_id")
-//  List<IssueAttachment> attachments = new ArrayList<IssueAttachment>();
 //
 //  @OneToMany(cascade = CascadeType.ALL)
 //  @JoinColumn(name = "issue_id", updatable = true)
