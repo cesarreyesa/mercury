@@ -7,6 +7,10 @@ import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.IssueType
 import org.nopalsoft.mercury.domain.IssueLog
 import org.nopalsoft.mercury.domain.IssueAttachment
+import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.servlet.view.AbstractView
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
 class IssueFilter{
   int id
@@ -89,12 +93,14 @@ class IssuesController {
     def file = request.getFile('file')
     def fileName
     if(file && !file.empty && file.size < (1024*5000)){
-      fileName = grailsApplication.config.attachmentsPath + issue.getId().toString() + "/" + file.name
+      def path = grailsApplication.config.attachmentsPath + issue.getId().toString() + "/"
+      new File(path).mkdirs()
+      fileName = path + file.fileItem.fileName
       file.transferTo(new File(fileName))
 
-      def attachment = new IssueAttachment(fileName, params.description, User.get(params.int('assignee.id')), new Date());
+      def attachment = new IssueAttachment(file.fileItem.fileName, params.description, User.get(springSecurityService.principal.id), new Date());
       issue.addToAttachments(attachment);
-      issueService.saveIssue(issue, "<b>attachment</b> <i>" + fileName + "</i> added<br/>" + description);
+      issueService.saveIssue(issue, "<b>attachment</b> <i>" + file.fileItem.fileName + "</i> added<br/>" + attachment.description);
 
       flash.message = "Se agrego el attachment correctamente"
       redirect(action:'view', params:[id:issue.code])
@@ -102,6 +108,26 @@ class IssuesController {
     }else{
       redirect(action:'view', params:[id:issue.code])
     }
+  }
+
+  def showAttachment = {
+    def attachment = IssueAttachment.get(params.attachmentId);
+    def issue = Issue.get(params.id)
+
+    return new ModelAndView({Map model, HttpServletRequest request, HttpServletResponse response ->
+      def path = grailsApplication.config.attachmentsPath + issue.id.toString() + "/" + attachment.file;
+      File f = new File(path)
+      FileInputStream istr = new FileInputStream(f)
+      BufferedInputStream bstr = new BufferedInputStream(istr)
+      int size = (int) f.length()
+      byte[] data = new byte[size]
+      bstr.read(data, 0, size)
+      bstr.close()
+      response.setHeader("Content-Disposition", " filename=" + attachment.file)
+      response.getOutputStream().write(data)
+      response.getOutputStream().flush()
+      response.getOutputStream().close()
+    } as AbstractView)
   }
 
   def listAsXML = {

@@ -140,9 +140,21 @@
   </g:form>
 </div>
 
-<div id="addAttachmentDialog" title="Agregar archivo adjunto" style="display:none;">
-  <g:uploadForm action="addAttachment" id="${issue.code}">
-    <div class="form">
+<div id="addAttachmentDialog" title="Archivos adjuntos" style="display:none;">
+  <div class="form">
+
+    <div class="row">
+      <table>
+        <g:each in="${issue.attachments}" var="attachment">
+          <tr>
+            <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]" target="_blank">${attachment.description}</g:link></td>
+          </tr>
+        </g:each>
+      </table>
+    </div>
+    <g:uploadForm action="addAttachment" id="${issue.code}">
+      <hr/>
+      <h2>Agregar archivo adjunto</h2>
       <div class="row">
         <div class="label">
           <label>Archivo:</label>
@@ -162,8 +174,8 @@
       <div class="row">
         <g:submitButton name="addAttachment" value="Adjuntar archivo" />
       </div>
-    </div>
-  </g:uploadForm>
+    </g:uploadForm>
+  </div>
 </div>
 
 <script type="text/javascript">
