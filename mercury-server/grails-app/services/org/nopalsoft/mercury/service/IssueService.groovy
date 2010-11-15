@@ -7,14 +7,16 @@ import org.hibernate.criterion.DetachedCriteria
 import org.hibernate.criterion.Restrictions
 import org.hibernate.criterion.Disjunction
 import org.hibernate.criterion.MatchMode
-import org.hibernate.Criteria
-import org.hibernate.SessionFactory
+
 import org.springframework.orm.hibernate3.HibernateTemplate
 import org.hibernate.criterion.Projections
 import org.nopalsoft.mercury.domain.Status
 import org.springframework.util.Assert
 import org.nopalsoft.mercury.domain.IssueLog
 import org.nopalsoft.mercury.domain.LogChange
+import org.nopalsoft.mercury.workflow.Workflow
+import org.nopalsoft.mercury.domain.Resolution
+import org.nopalsoft.mercury.workflow.Action
 
 class IssueService {
 
@@ -182,22 +184,15 @@ class IssueService {
   }
 
   public boolean newIssue(Issue issue) {
+    issue.lastUpdated = issue.date = new Date()
 
-    issue.date = new Date();
-    issue.lastUpdated = issue.date;
+    issue.status = Status.findByCode(Workflow.initialStatus)
 
-    // obtiene el estado para asignarle del workflow
-//    Workflow workflow = getWorkflow(issue.getIssueType().getCode());
-//    Status status = (Status) entityManager.get(Status.class, new Criteria().add(Restrictions.eq("name", workflow.initialStatus())));
-    Status status = Status.findByCode('open');
-    issue.status = status;
     // obtiene el codigo generado.
-    Integer lastId = issue.project.lastIssueId ?: 0;
-    issue.code = issue.project.code + "-" + String.valueOf((lastId + 1));
+    Integer lastId = issue.project.lastIssueId ?: 0
+    issue.code = issue.project.code + "-" + String.valueOf((lastId + 1))
 
-    println issue.code
-
-    issue.project.lastIssueId = lastId + 1;
+    issue.project.lastIssueId = lastId + 1
 
     if(!issue.validate()){
       return false
@@ -209,8 +204,8 @@ class IssueService {
 
     issue.project.save(flush:true)
 
-//        logIssue(issue, null);
-    User lead = issue.project.lead;
+//    logIssue(issue, null);
+    User lead = issue.project.lead
     User createdBy = User.get(springSecurityService.principal.id)
     def usersToSend = []
     // agregamos al lead siempre y cuando no sea el que crea la incidencia
@@ -292,6 +287,64 @@ class IssueService {
       } catch (Exception ex) {
         ex.printStackTrace();
         // no hacemos nada
+      }
+    }
+  }
+
+  public void resolveIssue(Issue issue, Resolution resolution, String comment) {
+    resolveIssue(issue, resolution, comment, null);
+  }
+
+  public void resolveIssue(Issue issue, Resolution resolution, String comment, List<User> usersToNotificate) {
+    // obtiene el nuevo estado del workflow
+    issue.status = Status.findByCode(Workflow.getNextStatus(issue.status.code, Action.RESOLVE))
+
+    issue.lastUpdated = new Date()
+    issue.resolution = resolution
+    issue.dateResolved = new Date()
+
+    // si se resuelve una incidencia esntonces la asigna al reoporter
+    issue.assignee = issue.reporter
+
+    logIssue(issue, comment)
+    issue.save(flush:true)
+
+    // agrega a el usuario que reporto si es que no viene en la lista previa.
+    boolean addReporter = true
+    if (usersToNotificate == null) {
+      usersToNotificate = new ArrayList<User>()
+    }
+    for (User user: usersToNotificate) {
+      if (user.equals(issue.reporter)) {
+        addReporter = false
+      }
+    }
+
+    User currentUser = User.get(springSecurityService.principal.id)
+
+    // verificamos que el que reporta la incidencia no sea el mismo que la resuelve, en este caso no tiene sentido
+    // enviar notificacion
+    if (addReporter && !currentUser.equals(issue.reporter))
+      usersToNotificate << issue.reporter
+
+//    usersToNotificate.addAll(issue.watchers.asList())
+
+    if (usersToNotificate != null) {
+      for (User user: usersToNotificate.unique()) {
+        try {
+//          SimpleMailMessage message = new SimpleMailMessage();
+//          message.setFrom(configuration.getMailFrom());
+//          message.setTo(user.getEmail());
+//          message.setSubject("[RESUELTA " + issue.getCode() + "] " + issue.getSummary());
+//          ModelMap model = new ModelMap("issue", issue);
+//          model.put("comment", comment);
+//          model.put("resolution", resolution);
+//          model.put("baseUrl", configuration.getBaseUrl());
+//          mailEngine.sendMessage(message, "issueResolved.vm", model, false);
+        }
+        catch (Exception ex) {
+          // no hacemos nada
+        }
       }
     }
   }

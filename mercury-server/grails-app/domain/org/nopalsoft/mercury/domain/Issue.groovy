@@ -32,6 +32,7 @@ class Issue {
   Date date
   Date lastUpdated
   Date dueDate
+  Date dateResolved
   Project project
   IssueType issueType
   Resolution resolution
@@ -82,9 +83,6 @@ class Issue {
 //
 //  @Column(name = "date_closed")
 //  Date dateClosed;
-//
-//  @Column(name = "date_resolved")
-//  Date dateResolved;
 //
 //  @ManyToOne
 //  @JoinColumn(name = "milestone_id", nullable = true)

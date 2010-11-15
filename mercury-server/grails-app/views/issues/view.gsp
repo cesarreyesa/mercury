@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.nopalsoft.mercury.domain.Resolution" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
   <title>${issue.summary}</title>
@@ -52,14 +52,7 @@
 </div>
 <div id="content" class="issue">
   <div class="issue-menu">
-    <span id="resolve">
-      Resolver
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-    </span>
+    <span id="resolve">Resolver</span>
     <span id="assign">Asignar</span>
     <span id="attach">Adjuntar archivos (${issue.attachments.size()})</span>
     <span id="edit">Editar</span>
@@ -178,12 +171,42 @@
   </div>
 </div>
 
+<div id="resolveIssueDialog" title="Resolver incidencia" style="display:none;">
+  <div class="form">
+    <g:form action="resolveIssue" id="${issue.code}">
+      <div class="row">
+        <div class="box">
+          <div class="label">
+            <label>Resolucion:</label>
+          </div>
+          <g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
+        </div>
+      </div>
+      <div class="row" style="clear:both;">
+        <div class="label">
+          <label>Comentario:</label>
+        </div>
+        <div class="field">
+          <g:textArea name="comment" style="width:500px;height:100px;"/>
+        </div>
+      </div>
+      <div class="row">
+        <g:submitButton name="resolveIssue" value="Resolver" />
+      </div>
+    </g:form>
+  </div>
+</div>
+
 <script type="text/javascript">
   $(function(){
     $("#resolve").styledButton({
       'orientation' : 'alone',
-      'action' : function () { alert( 'omfg' ) },
-      'dropdown' : { 'element' : 'ul' }
+      'action' : function () {
+        var position = $(this).position();
+        $( "#resolveIssueDialog").dialog({
+          width:550, modal: true, position: [position.left, position.top + $(this).height()]
+        });
+      }
     });
     $("#assign").styledButton({
       'orientation' : 'alone',

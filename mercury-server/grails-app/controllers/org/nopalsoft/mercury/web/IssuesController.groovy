@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView
 import org.springframework.web.servlet.view.AbstractView
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import org.nopalsoft.mercury.domain.Resolution
 
 class IssueFilter{
   int id
@@ -128,6 +129,13 @@ class IssuesController {
       response.getOutputStream().flush()
       response.getOutputStream().close()
     } as AbstractView)
+  }
+
+  def resolveIssue = {
+    def issue = Issue.findByCode(params.id)
+    issueService.resolveIssue issue, Resolution.get(params.resolution), params.comment
+    flash.message = "Se resolvio correctamente"
+    redirect(action:'view', params:[id:issue.code])
   }
 
   def listAsXML = {

@@ -2,6 +2,17 @@ package org.nopalsoft.mercury.domain
 
 class Resolution {
 
-    static constraints = {
-    }
+  String code
+  String name
+  String description
+
+  static constraints = {
+    code(blank: false)
+    name(blank: false)
+  }
+
+  static mapping = {
+    id generator:'increment'
+    version false
+  }
 }
