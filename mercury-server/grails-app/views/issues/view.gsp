@@ -140,7 +140,7 @@
       <table>
         <g:each in="${issue.attachments}" var="attachment">
           <tr>
-            <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]" target="_blank">${attachment.description}</g:link></td>
+            <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]" target="_blank">${attachment.description ?: attachment.file}</g:link></td>
           </tr>
         </g:each>
       </table>
