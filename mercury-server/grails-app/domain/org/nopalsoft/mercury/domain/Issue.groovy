@@ -59,6 +59,7 @@ class Issue {
     date (blank:false)
     dueDate (nullable:true)
     resolution(nullable:true)
+    dateResolved(nullable:true)
     assignee(nullable:true)
   }
 

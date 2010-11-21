@@ -82,6 +82,29 @@ class IssuesController {
     }
   }
 
+  def edit = {
+    def issue = Issue.findByCode(params.id)
+    [issue: issue, project: issue.project]
+  }
+
+  def saveEdit = {
+    if(request.isPost()){
+      def issue = Issue.get(params.id)
+      issue.properties = params
+      try{
+        issueService.saveIssue(issue)
+        flash.message = "Se creo correctamente."
+        redirect(action:'view', params:[id:issue.code])
+      }catch(Exception ex){
+        def project = Project.get(session.project.id)
+        render(view:'edit', model:[issue:issue, project: project])
+        return ;
+      }
+    }else{
+      render(view:'404')
+    }
+  }
+
   def assignIssue = {
     def issue = Issue.findByCode(params.id)
     issueService.reassignIssue issue, User.get(params.int('assignee.id')), params.comment

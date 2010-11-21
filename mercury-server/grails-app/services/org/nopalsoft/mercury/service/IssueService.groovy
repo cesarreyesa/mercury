@@ -242,6 +242,10 @@ class IssueService {
     return true
   }
 
+  public void saveIssue(Issue issue){
+    saveIssue issue, ""
+  }
+
   public void saveIssue(Issue issue, String comment){
     issue.lastUpdated = new Date()
 

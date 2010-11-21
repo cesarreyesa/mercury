@@ -228,7 +228,9 @@
     });
     $("#edit").styledButton({
       'orientation' : 'alone',
-      'action' : function () { alert( 'omfg' ) }
+      'action' : function () {
+        document.location.href = '${createLink(action:'edit', id: issue.code)}';
+      }
     });
     $("#back").styledButton({
       'orientation' : 'alone',
