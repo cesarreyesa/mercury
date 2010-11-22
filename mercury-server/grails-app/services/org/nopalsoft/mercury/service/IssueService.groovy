@@ -268,16 +268,11 @@ class IssueService {
 
     usersToSend.unique().each {User user ->
       try {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom(configuration.getMailFrom());
-//        message.setTo(assignee.getEmail());
-//        message.setSubject("[" + issue.getCode() + "] " + issue.getSummary());
-//        ModelMap model = new ModelMap("issue", issue);
-//        model.put("bundle", ResourceBundle.getBundle(BUNDLE_KEY, LocaleContextHolder.getLocale()));
-//        model.put("baseUrl", configuration.getBaseUrl());
-//        model.put("createdBy", assignedBy);
-//        model.put("comment", comment);
-//        mailEngine.sendMessage(message, "assignedIssue.vm", model, false);
+        mailService.sendMail {
+          to user.email
+          subject "[$issue.code] $issue.summary"
+          body view:"/emails/assignIssue", model:[issue: issue, createdBy: assignedBy, comment: comment]
+        }
       } catch (Exception ex) {
         ex.printStackTrace();
         // no hacemos nada
