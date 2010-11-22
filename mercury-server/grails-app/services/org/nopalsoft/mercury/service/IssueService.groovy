@@ -24,7 +24,7 @@ class IssueService {
 
   def sessionFactory
   def springSecurityService
-//  def mailService
+  def mailService
 
   public Integer getTotalIssues(Project project) {
     return Issue.executeQuery("select count(*) from Issue where project = ?", [project])[0];
@@ -208,35 +208,29 @@ class IssueService {
     User lead = issue.project.lead
     User createdBy = User.get(springSecurityService.principal.id)
     def usersToSend = []
+    usersToSend << issue.assignee
     // agregamos al lead siempre y cuando no sea el que crea la incidencia
-    if(!lead.equals(createdBy))
-      usersToSend << lead
+//    if(!lead.equals(createdBy))
+//      usersToSend << lead
     // agregamos al assignee siempre y cuando no sea el que crea la incidencia y no sea el lead
-    if(issue.assignee != null && !issue.assignee.equals(createdBy))
-      usersToSend << issue.assignee
+//    if(issue.assignee != null && !issue.assignee.equals(createdBy))
+//      usersToSend << issue.assignee
 
     //usersToSend.addAll(issue.watchers.asList())
 
     usersToSend.unique().each {User user ->
+      println user.email
       try {
-//        mailService.sendMail {
-//          to grailsApplication.config.sendMailsTo
-//          subject "Nueva subscripcion al newsletter"
-//          body view:"/emails/newsletterSignup", model:params.clone()
-//        }
-
-
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setFrom(configuration.getMailFrom());
-//        message.setTo(user.getEmail());
-//        message.setSubject("[NUEVA " + issue.getCode() + "] " + issue.getSummary());
-//        ModelMap model = new ModelMap("issue", issue);
+        mailService.sendMail {
+          to user.email
+          subject "[NUEVA $issue.code] $issue.summary"
 //        model.put("bundle", ResourceBundle.getBundle(BUNDLE_KEY, LocaleContextHolder.getLocale()));
 //        model.put("baseUrl", configuration.getBaseUrl());
 //        model.put("createdBy", createdBy);
-//        mailEngine.sendMessage(message, "newIssue.vm", model, false);
+          body view:"/emails/newIssue", model:[issue: issue, createdBy: createdBy]
+        }
       } catch (Exception ex) {
-        // no hacemos nada
+        println ex
       }
     }
     return true
