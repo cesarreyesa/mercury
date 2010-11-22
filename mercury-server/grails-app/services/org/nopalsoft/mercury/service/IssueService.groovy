@@ -208,13 +208,12 @@ class IssueService {
     User lead = issue.project.lead
     User createdBy = User.get(springSecurityService.principal.id)
     def usersToSend = []
-    usersToSend << issue.assignee
     // agregamos al lead siempre y cuando no sea el que crea la incidencia
-//    if(!lead.equals(createdBy))
-//      usersToSend << lead
+    if(!lead.equals(createdBy))
+      usersToSend << lead
     // agregamos al assignee siempre y cuando no sea el que crea la incidencia y no sea el lead
-//    if(issue.assignee != null && !issue.assignee.equals(createdBy))
-//      usersToSend << issue.assignee
+    if(issue.assignee != null && !issue.assignee.equals(createdBy))
+      usersToSend << issue.assignee
 
     //usersToSend.addAll(issue.watchers.asList())
 
@@ -224,9 +223,6 @@ class IssueService {
         mailService.sendMail {
           to user.email
           subject "[NUEVA $issue.code] $issue.summary"
-//        model.put("bundle", ResourceBundle.getBundle(BUNDLE_KEY, LocaleContextHolder.getLocale()));
-//        model.put("baseUrl", configuration.getBaseUrl());
-//        model.put("createdBy", createdBy);
           body view:"/emails/newIssue", model:[issue: issue, createdBy: createdBy]
         }
       } catch (Exception ex) {
