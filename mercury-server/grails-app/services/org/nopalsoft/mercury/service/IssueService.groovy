@@ -321,15 +321,11 @@ class IssueService {
     if (usersToNotificate != null) {
       for (User user: usersToNotificate.unique()) {
         try {
-//          SimpleMailMessage message = new SimpleMailMessage();
-//          message.setFrom(configuration.getMailFrom());
-//          message.setTo(user.getEmail());
-//          message.setSubject("[RESUELTA " + issue.getCode() + "] " + issue.getSummary());
-//          ModelMap model = new ModelMap("issue", issue);
-//          model.put("comment", comment);
-//          model.put("resolution", resolution);
-//          model.put("baseUrl", configuration.getBaseUrl());
-//          mailEngine.sendMessage(message, "issueResolved.vm", model, false);
+          mailService.sendMail {
+            to user.email
+            subject "[RESUELTA $issue.code] $issue.summary"
+            body view:"/emails/issueResolved", model:[issue: issue, resolution: resolution, comment: comment]
+          }
         }
         catch (Exception ex) {
           // no hacemos nada
