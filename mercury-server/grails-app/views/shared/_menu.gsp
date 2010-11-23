@@ -18,15 +18,14 @@
     <a href='${ctx}/project'>Entregas</a></li>
 
   <li style="float:right;padding:3px;">
-    <form action="${ctx}/issues/">
-      <input class="searchBox" type="text" id="query" name="query" title="Enter a query and press enter to jump" value="${searchValue}"
+    <g:form controller="issues">
+      <g:textField class="searchBox" type="text" id="query" name="query" title="Enter a query and press enter to jump" value="${params.query ?: 'Buscar'}"
               onfocus="if (this.value == 'Buscar') {
                 this.value = '';
               }" onblur="if (this.value == '') {
         this.value = 'Buscar';
       }"/>
-      <%--<input class="searchSubmit" type="submit" value="Buscar">--%>
-    </form>
+    </g:form>
   </li>
 </g:if>
 <g:else>

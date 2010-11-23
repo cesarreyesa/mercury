@@ -96,6 +96,7 @@ class IssueService {
     }
     if (query) {
       Disjunction disjunction = Restrictions.disjunction();
+      disjunction.add(Restrictions.like("code", query.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
       disjunction.add(Restrictions.like("summary", query.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
       disjunction.add(Restrictions.like("description", query.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
       crit.add(disjunction);
