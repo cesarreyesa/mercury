@@ -1,8 +1,9 @@
-// Place your Spring DSL code here
+import org.springframework.security.access.vote.RoleVoter
+
 beans = {
 
-//  roleVoter(org.springframework.security.vote.RoleVoter){
-//    rolePrefix = ""
-//  }
+  roleVoter(RoleVoter){
+    rolePrefix = ""
+  }
 
 }

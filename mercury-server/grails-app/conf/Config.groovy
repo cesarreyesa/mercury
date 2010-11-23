@@ -109,12 +109,12 @@ log4j = {
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 //
 grails.plugins.springsecurity.interceptUrlMap = [
-   '/js/**':        ['IS_AUTHENTICATED_ANONYMOUSLY'],
-   '/css/**':       ['IS_AUTHENTICATED_ANONYMOUSLY'],
-   '/images/**':    ['IS_AUTHENTICATED_ANONYMOUSLY'],
-   '/login/**':     ['IS_AUTHENTICATED_ANONYMOUSLY'],
-   '/logout/**':    ['IS_AUTHENTICATED_ANONYMOUSLY'],
-   '/**':    ['ROLE_ADMIN'],
+   '/js/**':        ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
+   '/css/**':       ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
+   '/images/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
+   '/login/**':     ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
+   '/logout/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
+   '/**':    ['role_admin'],
 ]
 
 // Added by the Spring Security Core plugin:
