@@ -71,8 +71,9 @@
         </div>
         <div class="row">
           <div class="box">
-            <label>Observadores</label>
-            <g:select name="watcher" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+            <label>Observadores:</label>
+            <g:select name="watcher" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
+                    multiple="true" style="height:100px;"/>
           </div>
         </div>
       </fieldset>
