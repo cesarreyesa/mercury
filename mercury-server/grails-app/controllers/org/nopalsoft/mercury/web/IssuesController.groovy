@@ -107,7 +107,14 @@ class IssuesController {
 
   def assignIssue = {
     def issue = Issue.findByCode(params.id)
-    issueService.reassignIssue issue, User.get(params.int('assignee.id')), params.comment
+    issueService.reassignIssue issue, User.get(params.int('assignee.id')), params.assignComment
+    flash.message = "Se asigno correctamente"
+    redirect(action:'view', params:[id:issue.code])
+  }
+
+  def addComment = {
+    def issue = Issue.findByCode(params.id)
+    issueService.saveIssue issue, params.comment
     flash.message = "Se asigno correctamente"
     redirect(action:'view', params:[id:issue.code])
   }
@@ -156,7 +163,7 @@ class IssuesController {
 
   def resolveIssue = {
     def issue = Issue.findByCode(params.id)
-    issueService.resolveIssue issue, Resolution.get(params.resolution), params.comment
+    issueService.resolveIssue issue, Resolution.get(params.resolution), params.resolveComment
     flash.message = "Se resolvio correctamente"
     redirect(action:'view', params:[id:issue.code])
   }

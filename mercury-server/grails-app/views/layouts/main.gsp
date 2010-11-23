@@ -65,21 +65,12 @@
   </div>
   <div id="footer">
     <div id="dc"></div>
-    <div style="float:left;"><a href="http://code.google.com/p/mercuryframework" target="_blank">Mercury</a> version ${version}</div>
-    <div style="float:right;"><a href="http://nopalsoft.net/mercury/new" target="_blank">Enviar sugerencia</a> :: Powered by <a href="http://www.forzaframework.org" target="_blank">forzaframework</a></div>
+    <div style="float:left;"><a href="http://code.google.com/p/mercuryframework" target="_blank">Mercury</a> version 1.1.0</div>
+    <div style="float:right;"><a href="http://nopalsoft.net/mercury/new" target="_blank">Enviar sugerencia</a></div>
   </div>
 </div>
 
 </body>
-
-%{--<n:window id="change-project-window" title="Cambiar Proyecto" width="210" height="88" show="false"--}%
-%{--onShow="function(){ Ext.getCmp('change-project-form').form.findField('project').focus(null, true); }">--}%
-%{--<f:form id="change-project-form" labelAlign="top" style="padding:5px;">--}%
-%{--<f:combobox field="project" title="Proyecto" items="${projects}" anchor="100%" handler="function(cmb, record){--}%
-%{--redirect('?setProject=' + record.id);--}%
-%{--}"/>--}%
-%{--</f:form>--}%
-%{--</n:window>--}%
 
 %{--<script type="text/javascript">--}%
 

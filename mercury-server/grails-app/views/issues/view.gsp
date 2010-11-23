@@ -54,7 +54,7 @@
   <div class="issue-menu">
     <span id="resolve">Resolver</span>
     <span id="assign">Asignar</span>
-    <span id="attach">Adjuntar archivos (${issue.attachments.size()})</span>
+    <span id="attach">Archivos adjuntos (${issue.attachments.size()})</span>
     <span id="edit">Editar</span>
     <div style="float:right;">
       <span id="back"><<</span>
@@ -88,21 +88,11 @@
       </g:each>
     </div>
     <div style="margin: 5px;">
-      <form onsubmit="
-        Nopal.Ajax.request({
-          url: '/mercury/issues/saveComment.html',
-          params: {issueId: 282, comment: Ext.get('comment').dom.value},
-          success: function() {
-            Ext.get('comment').dom.value = '';
-            Ext.get('logs').load({ url: '/mercury/issues/logs.html?id=282' });
-          }
-        });
-        return false;
-      ">
+      <g:form action="addComment" id="${issue.code}">
         Agregar comentario<br>
-        <textarea id="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"></textarea>
-        <input type="submit" value="Agregar Comentario">
-      </form>
+        <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
+        <g:submitButton name="addComment" value="Agregar comentario"/>
+      </g:form>
     </div>
   </div>
 </div>
@@ -123,7 +113,7 @@
           <label>Comentario:</label>
         </div>
         <div class="field">
-          <g:textArea name="comment" style="width:500px;height:100px;"/>
+          <g:textArea name="assignComment" style="width:500px;height:100px;"/>
         </div>
       </div>
       <div class="row">
@@ -187,7 +177,7 @@
           <label>Comentario:</label>
         </div>
         <div class="field">
-          <g:textArea name="comment" style="width:500px;height:100px;"/>
+          <g:textArea name="resolveComment" style="width:500px;height:100px;"/>
         </div>
       </div>
       <div class="row">
