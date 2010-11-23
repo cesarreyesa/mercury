@@ -40,11 +40,6 @@ class Issue {
 
   static hasMany = [attachments:IssueAttachment, watchers: User]
 
-//  @ManyToMany(cascade = CascadeType.ALL)
-//  @JoinTable(name = "issue_watcher",
-//  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-//  List<org.nopalsoft.mercury.domain.User> watchers = new ArrayList<org.nopalsoft.mercury.domain.User>();
-
 //  Long estimate;
 
 //  Long timeSpent;
@@ -74,7 +69,6 @@ class Issue {
   }
 }
 
-
 //  @ManyToMany(cascade = CascadeType.ALL)
 //  @JoinTable(name = "issue_component",
 //  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "component_id"))
@@ -86,28 +80,6 @@ class Issue {
 //  @ManyToOne
 //  @JoinColumn(name = "milestone_id", nullable = true)
 //  Milestone milestone;
-//
-//  @OneToMany(cascade = CascadeType.ALL)
-//  @JoinColumn(name = "issue_id", updatable = true)
-//  List<IssueLog> logs = new ArrayList<IssueLog>();
-//
-//  @ManyToMany(cascade = CascadeType.ALL)
-//  @JoinTable(name = "issue_watcher",
-//  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-//  List<org.nopalsoft.mercury.domain.User> watchers = new ArrayList<org.nopalsoft.mercury.domain.User>();
-//
-//  public void addLog(IssueLog log) {
-//    this.logs.add(log);
-//  }
-//
-//  public void addAttachment(IssueAttachment attachment) {
-//    this.attachments.add(attachment);
-//  }
-//
-//
-//  public Element toXml() {
-//    return toXml("item");
-//  }
 //
 //  public Element toXml(String elementName) {
 //    Element el = DocumentHelper.createElement(elementName);
