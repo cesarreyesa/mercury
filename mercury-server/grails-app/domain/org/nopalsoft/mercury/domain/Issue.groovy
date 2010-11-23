@@ -38,12 +38,13 @@ class Issue {
   Resolution resolution
   Priority priority
 
-  static hasMany = [attachments:IssueAttachment]
+  static hasMany = [attachments:IssueAttachment, watchers: User]
 
 //  @ManyToMany(cascade = CascadeType.ALL)
 //  @JoinTable(name = "issue_watcher",
 //  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 //  List<org.nopalsoft.mercury.domain.User> watchers = new ArrayList<org.nopalsoft.mercury.domain.User>();
+
 //  Long estimate;
 
 //  Long timeSpent;
@@ -69,6 +70,7 @@ class Issue {
     priority column:'priority'
     date column:'date_'
     dueDate column:'end_date'
+    watchers joinTable: [name:'issue_watcher', key:'issue_id', column: 'user_id']
   }
 }
 
@@ -77,10 +79,6 @@ class Issue {
 //  @JoinTable(name = "issue_component",
 //  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "component_id"))
 //  List<Component> components = new ArrayList<Component>();
-//
-//  @ManyToOne
-//  @JoinColumn(name = "reporter_id", nullable = false)
-//  org.nopalsoft.mercury.domain.User reporter;
 //
 //  @Column(name = "date_closed")
 //  Date dateClosed;
@@ -97,15 +95,6 @@ class Issue {
 //  @JoinTable(name = "issue_watcher",
 //  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 //  List<org.nopalsoft.mercury.domain.User> watchers = new ArrayList<org.nopalsoft.mercury.domain.User>();
-//
-//  @Transient
-//  public Object getKey() {
-//    return id;
-//  }
-//
-//  public void setKey(Object id) {
-//    this.id = Long.valueOf(id.toString());
-//  }
 //
 //  public void addLog(IssueLog log) {
 //    this.logs.add(log);

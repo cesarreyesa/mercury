@@ -46,7 +46,13 @@
     </tr>
     <tr>
       <td>Subscriptores</td>
-      <td></td>
+      <td>
+        <ul>
+          <g:each in="${issue.watchers}" var="watcher">
+            <li>${watcher.fullName}</li>
+          </g:each>
+        </ul>
+      </td>
     </tr>
   </table>
 </div>
