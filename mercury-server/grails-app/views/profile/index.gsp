@@ -11,9 +11,11 @@
   <meta name="layout" content="main"/>
 </head>
 <body>
+
 <content tag="navbar">
-  <g:render template="/shared/menu"/>
+  <g:render template="/shared/userMenu"/>
 </content>
+
 <g:form action="save" class="form">
   <g:hiddenField name="id" value="${user.id}"/>
   <h1>Update your profile</h1>
