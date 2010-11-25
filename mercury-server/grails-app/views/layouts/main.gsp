@@ -53,8 +53,8 @@
       </div>
     </div>
     <div class="title">
-      <h1><img src="${resource(dir: 'images', file: 'logo.png')}" width="24" height="24" alt="Mercury"/> Mercury <a href="#" style="color:#000;font-size:x-small" onclick="Ext.getCmp('change-project-window').show();
-      Ext.getCmp('change-project-window').alignTo(Ext.get(this), 'br');">(cambiar proyecto)</a></h1>
+      <h1><img src="${resource(dir: 'images', file: 'logo.png')}" width="24" height="24" alt="Mercury"/> Mercury
+        <g:link style="color:#000;font-size:x-small" controller="home" action="chooseProject" params="[changeProject:'true']">(cambiar proyecto)</g:link></h1>
     </div>
     <ul id="toolbar">
       <g:pageProperty name="page.navbar"/>

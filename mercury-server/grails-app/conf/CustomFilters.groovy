@@ -8,13 +8,13 @@ class CustomFilters {
   def filters = {
     chooseProject(controller:'*', action:'*'){
       before = {
-        if(!session.project){
+        if(!session.project && params.changeProject != 'true'){
           def user = User.get(springSecurityService.principal.id)
           if(user && user.settings.projectId){
             session.project = Project.get(user.settings.projectId)
           }
           else if(controllerName != 'home' && actionName != 'changeProject'){
-            redirect controller:'home', action:'changeProject'
+            redirect controller:'home', action:'chooseProject'
           }
         }
       }

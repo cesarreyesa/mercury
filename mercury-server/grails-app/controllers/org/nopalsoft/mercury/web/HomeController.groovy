@@ -25,6 +25,10 @@ class HomeController {
     }
   }
 
+  def chooseProject = {
+    [projects: Project.findAll()]
+  }
+
   def changeProject = {
     session.project = Project.get(params.project)
     try{
