@@ -13,7 +13,7 @@
 <body>
 
 <content tag="navbar">
-  <g:render template="/shared/userMenu"/>
+  <g:render template="/shared/profileMenu"/>
 </content>
 
 <g:form action="save" class="form">
