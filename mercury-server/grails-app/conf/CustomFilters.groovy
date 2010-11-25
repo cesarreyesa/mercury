@@ -8,7 +8,8 @@ class CustomFilters {
   def filters = {
     chooseProject(controller:'*', action:'*'){
       before = {
-        if(!session.project && params.changeProject != 'true' && springSecurityService.principal instanceof User){
+        if(!session.project && params.changeProject != 'true'
+                && springSecurityService.principal instanceof org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser){
           def user = User.get(springSecurityService.principal.id)
           if(user && user.settings.projectId){
             session.project = Project.get(user.settings.projectId)
