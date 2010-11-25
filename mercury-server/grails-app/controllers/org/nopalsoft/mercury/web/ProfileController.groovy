@@ -4,10 +4,10 @@ import org.nopalsoft.mercury.domain.User
 
 class ProfileController {
 
-  def authenticateService
+  def springSecurityService
 
   def index = {
-    [user: User.findByUsername(authenticateService.principal().username)]
+    [user: User.get(springSecurityService.principal.id)]
   }
 
   def save = {
@@ -18,6 +18,21 @@ class ProfileController {
         redirect (action:"index")
       }
       render(view: "index", model: [user: user])
+    }
+  }
+
+  def changePassword = {
+    if(request.post){
+      def user = User.get(params.id)
+      if(params.password && (params.password == params.confirmPassword)){
+        user.password = springSecurityService.encodePassword(params.password)
+        if (user.save(flush: true)) {
+          redirect (action:"index")
+        }
+        else{
+          render(view: "index", model: [user: user])
+        }
+      }
     }
   }
 }

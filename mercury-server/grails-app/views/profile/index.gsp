@@ -41,5 +41,27 @@
     </tr>
   </table>
 </g:form>
+
+<div style="margin-top:20px;"></div>
+<g:form action="changePassword" class="form">
+  <g:hiddenField name="id" value="${user.id}"/>
+
+  <h1>Cambie su contrase&ntilde;a</h1>
+  <p>Ingrese su nueva contrase&ntilde;a y confirmela</p>
+  <table class="fields">
+    <tr>
+      <td>
+        <g:passwordField name="password"/>
+        <g:passwordField name="confirmPassword"/>
+      </td>
+    </tr>
+    <tr class="buttons">
+      <td colspan="2">
+        <g:submitButton name="changePassword" value="Cambiar contraseña"/>
+      </td>
+    </tr>
+  </table>
+</g:form>
+
 </body>
 </html>

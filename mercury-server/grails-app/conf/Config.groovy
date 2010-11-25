@@ -103,13 +103,13 @@ log4j = {
            'net.sf.ehcache.hibernate'
 
     warn   'org.mortbay.log'
-    //debug 'org.springframework.security'
+//    debug 'org.springframework.security'
 }
 
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 //
 grails.plugins.springsecurity.interceptUrlMap = [
-   '/js/**':        ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
+   '/js/**':        ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
    '/css/**':       ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
    '/images/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'role_admin'],
    '/login/**':     ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
