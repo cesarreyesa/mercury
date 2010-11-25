@@ -1,16 +1,20 @@
 import org.nopalsoft.mercury.domain.Project
+import org.nopalsoft.mercury.domain.User
 
 class CustomFilters {
+
+  def springSecurityService
+
   def filters = {
     chooseProject(controller:'*', action:'*'){
       before = {
         if(!session.project){
-          def cookie = request.cookies.find { it.name == 'projectId'}
-          if(cookie != null){
-            session.project = Project.get(cookie.value)
+          def user = User.get(springSecurityService.principal.id)
+          if(user && user.settings.projectId){
+            session.project = Project.get(user.settings.projectId)
           }
-          if(!session.project){
-            // redirect
+          else if(controllerName != 'home' && actionName != 'changeProject'){
+            redirect controller:'home', action:'changeProject'
           }
         }
       }

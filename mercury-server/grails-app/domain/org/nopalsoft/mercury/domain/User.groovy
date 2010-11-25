@@ -22,6 +22,8 @@ class User {
 
   String email
 
+  Map settings
+
   def getFullName() {
     return "$firstName $lastName";
   }

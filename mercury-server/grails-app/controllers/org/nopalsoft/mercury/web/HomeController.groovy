@@ -27,9 +27,13 @@ class HomeController {
 
   def changeProject = {
     session.project = Project.get(params.project)
-    def cookie = new Cookie("projectId", params.project)
-    cookie.maxAge = 60 * 60 * 60 * 24
-    response.addCookie(cookie)
+    try{
+      def user = User.get(springSecurityService.principal.id)
+      user.settings.projectId = session.project.id.toString()
+      user.save(flush:true)
+    }catch(Exception ex){
+
+    }
     redirect(action:'index')
   }
 }
