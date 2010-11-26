@@ -298,7 +298,7 @@
         </fieldset>
       </form>
 
-      <p><a href="#">&iquest;Olvid&oacute; su contrase&ntilde;a?</a>.</p>
+      <p><g:link controller="login" action="forgotPassword">&iquest;Olvid&oacute; su contrase&ntilde;a?</g:link>.</p>
     </div>
 
   </div>
