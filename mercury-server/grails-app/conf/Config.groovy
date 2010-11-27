@@ -57,7 +57,7 @@ environments {
     attachmentsPath = "/opt/nopalsoft/mercury/attachments/"
   }
   development {
-    grails.serverURL = "http://localhost:8080/${appName}"
+    grails.serverURL = "http://localhost:8080/mercury-server"
     attachmentsPath = "/opt/nopalsoft/mercury/attachments/"
   }
   test {
@@ -109,18 +109,18 @@ log4j = {
 grails.plugins.springsecurity.securityConfigType = SecurityConfigType.InterceptUrlMap
 //
 grails.plugins.springsecurity.interceptUrlMap = [
-   '/js/**':        ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
-   '/css/**':       ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
-   '/images/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
-   '/login/**':     ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
-   '/logout/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin'],
-   '/**':    ['role_admin'],
+   '/js/**':        ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin', 'user'],
+   '/css/**':       ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin', 'user'],
+   '/images/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin', 'user'],
+   '/login/**':     ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin', 'user'],
+   '/logout/**':    ['IS_AUTHENTICATED_ANONYMOUSLY', 'ROLE_ANONYMOUS', 'role_admin', 'user'],
+   '/**':    ['role_admin', 'user'],
 ]
 
 // Added by the Spring Security Core plugin:
 grails.plugins.springsecurity.password.algorithm='SHA-1'
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'org.nopalsoft.mercury.domain.User'
-grails.plugins.springsecurity.userLookup.authorityDomainClass = "org.nopalsoft.mercury.domain.Rosle"
+grails.plugins.springsecurity.userLookup.authorityDomainClass = "org.nopalsoft.mercury.domain.Role"
 grails.plugins.springsecurity.userLookup.passwordPropertyName = "password"
 //grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.nopalsoft.mercury.domain.UserRole'
 //grails.plugins.springsecurity.authority.className = 'org.nopalsoft.mercury.domain.Role'

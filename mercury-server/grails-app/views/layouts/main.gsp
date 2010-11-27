@@ -27,7 +27,7 @@
 
   <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
-  <link rel="stylesheet" href="${resource(dir:'css', file:'bases.css')}" type="text/css" media="screen" />
+  <link rel="stylesheet" href="${resource(dir:'css', file:'base.css')}" type="text/css" media="screen" />
   <link rel="stylesheet" href="${resource(dir:'css/themes/drastic-dark', file:'styles.css')}" type="text/css" media="screen" />
   <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.6.custom.css')}"/>
   <link rel="stylesheet" href="${resource(dir: 'css', file: 'styledButton.css')}"/>
