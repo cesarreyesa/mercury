@@ -18,90 +18,107 @@
   <g:render template="/shared/menu" model="[selected:'issues']"/>
 </content>
 
-<div id="leftnav">
-  <table style="width:100%;">
-    <tr>
-      <td>Tipo</td>
-      <td>${issue.issueType.name}</td>
-    </tr>
-    <tr>
-      <td>Estado</td>
-      <td>${issue.status.name}</td>
-    </tr>
-    <tr>
-      <td>Prioidad</td>
-      <td>${issue.priority.name}</td>
-    </tr>
-    %{--<tr>--}%
-    %{--<td>Entrega</td>--}%
-    %{--<td>${issue}</td>--}%
-    %{--</tr>--}%
-    <tr>
-      <td>Reportador</td>
-      <td>${issue.reporter.fullName}</td>
-    </tr>
-    <tr>
-      <td>Asignado a</td>
-      <td>${issue.assignee?.fullName}</td>
-    </tr>
-    <tr>
-      <td>Subscriptores</td>
-      <td>
-        <ul>
-          <g:each in="${issue.watchers}" var="watcher">
-            <li>${watcher.fullName}</li>
-          </g:each>
-        </ul>
-      </td>
-    </tr>
-  </table>
-</div>
-<div id="content" class="issue">
-  <div class="issue-menu">
-    <span id="resolve">Resolver</span>
-    <span id="assign">Asignar</span>
-    <span id="attach">Archivos adjuntos (${issue.attachments.size()})</span>
-    <span id="edit">Editar</span>
-    <div style="float:right;">
-      <span id="back"><<</span>
-      <span id="next">>></span>
-    </div>
-  </div>
+<div id="main">
+  <div class="block" id="block-text">
+    <div class="content">
+      <div class="inner">
 
-  <h1 style="margin-top:10px;">${issue.code} ${issue.summary}</h1>
-
-  <p style="margin-bottom:20px;">${issue.description}</p>
-  <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
-    <h2>Historia (${logs.size()})</h2>
-    <div id="logs" style="font-size:x-small;">
-      <g:each in="${logs}" var="log">
-        <div class="comment" style="margin: 10px;5px;">
-            <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
-                ${log.user.fullName} ${log.date}
-            </div>
-              <g:if test="${log.changes}">
-                <ul>
-                  <g:each in="${log.changes}" var="change">
-                      <g:set var="property" value="issue.${change.property}"/>
-                      <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>
-                  </g:each>
-                </ul>
-              </g:if>
-            <div>
-                ${log.comment}
-            </div>
+        <div class="issue-menu" style="margin-top:20px;">
+          <span id="resolve">Resolver</span>
+          <span id="assign">Asignar</span>
+          <span id="attach">Archivos adjuntos (${issue.attachments.size()})</span>
+          <span id="edit">Editar</span>
+          <div style="float:right;">
+            <span id="back"><<</span>
+            <span id="next">>></span>
+          </div>
         </div>
-      </g:each>
-    </div>
-    <div style="margin: 5px;">
-      <g:form action="addComment" id="${issue.code}">
-        Agregar comentario<br>
-        <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
-        <g:submitButton name="addComment" value="Agregar comentario"/>
-      </g:form>
+
+        <h2 class="title">${issue.code} ${issue.summary}</h2>
+
+        <div style="margin-bottom:20px;">
+          <p>${issue.description}</p>
+        </div>
+
+        <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
+          <h3>Historia (${logs.size()})</h3>
+          <div id="logs" style="font-size:x-small;">
+            <g:each in="${logs}" var="log">
+              <div class="comment" style="margin: 10px;5px;">
+                  <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
+                      ${log.user.fullName} ${log.date}
+                  </div>
+                    <g:if test="${log.changes}">
+                      <ul>
+                        <g:each in="${log.changes}" var="change">
+                            <g:set var="property" value="issue.${change.property}"/>
+                            <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>
+                        </g:each>
+                      </ul>
+                    </g:if>
+                  <div>
+                      ${log.comment}
+                  </div>
+              </div>
+            </g:each>
+          </div>
+          <div style="margin: 5px;">
+            <g:form action="addComment" id="${issue.code}">
+              Agregar comentario<br>
+              <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
+              <g:submitButton name="addComment" value="Agregar comentario"/>
+            </g:form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<div id="sidebar">
+  <div class="block">
+    <h3>Propiedades</h3>
+    <div class="content">
+      <table style="width:100%;">
+        <tr>
+          <td>Tipo</td>
+          <td>${issue.issueType.name}</td>
+        </tr>
+        <tr>
+          <td>Estado</td>
+          <td>${issue.status.name}</td>
+        </tr>
+        <tr>
+          <td>Prioidad</td>
+          <td>${issue.priority.name}</td>
+        </tr>
+        %{--<tr>--}%
+        %{--<td>Entrega</td>--}%
+        %{--<td>${issue}</td>--}%
+        %{--</tr>--}%
+        <tr>
+          <td>Reportador</td>
+          <td>${issue.reporter.fullName}</td>
+        </tr>
+        <tr>
+          <td>Asignado a</td>
+          <td>${issue.assignee?.fullName}</td>
+        </tr>
+        <tr>
+          <td>Subscriptores</td>
+          <td>
+            <ul>
+              <g:each in="${issue.watchers}" var="watcher">
+                <li>${watcher.fullName}</li>
+              </g:each>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
 
 <div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
   <g:form action="assignIssue" id="${issue.code}">

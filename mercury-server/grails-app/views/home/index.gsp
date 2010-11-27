@@ -16,10 +16,16 @@
   <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<div id="issuesByStatusDiv" style="float:left;"></div>
-<div id="issuesByPriorityDiv" style="float:left;"></div>
-<div id="issuesByAssigneeDiv" style="float:left;"></div>
-<div id="openIssuesByPriorityDiv" style="float:left;"></div>
+<div id="main">
+  <div class="block" id="block-text">
+    <div class="content">
+      <div id="issuesByStatusDiv" ></div>
+      <div id="issuesByPriorityDiv" ></div>
+      <div id="issuesByAssigneeDiv" ></div>
+      <div id="openIssuesByPriorityDiv"></div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
 
