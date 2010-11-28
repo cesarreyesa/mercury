@@ -16,13 +16,22 @@
   <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<div id="main">
+<div id="main" style="width:100%;">
   <div class="block" id="block-text">
     <div class="content">
-      <div id="issuesByStatusDiv" ></div>
-      <div id="issuesByPriorityDiv" ></div>
-      <div id="issuesByAssigneeDiv" ></div>
-      <div id="openIssuesByPriorityDiv"></div>
+      <h2 class="title">Dashboard</h2>
+      <div class="inner">
+        <table>
+          <tr>
+            <td><div id="issuesByStatusDiv"></div></td>
+            <td><div id="issuesByPriorityDiv"></div></td>
+          </tr>
+          <tr>
+            <td><div id="issuesByAssigneeDiv"></div></td>
+            <td><div id="openIssuesByPriorityDiv"></div></td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </div>
