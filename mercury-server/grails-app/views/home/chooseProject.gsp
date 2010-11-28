@@ -18,19 +18,27 @@
   <g:render template="/shared/menu"/>
 </content>
 
-<g:form action="changeProject" class="form">
-  <h1>Seleccione un proyecto</h1>
-  <table>
-    <tr>
-      <td><g:select from="${projects}" name="project" optionKey="id" optionValue="name" noSelection="${['':'Seleccione...']}"/></td>
-    </tr>
-    <tr class="buttons">
-      <td>
-        <g:submitButton name="changeProject" value="Aceptar"/>
-      </td>
-    </tr>
-  </table>
-</g:form>
+<div id="main" style="width:100%;">
+  <div class="block" id="block-text">
+    <div class="content">
+      <h2 class="title">Seleccione un proyecto</h2>
+      <div class="inner">
+        <g:form action="changeProject" class="form">
+          <table>
+            <tr>
+              <td><g:select from="${projects}" name="project" optionKey="id" optionValue="name" noSelection="${['':'Seleccione...']}"/></td>
+            </tr>
+            <tr class="buttons">
+              <td>
+                <g:submitButton name="changeProject" value="Aceptar"/>
+              </td>
+            </tr>
+          </table>
+        </g:form>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

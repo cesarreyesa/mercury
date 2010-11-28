@@ -43,8 +43,7 @@
   <div id="container">
     <div id="header">
       %{--<h1><img src="${resource(dir: 'images', file: 'logo.png')}" width="24" height="24" alt="Mercury"/> Mercury--}%
-        %{--<g:link style="color:#000;font-size:x-small" controller="home" action="chooseProject" params="[changeProject:'true']">(cambiar proyecto)</g:link></h1>--}%
-      <h1 style="color:#fff;">Mercury</h1>
+      <h1 style="color:#fff;">Mercury <g:link style="color:#ccc;font-size:x-small" controller="home" action="chooseProject" params="[changeProject:'true']">(cambiar proyecto)</g:link></h1>
       <div id="user-navigation">
 
         <ul class="wat-cf">
