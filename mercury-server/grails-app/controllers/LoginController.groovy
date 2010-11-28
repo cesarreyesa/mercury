@@ -140,6 +140,9 @@ class LoginController {
       }
       flash.email = params.email
       redirect action:'requestSent'
+    }else{
+      flash.message = "No existe ningun usuario registrado con ese correo electronico."
+      render(view:'forgotPassword', model: [email:params.email])
     }
   }
 

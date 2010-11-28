@@ -33,14 +33,14 @@
       <g:if test="${flash.message}">
         <div class="flash">
           <div class="message error">
-            No existe ningun usuario registrado con ese correo electronico.
+            ${flash.message}
           </div>
         </div>
       </g:if>
       <g:form action="sendRecoverPasswordRequest" name="loginForm" class="form">
         <div class="group">
           <label class="label">Email</label>
-          <g:textField name="email"/>
+          <g:textField name="email" value="${email}"/>
         </div>
         <div class="group navform wat-cf">
           <button class="button" type="submit">
