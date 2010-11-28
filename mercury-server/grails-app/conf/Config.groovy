@@ -3,7 +3,7 @@ import grails.plugins.springsecurity.SecurityConfigType
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
+ grails.config.locations = [ "file:/opt/nopalsoft/mercury/config/config.groovy"]
 //                             "classpath:${appName}-config.groovy",
 //                             "file:${userHome}/.grails/${appName}-config.properties",
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
@@ -65,19 +65,6 @@ environments {
     attachmentsPath = "/opt/nopalsoft/mercury/attachments/"
   }
 
-}
-
-grails {
-  mail {
-    host = "smtp.gmail.com"
-    port = 465
-    username = "mercury@ejemplo.com"
-    password = "password"
-    props = ["mail.smtp.auth": "true",
-            "mail.smtp.socketFactory.port": "465",
-            "mail.smtp.socketFactory.class": "javax.net.ssl.SSLSocketFactory",
-            "mail.smtp.socketFactory.fallback": "false"]
-  }
 }
 
 // log4j configuration
