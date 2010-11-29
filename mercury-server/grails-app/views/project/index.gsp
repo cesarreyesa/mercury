@@ -16,36 +16,53 @@
   <li><g:link controller="project" action="users">Usuarios</g:link></li>
 </content>
 
-<g:form action="save" class="form">
-  <g:hiddenField name="id" value="${project.id}"/>
-  <h1>Configuracion del proyecto</h1>
-  <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
-  </g:if>
-  <table class="fields">
-    <tr>
-      <th><label for="code">Codigo</label></th>
-      <td><g:textField name="code" value="${project.code}"/></td>
-    </tr>
-    <tr>
-      <th><label for="name">Nombre</label></th>
-      <td><g:textField name="name" value="${project.name}"/></td>
-    </tr>
-    <tr>
-      <th><label for="description">Descripcion</label></th>
-      <td><g:textArea name="description" value="${project.description}"/></td>
-    </tr>
-    <tr>
-      <th><label for="lead.id">Lider de proyecto</label></th>
-      <td><g:select name="lead.id" value="${project.lead.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="['': '']"/></td>
-    </tr>
-    <tr class="buttons">
-      <td colspan="2">
-        <g:submitButton name="save" value="Save"/>
-      </td>
-    </tr>
-  </table>
-</g:form>
+<div id="main">
+  <div class="block" id="block-text">
+    <div class="content">
+      <h2 class="title">Configuracion del proyecto</h2>
+      <div class="inner">
+        <g:form action="save" class="form">
+          <g:hiddenField name="id" value="${project.id}"/>
+          <g:if test="${flash.message}">
+            <div class="flash">
+              <div class="message error">
+                ${flash.message}
+              </div>
+            </div>
+          </g:if>
+          <g:if test="${flash.success}">
+            <div class="flash">
+              <div class="message notice">
+                ${flash.success}
+              </div>
+            </div>
+          </g:if>
+          <div class="group">
+            <label for="code" class="label">Codigo</label>
+            <g:textField name="code" value="${project.code}"/>
+          </div>
+          <div class="group">
+            <label for="name" class="label">Nombre</label>
+            <g:textField name="name" value="${project.name}"/>
+          </div>
+          <div class="group">
+            <label for="description" class="label">Descripcion</label>
+            <g:textArea name="description" value="${project.description}"/>
+          </div>
+          <div class="group">
+            <label for="lead.id" class="label";>Lider de proyecto</label>
+            <g:select name="lead.id" value="${project.lead.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="['': '']"/>
+          </div>
+          <div class="group navform wat-cf">
+            <button class="button" type="submit">
+              <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Guardar" /> Guardar
+            </button>
+          </div>
+        </g:form>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
