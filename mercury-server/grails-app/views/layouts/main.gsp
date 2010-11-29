@@ -51,7 +51,7 @@
         %{--<div>Trabajando en: nada--}%
           <li><g:link controller="profile">Perfil</g:link></li>
           <li><g:link controller="project">Configuraci&oacute;n</g:link></li>
-          <li><a href="${ctx}/settings">Administracion</a></li>
+          <li><g:link controller="admin">Administracion</g:link></li>
           <li><g:link controller="logout" class="logout">Salir</g:link></li>
         </ul>
       </div>
