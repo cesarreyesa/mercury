@@ -14,6 +14,10 @@
 </head>
 <body>
 
+<content tag="navbar">
+  <g:render template="/shared/menu" model="[selected:'main']"/>
+</content>
+
 <div id="main">
   <div class="block" id="block-text">
     <div class="content">

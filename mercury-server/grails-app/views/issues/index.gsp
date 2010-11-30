@@ -58,15 +58,6 @@
     padding: 2px 5px;
   }
 
-    .filters li{
-      padding: 2px 4px;
-    }
-    .filters li.selected{
-      background-color:#084B96;
-    }
-    .filters li.selected a, .filters li.selected a:visited{
-      color:#fff;
-    }
   </style>
 </head>
 <body>
