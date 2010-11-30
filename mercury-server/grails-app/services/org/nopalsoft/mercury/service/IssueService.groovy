@@ -394,4 +394,9 @@ class IssueService {
     return changes
   }
 
+  public List<Issue> getIssuesNotInMilestone(Project project) {
+    return Issue.findAll("from Issue issue where issue.milestone is null and issue.project = :projectParam", [projectParam: project]);
+  }
+
+
 }
