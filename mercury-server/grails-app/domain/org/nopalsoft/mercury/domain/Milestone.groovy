@@ -1,7 +1,6 @@
 package org.nopalsoft.mercury.domain
 
 class Milestone {
-  Long id;
   String name;
   Date startDate;
   Date endDate;
@@ -11,8 +10,8 @@ class Milestone {
 
   static constraints = {
     name(unique: true, blank: false)
-    startDate(nullable: true)
-    endDate(nullable: true)
+    startDate(nullable: false)
+    endDate(nullable: false)
   }
 
   static mapping = {

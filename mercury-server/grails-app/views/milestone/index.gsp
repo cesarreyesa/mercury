@@ -22,7 +22,7 @@
         <ul class="navigation">
           <g:each in="${milestones}" var="milestone">
             <li>
-              <g:link action="index" params="${[milestone:milestone.id]}">${milestone.name}</g:link>
+              <g:link action="index" params="${[id:milestone.id]}">${milestone.name}</g:link>
             </li>
           </g:each>
         </ul>
