@@ -19,7 +19,7 @@
     <div id="main">
       <div class="block" id="block-text">
         <div class="content">
-          <h2 class="title">Incidencias</h2>
+          <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
           <div class="inner">
             <table class="table" cellpadding="0" cellspacing="0">
               %{--Mostrando <strong>${totalIssues}</strong> incidencias--}%
@@ -58,6 +58,9 @@
       <div class="block">
         <h3>Entregas</h3>
         <ul class="navigation">
+          <li class="${!milestone ? 'active' : ''}">
+            <g:link action="index">Sin asignar</g:link>
+          </li>
           <g:each in="${milestones}" var="milestone">
             <li>
               <g:link action="index" params="${[id:milestone.id]}">${milestone.name}</g:link>
