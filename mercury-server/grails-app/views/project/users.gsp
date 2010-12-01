@@ -51,7 +51,7 @@
             <tr>
               <td>${user.username}</td>
               <td>${user.fullName}</td>
-              <td class="last"><g:link action="">delete</g:link></td>
+              <td class="last"><a href="#" onclick="if(confirm('Esta seguro que desea eliminar al usuario del proyecto?')){ $('#userId').val('${user.id}'); $('#deleteUserForm').trigger('submit'); } return false;">delete</a></td>
             </tr>
           </g:each>
         </table>
@@ -59,6 +59,11 @@
     </div>
   </div>
 </div>
+
+<g:form action="deleteUser" name="deleteUserForm">
+  <g:hiddenField name="projectId" value="${project.id}"/>
+  <g:hiddenField name="userId" />
+</g:form>
 
 <script type="text/javascript">
   $(function(){

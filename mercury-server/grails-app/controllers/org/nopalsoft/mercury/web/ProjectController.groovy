@@ -40,4 +40,16 @@ class ProjectController {
       }
     }
   }
+
+  def deleteUser = {
+    if(request.post){
+      def project = Project.get(params.projectId)
+      def user = User.get(params.userId)
+      project.removeFromUsers user
+      if(project.save(flush:true)){
+        flash.success = "Se elimino al usuario correctamente"
+        redirect action:'users'
+      }
+    }
+  }
 }
