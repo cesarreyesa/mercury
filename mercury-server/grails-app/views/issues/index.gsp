@@ -83,14 +83,16 @@
                 <th>Codigo</th>
                 <th>Resumen</th>
                 <th>Reportador</th>
-                <th class="last">A</th>
+                <th style="white-space:nowrap;">Asignado a</th>
+                <th>A</th>
               </tr>
             <g:each in="${entry.value}" var="issue" status="i">
               <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                 <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
                 <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
                 <td><g:link action="view" id="${issue.code}">${issue.summary}</g:link></td>
-                <td>${issue.reporter.fullName}</td>
+                <td style="white-space:nowrap;">${issue.reporter.fullName}</td>
+                <td style="white-space:nowrap;">${issue.assignee ? issue.assignee.fullName : '--'}</td>
                 <td><g:if test="${issue.attachments}">[A]</g:if></td>
               </tr>
             </g:each>
