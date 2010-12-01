@@ -71,8 +71,10 @@
     <div class="content">
       <h2 class="title">Incidencias</h2>
       <div class="inner">
-        <div style="text-align:right;padding-bottom:0px;">Agrupado por: ${currentFilter.groupBy}</div>
-          %{--Mostrando <strong>${totalIssues}</strong> incidencias--}%
+        <div style="text-align:right;padding-bottom:0px;">
+          Mostrando <strong>${totalIssues}</strong> incidencias,
+          agrupado por: <strong>${currentFilter.groupBy}</strong>
+        </div>
           <g:each in="${issueGroups}" var="entry">
             <h3>${entry.key.name}</h3>
             <table class="table" cellpadding="0" cellspacing="0">
