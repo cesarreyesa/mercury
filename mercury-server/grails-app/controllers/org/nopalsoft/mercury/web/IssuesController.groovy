@@ -28,7 +28,7 @@ class IssuesController {
             new IssueFilter(id:6, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: user.username, groupBy: GroupBy.Priority),
             new IssueFilter(id:7, name: 'Cerrados en la ultima semana', status: 'closed', assignee: '-1w', groupBy: GroupBy.Priority),
             new IssueFilter(id:8, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', assignee: '-1w', groupBy: GroupBy.Priority),
-            new IssueFilter(id:9, name: 'Todas')
+            new IssueFilter(id:9, name: 'Todas', groupBy: GroupBy.Priority)
     ]
     filters
   }
