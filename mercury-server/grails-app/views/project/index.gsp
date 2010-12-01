@@ -10,14 +10,19 @@
   <meta name="layout" content="main"/>
 </head>
 <body>
+
 <content tag="navbar">
-  <li><g:link controller="home">${session.project.name}</g:link></li>
-  <li class="selected"><g:link controller="project">General</g:link></li>
-  <li><g:link controller="project" action="users">Usuarios</g:link></li>
+  <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
 <div id="main">
-  <div class="block" id="block-text">
+  <div class="block" id="block-tables">
+    <div class="secondary-navigation">
+      <ul class="wat-cf">
+        <li class="first active"><g:link controller="project">General</g:link></li>
+        <li><g:link controller="project" action="users">Usuarios</g:link></li>
+      </ul>
+    </div>
     <div class="content">
       <h2 class="title">Configuracion del proyecto</h2>
       <div class="inner">

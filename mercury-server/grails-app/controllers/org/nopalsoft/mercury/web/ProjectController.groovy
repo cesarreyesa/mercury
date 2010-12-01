@@ -1,6 +1,7 @@
 package org.nopalsoft.mercury.web
 
 import org.nopalsoft.mercury.domain.Project
+import org.nopalsoft.mercury.domain.User
 
 class ProjectController {
 
@@ -18,6 +19,25 @@ class ProjectController {
     }else{
       flash.message = "Hubo un error al salvar el proyecto"
       render(view:'index', model:[project:project])
+    }
+  }
+
+  def users = {
+    def project = Project.get(session.project.id)
+    def users = User.list()
+
+    [project: project, usersNotInProject: users]
+  }
+
+  def addUser = {
+    if(request.post){
+      def project = Project.get(params.id)
+      def user = User.get(params.long('user.id'))
+      project.addToUsers(user)
+      if(project.save(flush:true)){
+        flash.success = "Se agrego al usuario correctamente"
+        redirect action:'users'
+      }
     }
   }
 }

@@ -26,7 +26,8 @@ class HomeController {
   }
 
   def chooseProject = {
-    [projects: Project.findAll()]
+    def user = User.get(springSecurityService.principal.id)
+    [projects: Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])]
   }
 
   def changeProject = {
