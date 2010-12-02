@@ -39,7 +39,7 @@ class IssuesController {
     def start = params.int('offset') ?: 0
     def filterId = params.filter ? params.int('filter') : 1
     def filter = filters.find { it.id == filterId }
-    def issues = issueService.getIssues((Project) session.project, params.query, params.type, filter, "", "", "", start, limit)
+    def issues = issueService.getIssues((Project) session.project, params.search, params.type, filter, "", "", "", start, limit)
     def issueGroups = [:]
     if(filter.groupBy == GroupBy.Priority){
       def groups = issues.collect{ it.priority }.unique()
@@ -47,7 +47,7 @@ class IssuesController {
         issueGroups[group] = issues.findAll { it.priority == group}
       }
     }
-    def issuesCount = issueService.getIssuesCount((Project) session.project, params.query, params.type, filter, "", "", "")
+    def issuesCount = issueService.getIssuesCount((Project) session.project, params.search, params.type, filter, "", "", "")
 
     [user: user, issues: issues, issueGroups: issueGroups, totalIssues: issuesCount, filters: filters, currentFilter: filter]
   }
