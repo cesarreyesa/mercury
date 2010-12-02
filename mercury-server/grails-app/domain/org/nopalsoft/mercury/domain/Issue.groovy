@@ -37,7 +37,7 @@ class Issue {
   IssueType issueType
   Resolution resolution
   Priority priority
-  static belongsTo = [milestone: Milestone]
+  Milestone milestone
 
   static hasMany = [attachments:IssueAttachment, watchers: User]
 
