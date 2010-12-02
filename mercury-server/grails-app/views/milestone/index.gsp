@@ -44,26 +44,20 @@
               </g:each>
               </tbody>
             </table>
-            %{--<div class="actions-bar wat-cf">--}%
-              %{--<div class="pagination">--}%
-                %{--<g:paginate next="Siguiente" prev="Atras" maxsteps="4" max="20" total="${totalIssues}" params="${[filter: currentFilter.id]}"/>--}%
-              %{--</div>--}%
-            %{--</div>--}%
-
           </div>
         </div>
       </div>
     </div>
-    <div id="sidebar">
-      <div class="block">
+  <div id="sidebar">
+    <div class="block">
         <h3>Entregas</h3>
         <ul class="navigation">
           <li class="${!milestone ? 'active' : ''}">
             <g:link action="index">Sin asignar</g:link>
           </li>
-          <g:each in="${milestones}" var="milestone">
-            <li>
-              <g:link action="index" params="${[id:milestone.id]}">${milestone.name}</g:link>
+          <g:each in="${milestones}" var="milestoneItem">
+            <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
+              <g:link action="index" params="${[id:milestoneItem.id]}">${milestoneItem.name}</g:link>
             </li>
           </g:each>
         </ul>
