@@ -43,7 +43,7 @@ class ProjectController {
 
   def deleteUser = {
     if(request.post){
-      def project = Project.get(params.projectId)
+      def project = Project.get(params.id)
       def user = User.get(params.userId)
       project.removeFromUsers user
       if(project.save(flush:true)){

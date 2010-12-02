@@ -50,7 +50,7 @@
                 <td>${user.fullName}</td>
                 <td>${user.email}</td>
                 %{--<td>${user.lastName}</td>--}%
-                <td class="last"><g:link action="editUser" id="${user.id}">edit</g:link> | <a href="#">delete</a></td>
+                <td class="last"><g:link action="editUser" id="${user.id}">editar</g:link> | <a href="#">eliminar</a></td>
               </tr>
             </g:each>
           </tbody>

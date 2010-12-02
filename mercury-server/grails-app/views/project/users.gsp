@@ -34,8 +34,7 @@
           </tr>
           <tr id="addUserTr" style="display:none;">
             <td style="text-align:right;" colspan="3">
-              <g:form action="addUser">
-                <g:hiddenField name="id" value="${project.id}"/>
+              <g:form action="addUser" id="${project.id}">
                 <g:select name="user.id" from="${usersNotInProject.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
                         value="" noSelection="['': 'Seleccione...']"/>
                 <g:submitButton name="add" value="Agregar usuario" />
@@ -51,7 +50,7 @@
             <tr>
               <td>${user.username}</td>
               <td>${user.fullName}</td>
-              <td class="last"><a href="#" onclick="if(confirm('Esta seguro que desea eliminar al usuario del proyecto?')){ $('#userId').val('${user.id}'); $('#deleteUserForm').trigger('submit'); } return false;">delete</a></td>
+              <td class="last"><a href="#" onclick="if(confirm('Esta seguro que desea eliminar al usuario del proyecto?')){ $('#userId').val('${user.id}'); $('#deleteUserForm').trigger('submit'); } return false;">eliminar</a></td>
             </tr>
           </g:each>
         </table>
@@ -60,8 +59,7 @@
   </div>
 </div>
 
-<g:form action="deleteUser" name="deleteUserForm">
-  <g:hiddenField name="projectId" value="${project.id}"/>
+<g:form action="deleteUser" name="deleteUserForm" id="${project.id}">
   <g:hiddenField name="userId" />
 </g:form>
 

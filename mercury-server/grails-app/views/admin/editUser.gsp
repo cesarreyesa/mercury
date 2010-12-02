@@ -20,6 +20,14 @@
 
 <div id="main">
   <div class="block" id="block-text">
+
+    <div class="secondary-navigation">
+      <ul class="wat-cf">
+        <li class="first active"><g:link action="editUser" id="${user.id}">Editar</g:link></li>
+        <li><g:link action="editRoles" id="${user.id}">Permisos</g:link></li>
+      </ul>
+    </div>
+
     <div class="content">
       <h2 class="title">Editar usuario</h2>
       <div class="inner">
