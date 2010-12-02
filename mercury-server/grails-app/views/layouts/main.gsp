@@ -28,7 +28,9 @@
   <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
   <link rel="stylesheet" href="${resource(dir:'css', file:'base.css')}" type="text/css" media="screen" />
+  %{--<link rel="stylesheet" href="${resource(dir:'css/themes/default', file:'styles.css')}" type="text/css" media="screen" />--}%
   <link rel="stylesheet" href="${resource(dir:'css/themes/drastic-dark', file:'styles.css')}" type="text/css" media="screen" />
+  %{--<link rel="stylesheet" href="${resource(dir:'css/themes/bec-green', file:'styles.css')}" type="text/css" media="screen" />--}%
   <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.6.custom.css')}"/>
   <link rel="stylesheet" href="${resource(dir: 'css', file: 'styledButton.css')}"/>
 
@@ -45,15 +47,20 @@
       %{--<h1><img src="${resource(dir: 'images', file: 'logo.png')}" width="24" height="24" alt="Mercury"/> Mercury--}%
       <h1 style="color:#fff;">Mercury <g:link style="color:#ccc;font-size:x-small" controller="home" action="chooseProject" params="[changeProject:'true']">(cambiar proyecto)</g:link></h1>
       <div id="user-navigation">
-
+        <div style="color:#fff;text-align:right;"><sec:loggedInUserInfo field="username"/></div>
         <ul class="wat-cf">
-        %{--<div><sec:loggedInUserInfo field="username"/></div>--}%
         %{--<div>Trabajando en: nada--}%
           <li><g:link controller="profile">Perfil</g:link></li>
           <li><g:link controller="project">Configuraci&oacute;n</g:link></li>
           <li><g:link controller="admin">Administracion</g:link></li>
           <li><g:link controller="logout" class="logout">Salir</g:link></li>
         </ul>
+      </div>
+      <div id="search-box">
+        <g:form controller="issues" action="index">
+          <g:textField name="search"/>
+          <g:submitButton name="submit" value="Buscar"/>
+        </g:form>
       </div>
       <div id="main-navigation">
 

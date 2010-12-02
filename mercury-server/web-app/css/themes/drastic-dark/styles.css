@@ -73,6 +73,13 @@ hr {
 }
 
 #user-navigation {
+  /*top: auto;*/
+  /*bottom: 5px;*/
+  /*right: 25px;*/
+}
+
+#search-box {
+  position: absolute;
   top: auto;
   bottom: 5px;
   right: 25px;

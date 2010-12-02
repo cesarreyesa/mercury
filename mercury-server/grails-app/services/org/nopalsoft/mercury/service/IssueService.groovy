@@ -17,6 +17,9 @@ import org.nopalsoft.mercury.domain.LogChange
 import org.nopalsoft.mercury.workflow.Workflow
 import org.nopalsoft.mercury.domain.Resolution
 import org.nopalsoft.mercury.workflow.Action
+import org.nopalsoft.mercury.domain.IssueFilter
+import org.hibernate.criterion.Order
+import org.nopalsoft.mercury.domain.GroupBy
 
 class IssueService {
 
@@ -74,22 +77,22 @@ class IssueService {
     return Issue.executeQuery(hql, [project, user.id]);
   }
 
-  public List<Issue> getIssues(Project project, String query, String type, String status, String priority, String reporter, String assignee, String statusDate, String from, String until, int offset, int maxResults) {
-    DetachedCriteria crit = createCriteria(project, query, type, priority, status, reporter, assignee, statusDate)
+  public List<Issue> getIssues(Project project, String query, String type, IssueFilter filter, String statusDate, String from, String until, int offset, int maxResults) {
+    DetachedCriteria crit = createCriteria(project, query, type, filter, statusDate, true)
 
     def hibernateTemplate = new HibernateTemplate(sessionFactory)
     return (List<Issue>) hibernateTemplate.findByCriteria(crit, offset, maxResults);
   }
 
-  public int getIssuesCount(Project project, String query, String type, String status, String priority, String reporter, String assignee, String statusDate, String from, String until) {
-    DetachedCriteria crit = createCriteria(project, query, type, priority, status, reporter, assignee, statusDate)
+  public int getIssuesCount(Project project, String query, String type, IssueFilter filter, String statusDate, String from, String until) {
+    DetachedCriteria crit = createCriteria(project, query, type, filter, statusDate, false)
     crit.setProjection(Projections.rowCount())
     def hibernateTemplate = new HibernateTemplate(sessionFactory)
     def list = hibernateTemplate.findByCriteria(crit)
     return (int) list[0];
   }
 
-  private DetachedCriteria createCriteria(Project project, String query, String type, String priority, String status, String reporter, String assignee, String statusDate) {
+  private DetachedCriteria createCriteria(Project project, String query, String type, IssueFilter filter, String statusDate, boolean addSort) {
     DetachedCriteria crit = DetachedCriteria.forClass(Issue.class);
     if (project != null) {
       crit.add(Restrictions.eq("project", project));
@@ -116,51 +119,51 @@ class IssueService {
       }
     }
 
-    if (priority) {
-      if (priority.indexOf(",") > 0) {
+    if (filter.priority) {
+      if (filter.priority.indexOf(",") > 0) {
         Disjunction disjunction = Restrictions.disjunction();
         DetachedCriteria statusCrit = crit.createCriteria("priority");
-        String[] priorities = priority.split(",");
+        String[] priorities = filter.priority.split(",");
         for (String p: priorities) {
           disjunction.add(Restrictions.like("code", p.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
         }
         statusCrit.add(disjunction);
       } else {
-        crit.createCriteria("priority").add(Restrictions.like("code", priority.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
+        crit.createCriteria("priority").add(Restrictions.like("code", filter.priority.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
       }
     }
 
-    if (status) {
-      if (status.indexOf(",") > 0) {
+    if (filter.status) {
+      if (filter.status.indexOf(",") > 0) {
         Disjunction disjunction = Restrictions.disjunction();
         DetachedCriteria statusCrit = crit.createCriteria("status");
-        String[] statuses = status.split(",");
+        String[] statuses = filter.status.split(",");
         for (String statusS: statuses) {
           disjunction.add(Restrictions.like("code", statusS.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
         }
         statusCrit.add(disjunction);
       } else {
-        crit.createCriteria("status").add(Restrictions.like("code", status.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
+        crit.createCriteria("status").add(Restrictions.like("code", filter.status.toLowerCase(), MatchMode.ANYWHERE).ignoreCase());
       }
     }
 
-    if (reporter) {
-      if (reporter.startsWith("!")) {
-        crit.createCriteria("reporter").add(Restrictions.ne("username", reporter.substring(1)));
+    if (filter.reporter) {
+      if (filter.reporter.startsWith("!")) {
+        crit.createCriteria("reporter").add(Restrictions.ne("username", filter.reporter.substring(1)));
       } else {
-        crit.createCriteria("reporter").add(Restrictions.eq("username", reporter));
+        crit.createCriteria("reporter").add(Restrictions.eq("username", filter.reporter));
       }
     }
 
-    if (assignee) {
-      if (assignee.equals("null")) {
+    if (filter.assignee) {
+      if (filter.assignee.equals("null")) {
         crit.add(Restrictions.isNull("assignee"));
-      } else if (assignee.equals("!null")) {
+      } else if (filter.assignee.equals("!null")) {
         crit.add(Restrictions.isNotNull("assignee"));
-      } else if (assignee.startsWith("!")) {
-        crit.createCriteria("assignee").add(Restrictions.ne("username", assignee.substring(1)));
+      } else if (filter.assignee.startsWith("!")) {
+        crit.createCriteria("assignee").add(Restrictions.ne("username", filter.assignee.substring(1)));
       } else {
-        crit.createCriteria("assignee").add(Restrictions.eq("username", assignee));
+        crit.createCriteria("assignee").add(Restrictions.eq("username", filter.assignee));
       }
     }
 
@@ -180,6 +183,12 @@ class IssueService {
     }
     if (statusDate && "closed".equals(statusDate.toLowerCase())) {
       crit.add(Restrictions.between("dateClosed", dateFrom, dateUntil));
+    }
+
+    if(filter.groupBy && addSort){
+      if(filter.groupBy == GroupBy.Priority){
+        crit.addOrder(Order.asc("priority"))
+      }
     }
     return crit
   }

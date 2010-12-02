@@ -2,53 +2,54 @@ package org.nopalsoft.mercury.web
 
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Issue
-import grails.converters.XML
 import org.nopalsoft.mercury.domain.Project
-import org.nopalsoft.mercury.domain.IssueType
 import org.nopalsoft.mercury.domain.IssueLog
 import org.nopalsoft.mercury.domain.IssueAttachment
+import org.nopalsoft.mercury.domain.IssueFilter
 import org.springframework.web.servlet.ModelAndView
 import org.springframework.web.servlet.view.AbstractView
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.nopalsoft.mercury.domain.Resolution
-
-class IssueFilter{
-  int id
-  String status
-  String priority
-  String assignee
-  String from
-  String name
-  String reporter
-}
+import org.nopalsoft.mercury.domain.GroupBy
 
 class IssuesController {
 
   def issueService
   def springSecurityService
 
+  def getFilters = { user ->
+    def filters = [
+            new IssueFilter(id:1, name: 'Mis Pendientes', status: 'open,progress', assignee: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id:2, name: 'Mis Solicitudes Sin Resolver', status: 'open,progres', reporter: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id:3, name: 'Pendientes', status: 'open,progress', groupBy: GroupBy.Priority),
+            new IssueFilter(id:4, name: 'En Progreso', status: 'progress', assignee: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id:5, name: 'Pendientes sin asignar', status: 'open,progress', assignee: 'null', groupBy: GroupBy.Priority),
+            new IssueFilter(id:6, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id:7, name: 'Cerrados en la ultima semana', status: 'closed', assignee: '-1w', groupBy: GroupBy.Priority),
+            new IssueFilter(id:8, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', assignee: '-1w', groupBy: GroupBy.Priority),
+            new IssueFilter(id:9, name: 'Todas', groupBy: GroupBy.Priority)
+    ]
+    filters
+  }
   def index = {
     def user = User.get(springSecurityService.principal.id)
-    def filters = [
-            new IssueFilter(id:1, name: 'Mis Pendientes', status: 'open,progress', assignee: user.username),
-            new IssueFilter(id:2, name: 'Mis Solicitudes Sin Resolver', status: 'open,progres', reporter: user.username),
-            new IssueFilter(id:3, name: 'Pendientes', status: 'open,progress'),
-            new IssueFilter(id:4, name: 'En Progreso', status: 'progress', assignee: user.username),
-            new IssueFilter(id:5, name: 'Pendientes sin asignar', status: 'open,progress', assignee: 'null'),
-            new IssueFilter(id:6, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: user.username),
-            new IssueFilter(id:7, name: 'Cerrados en la ultima semana', status: 'closed', assignee: '-1w'),
-            new IssueFilter(id:8, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', assignee: '-1w'),
-            new IssueFilter(id:9, name: 'Todas')
-    ]
-    def limit = params.int('max') ?: 20
+    def filters = getFilters(user)
+    def limit = params.int('max') ?: 50
     def start = params.int('offset') ?: 0
     def filterId = params.filter ? params.int('filter') : 1
     def filter = filters.find { it.id == filterId }
-    def issues = issueService.getIssues((Project) session.project, params.query, params.type, filter.status, filter.priority, filter.reporter, filter.assignee, "", "", "", start, limit)
-    def issuesCount = issueService.getIssuesCount((Project) session.project, params.query, params.type, filter.status, filter.priority, filter.reporter, filter.assignee, "", "", "")
+    def issues = issueService.getIssues((Project) session.project, params.search, params.type, filter, "", "", "", start, limit)
+    def issueGroups = [:]
+    if(filter.groupBy == GroupBy.Priority){
+      def groups = issues.collect{ it.priority }.unique()
+      for(def group : groups){
+        issueGroups[group] = issues.findAll { it.priority == group}
+      }
+    }
+    def issuesCount = issueService.getIssuesCount((Project) session.project, params.search, params.type, filter, "", "", "")
 
-    [user: user, issues: issues, totalIssues: issuesCount, filters: filters, currentFilter: filter]
+    [user: user, issues: issues, issueGroups: issueGroups, totalIssues: issuesCount, filters: filters, currentFilter: filter]
   }
 
   def view = {
