@@ -2,6 +2,7 @@ package org.nopalsoft.mercury.web
 
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Role
+import org.nopalsoft.mercury.domain.Project
 
 class AdminController {
 
@@ -42,5 +43,10 @@ class AdminController {
       flash.message = "Hubo un error al eliminar el role"
       render view:'editRoles', model:[user:user]
     }
+  }
+
+  def projects = {
+    def projects = Project.listOrderByName()
+    [projects:projects]
   }
 }
