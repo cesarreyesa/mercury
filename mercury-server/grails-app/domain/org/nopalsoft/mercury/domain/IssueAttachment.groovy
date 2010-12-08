@@ -13,15 +13,15 @@ class IssueAttachment {
   }
 
   public IssueAttachment(String file, String description, User addedBy, Date date){
-      this.file = file;
-      this.description = description;
-      this.addedBy = addedBy;
-      this.date = date;
+      this.file = file
+      this.description = description
+      this.addedBy = addedBy
+      this.date = date
   }
 
   public IssueAttachment(String file, Date date){
-      this.file = file;
-      this.date = date;
+      this.file = file
+      this.date = date
   }
 
   static constraints = {

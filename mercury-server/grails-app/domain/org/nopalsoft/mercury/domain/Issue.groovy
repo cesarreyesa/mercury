@@ -23,7 +23,6 @@ package org.nopalsoft.mercury.domain
 
 class Issue {
 
-  Long id
   String code
 
   String summary

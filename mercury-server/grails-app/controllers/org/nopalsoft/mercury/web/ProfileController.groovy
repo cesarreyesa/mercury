@@ -16,6 +16,7 @@ class ProfileController {
       user.properties = params
       if (user.save(flush: true)) {
         redirect (action:"index")
+        return
       }
       render(view: "index", model: [user: user])
     }
