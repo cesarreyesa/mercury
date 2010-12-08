@@ -15,8 +15,7 @@
     <g:link controller="issues" action="create">Nueva Incidencia</g:link></li>
 
   <li <g:if test="${selected == 'release'}">class="active"</g:if>>
-    <a href='${ctx}/project'>Entregas</a></li>
-
+    <g:link controller="milestone" action="index">Entregas</g:link></li>
   %{--<li style="float:right;padding:3px;">--}%
     %{--<g:form controller="issues">--}%
       %{--<g:textField class="searchBox" type="text" id="query" name="query" title="Enter a query and press enter to jump" value="${params.query ?: 'Buscar'}"--}%

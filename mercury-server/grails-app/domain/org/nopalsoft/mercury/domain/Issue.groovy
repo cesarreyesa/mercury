@@ -36,6 +36,7 @@ class Issue {
   IssueType issueType
   Resolution resolution
   Priority priority
+  Milestone milestone
 
   static hasMany = [attachments:IssueAttachment, watchers: User]
 
@@ -64,6 +65,7 @@ class Issue {
     priority column:'priority'
     date column:'date_'
     dueDate column:'end_date'
+    milestone(nullable: true)
     watchers joinTable: [name:'issue_watcher', key:'issue_id', column: 'user_id']
   }
 }
