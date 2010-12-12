@@ -14,6 +14,7 @@ class Project {
   static constraints = {
     code(blank: false)
     name(blank: false)
+    lastIssueId(nullable: true)
   }
   
   static mapping = {

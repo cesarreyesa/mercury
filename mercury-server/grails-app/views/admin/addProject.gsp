@@ -1,13 +1,15 @@
 <%--
+  Created by IntelliJ IDEA.
   User: cesarreyes
-  Date: 06/12/10
-  Time: 23:35
+  Date: 12/12/10
+  Time: 10:23
+  To change this template use File | Settings | File Templates.
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <title>Editar projecto</title>
+  <title>Agregar proyecto</title>
   <meta content="main" name="layout"/>
 </head>
 <body>
@@ -17,8 +19,7 @@
 </content>
 
 <div id="main">
-  <div class="block" id="block-text">
-
+  <div class="block" id="block-tables">
     <div class="secondary-navigation">
       <ul class="wat-cf">
         <li class="first"><g:link action="index">Usuarios</g:link></li>
@@ -29,9 +30,9 @@
     </div>
 
     <div class="content">
-      <h2 class="title">Editar proyecto</h2>
+      <h2 class="title">Agregar proyecto</h2>
       <div class="inner">
-        <g:form action="updateProject" id="${project.id}" class="form">
+        <g:form action="saveProject" class="form">
           <g:hasErrors bean="${project}">
              <div class="errors">
                 <g:renderErrors bean="${project}" as="list"/>
@@ -60,6 +61,12 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#code').focus();
+  });
+</script>
 
 </body>
 </html>

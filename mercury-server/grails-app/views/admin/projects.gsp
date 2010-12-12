@@ -32,13 +32,14 @@
       <h2 class="title">Proyectos</h2>
       <div class="inner">
         <table class="table">
-          <thead>
-            <tr>
-              <th>Codigo</th>
-              <th>Nombre</th>
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
+          <tr>
+            <td colspan="3" style="text-align:right;"><g:link action="addProject">Agregar</g:link></td>
+          </tr>
+          <tr>
+            <th>Codigo</th>
+            <th>Nombre</th>
+            <th>&nbsp;</th>
+          </tr>
           <tbody>
             <g:each in="${projects}" var="project">
               <tr>
