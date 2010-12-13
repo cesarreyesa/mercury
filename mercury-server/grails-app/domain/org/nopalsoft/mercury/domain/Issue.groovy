@@ -57,6 +57,7 @@ class Issue {
     resolution(nullable:true)
     dateResolved(nullable:true)
     assignee(nullable:true)
+    milestone(nullable:true)
   }
 
   static mapping = {
