@@ -47,15 +47,15 @@
             <div class="column right" style="width:250px;">
               <div class="group">
                 <label class="label">Reportador:</label>
-                <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" />
+                <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" />
               </div>
               <div class="group">
                 <label class="label">Asignado a:</label>
-                <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+                <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
               </div>
               <div class="group">
                 <label class="label">Observadores:</label>
-                <g:select name="watchers" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
+                <g:select name="watchers" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
                         multiple="true" value="${issue.watchers}" style="height:100px;"/>
               </div>
             </div>

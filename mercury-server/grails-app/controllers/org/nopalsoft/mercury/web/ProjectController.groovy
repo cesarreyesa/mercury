@@ -24,7 +24,7 @@ class ProjectController {
 
   def users = {
     def project = Project.get(session.project.id)
-    def users = User.list()
+    def users = User.findAllByEnabled(true)
 
     [project: project, usersNotInProject: users]
   }

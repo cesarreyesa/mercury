@@ -128,7 +128,7 @@
           <label>Asignar a:</label>
         </div>
         <div class="field">
-          <g:select name="assignee.id" value="${issue.assignee?.id}" from="${issue.project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+          <g:select name="assignee.id" value="${issue.assignee?.id}" from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
         </div>
       </div>
       <div class="row">
