@@ -31,7 +31,7 @@
     <div class="content">
       <h2 class="title">Editar usuario</h2>
       <div class="inner">
-        <g:form action="save" class="form">
+        <g:form action="updateUser" class="form">
           <g:hiddenField name="id" value="${user.id}"/>
 
           <div class="group">
@@ -49,6 +49,10 @@
           <div class="group">
             <label class="label">Email</label>
             <g:textField name="email" value="${user.email}"/>
+          </div>
+          <div class="group">
+            <label class="label">Activo</label>
+            <g:checkBox name="enabled" value="${user.enabled}"/>
           </div>
           <div class="group navform wat-cf">
             <button class="button" type="submit">
