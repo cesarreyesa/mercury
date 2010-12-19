@@ -16,7 +16,7 @@
 
 <html>
 <head>
-  <title>Incidencias</title>
+  <title>${currentFilter.name}</title>
   <meta name="layout" content="main"/>
   <style type="text/css">
   strong {
