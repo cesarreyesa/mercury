@@ -65,7 +65,7 @@
 <div id="main">
   <div class="block" id="block-text">
     <div class="content">
-      <h2 class="title">Incidencias</h2>
+      <h2 class="title">${currentFilter.name}</h2>
       <div class="inner">
         <div style="text-align:right;padding-bottom:0px;">
           Mostrando <strong>${totalIssues}</strong> incidencias,
