@@ -69,10 +69,10 @@
       <div class="inner">
         <div style="text-align:right;padding-bottom:0px;">
           Mostrando <strong>${totalIssues}</strong> incidencias,
-          agrupado por: <a href="#" id="sortAnchor"><strong>${currentFilter.groupBy}</strong></a>
+          agrupado por: <a href="#" id="groupByAnchor"><strong>${currentFilter.groupBy}</strong></a>
         </div>
           <g:each in="${issueGroups}" var="entry">
-            <h3>${entry.key.name}</h3>
+            <h3>${entry.key.toString()}</h3>
             <table class="table" cellpadding="0" cellspacing="0">
               <tr>
                 <th class="first">P</th>
@@ -118,22 +118,23 @@
   </div>
 </div>
 
-<div id="sortDialog" title="" style="display:none;">
-  <g:form name="sortForm" action="index" method="get">
-    <g:select name="sort" from="['priority':'Prioridad', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
+<div id="groupByDialog" title="" style="display:none;">
+  <g:form name="groupByForm" action="index" method="get">
+    <g:select name="groupBy" from="['priority':'Prioridad', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
   </g:form>
 </div>
 
 <script type="text/javascript">
   $(function(){
-    $('#sortAnchor').click(function(){
+    $('#groupByAnchor').click(function(event){
+      event.preventDefault();
       var position = $(this).position();
-      $( "#sortDialog").dialog({
+      $( "#groupByDialog").dialog({
         minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
       });
     });
-    $('#sort').change(function(){
-      $('#sortForm').submit();
+    $('#groupBy').change(function(){
+      $('#groupByForm').submit();
     });
   });
 </script>

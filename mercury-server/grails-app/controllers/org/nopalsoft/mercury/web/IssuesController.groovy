@@ -41,12 +41,42 @@ class IssuesController {
     def filter = filters.find { it.id == filterId }
     def issues = issueService.getIssues((Project) session.project, params.search, params.type, filter, "", "", "", start, limit)
     def issueGroups = [:]
+    //refactorizar
+    if(params.groupBy){
+      if(params.groupBy == 'priority')
+        filter.groupBy = GroupBy.Priority
+      if(params.groupBy == 'type')
+        filter.groupBy = GroupBy.Type
+      if(params.groupBy == 'assignee')
+        filter.groupBy = GroupBy.Assignee
+      if(params.groupBy == 'reporter')
+        filter.groupBy = GroupBy.Reporter
+    }
     if(filter.groupBy == GroupBy.Priority){
       def groups = issues.collect{ it.priority }.unique()
       for(def group : groups){
         issueGroups[group] = issues.findAll { it.priority == group}
       }
     }
+    if(filter.groupBy == GroupBy.Type){
+      def groups = issues.collect{ it.issueType }.unique()
+      for(def group : groups){
+        issueGroups[group] = issues.findAll { it.issueType == group}
+      }
+    }
+    if(filter.groupBy == GroupBy.Assignee){
+      def groups = issues.collect{ it.assignee }.unique()
+      for(def group : groups){
+        issueGroups[group] = issues.findAll { it.assignee == group}
+      }
+    }
+    if(filter.groupBy == GroupBy.Reporter){
+      def groups = issues.collect{ it.reporter }.unique()
+      for(def group : groups){
+        issueGroups[group] = issues.findAll { it.reporter == group}
+      }
+    }
+    //refactorizar
     def issuesCount = issueService.getIssuesCount((Project) session.project, params.search, params.type, filter, "", "", "")
 
     [user: user, issues: issues, issueGroups: issueGroups, totalIssues: issuesCount, filters: filters, currentFilter: filter]

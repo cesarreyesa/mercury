@@ -13,4 +13,8 @@ class Priority {
   static mapping = {
     version false
   }
+
+  public String toString(){
+    name
+  }
 }

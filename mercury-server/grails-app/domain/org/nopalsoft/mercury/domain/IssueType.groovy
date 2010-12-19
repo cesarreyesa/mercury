@@ -12,4 +12,9 @@ class IssueType {
   static mapping = {
     version false
   }
+
+
+  public String toString ( ) {
+    name
+  }
 }

@@ -50,4 +50,8 @@ class User {
     passwordExpired column: 'credentials_expired'
     authorities joinTable: [name: 'user_role', key: 'user_id', column: 'role_name']
   }
+
+  public String toString(){
+    fullName
+  }
 }
