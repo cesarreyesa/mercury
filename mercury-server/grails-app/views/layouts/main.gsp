@@ -28,6 +28,7 @@
   <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
   <link rel="stylesheet" href="${resource(dir:'css', file:'base.css')}" type="text/css" media="screen" />
+  <link rel="stylesheet" href="${resource(dir:'css', file:'custom.css')}" type="text/css" media="screen" />
   %{--<link rel="stylesheet" href="${resource(dir:'css/themes/default', file:'styles.css')}" type="text/css" media="screen" />--}%
   <link rel="stylesheet" href="${resource(dir:'css/themes/drastic-dark', file:'styles.css')}" type="text/css" media="screen" />
   %{--<link rel="stylesheet" href="${resource(dir:'css/themes/bec-green', file:'styles.css')}" type="text/css" media="screen" />--}%
@@ -57,7 +58,7 @@
         </ul>
       </div>
       <div id="search-box">
-        <g:form controller="issues" action="index">
+        <g:form controller="issues" action="index" method="get">
           <g:textField name="search"/>
           <g:submitButton name="submit" value="Buscar"/>
         </g:form>

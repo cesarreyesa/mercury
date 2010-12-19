@@ -19,10 +19,6 @@
   <title>Incidencias</title>
   <meta name="layout" content="main"/>
   <style type="text/css">
-  .issues {
-
-  }
-
   strong {
     font-weight: bold;
   }
@@ -73,7 +69,7 @@
       <div class="inner">
         <div style="text-align:right;padding-bottom:0px;">
           Mostrando <strong>${totalIssues}</strong> incidencias,
-          agrupado por: <strong>${currentFilter.groupBy}</strong>
+          agrupado por: <a href="#" id="sortAnchor"><strong>${currentFilter.groupBy}</strong></a>
         </div>
           <g:each in="${issueGroups}" var="entry">
             <h3>${entry.key.name}</h3>
@@ -122,6 +118,25 @@
   </div>
 </div>
 
+<div id="sortDialog" title="" style="display:none;">
+  <g:form name="sortForm" action="index" method="get">
+    <g:select name="sort" from="['priority':'Prioridad', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
+  </g:form>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#sortAnchor').click(function(){
+      var position = $(this).position();
+      $( "#sortDialog").dialog({
+        minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+      });
+    });
+    $('#sort').change(function(){
+      $('#sortForm').submit();
+    });
+  });
+</script>
 </body>
 </html>
 
