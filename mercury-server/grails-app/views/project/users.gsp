@@ -1,9 +1,7 @@
 <%--
-  Created by IntelliJ IDEA.
   User: cesarreyes
   Date: 29/11/10
   Time: 21:55
-  To change this template use File | Settings | File Templates.
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -22,8 +20,9 @@
   <div class="block" id="block-tables">
     <div class="secondary-navigation">
       <ul class="wat-cf">
-        <li class="first"><g:link controller="project">General</g:link></li>
-        <li class="active"><g:link controller="project" action="users">Usuarios</g:link></li>
+        <li class="first"><g:link>General</g:link></li>
+        <li><g:link action="categories">Categorias</g:link></li>
+        <li class="active"><g:link action="users">Usuarios</g:link></li>
       </ul>
     </div>
     <div class="content">
