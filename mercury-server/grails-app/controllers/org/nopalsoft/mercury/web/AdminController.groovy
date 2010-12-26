@@ -73,6 +73,7 @@ class AdminController {
     def project = new Project()
     project.properties = params
     project.lead = user
+    project.addToUsers(user)
     if(project.validate() && project.save(flush:true)){
       redirect action:'projects'
     }else{
