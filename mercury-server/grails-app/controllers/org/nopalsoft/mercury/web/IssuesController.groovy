@@ -98,7 +98,8 @@ class IssuesController {
   def save = {
     if(request.isPost()){
       def issue = new Issue()
-      issue.properties = params
+      bindData issue, params, ['dueDate']
+      issue.dueDate = params.dueDate ? Date.parse("dd/MM/yyyy", params.dueDate) : null
       if (issueService.newIssue(issue)) {
         flash.message = "Se creo correctamente."
         redirect(action:'view', params:[id:issue.code])
@@ -121,7 +122,9 @@ class IssuesController {
   def saveEdit = {
     if(request.isPost()){
       def issue = Issue.get(params.id)
-      issue.properties = params
+      bindData issue, params, ['dueDate']
+      if(params.dueDate)
+        issue.dueDate = Date.parse("dd/MM/yyyy", params.dueDate)
       try{
         issueService.saveIssue(issue)
         flash.message = "Se creo correctamente."

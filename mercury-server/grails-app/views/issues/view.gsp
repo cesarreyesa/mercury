@@ -28,10 +28,10 @@
           <span id="assign">Asignar</span>
           <span id="attach">Archivos adjuntos (${issue.attachments.size()})</span>
           <span id="edit">Editar</span>
-          <div style="float:right;">
-            <span id="back"><<</span>
-            <span id="next">>></span>
-          </div>
+          %{--<div style="float:right;">--}%
+            %{--<span id="back"><<</span>--}%
+            %{--<span id="next">>></span>--}%
+          %{--</div>--}%
         </div>
 
         <h2 class="title">${issue.code} ${issue.summary}</h2>
@@ -92,10 +92,10 @@
           <td>Prioidad</td>
           <td>${issue.priority.name}</td>
         </tr>
-        %{--<tr>--}%
-        %{--<td>Entrega</td>--}%
-        %{--<td>${issue}</td>--}%
-        %{--</tr>--}%
+        <tr>
+          <td>Entrega</td>
+          <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
+        </tr>
         <tr>
           <td>Reportador</td>
           <td>${issue.reporter.fullName}</td>
@@ -245,14 +245,14 @@
         document.location.href = '${createLink(action:'edit', id: issue.code)}';
       }
     });
-    $("#back").styledButton({
-      'orientation' : 'alone',
-      'action' : function () { alert( 'omfg' ) }
-    });
-    $("#next").styledButton({
-      'orientation' : 'alone',
-      'action' : function () { alert( 'omfg' ) }
-    });
+//    $("#back").styledButton({
+//      'orientation' : 'alone',
+//      'action' : function () { alert( 'omfg' ) }
+//    });
+//    $("#next").styledButton({
+//      'orientation' : 'alone',
+//      'action' : function () { alert( 'omfg' ) }
+//    });
 
     $( "#assignIssue").button();
   });

@@ -43,6 +43,10 @@
             <label class="label">Prioridad</label>
             <g:select name="priority.id" value="${issue.priority?.id}" from="${Priority.list()}" optionKey="id" optionValue="name" />
           </div>
+          <div class="group">
+            <label class="label">Fecha de entrega</label>
+            <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" />
+          </div>
           <div class="group navform wat-cf">
             <button class="button" type="submit">
               <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Save" /> Guardar
@@ -57,9 +61,9 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
     $('#summary').focus();
   });
-
 </script>
 
 </body>
