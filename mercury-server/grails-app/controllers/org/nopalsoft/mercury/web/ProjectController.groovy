@@ -24,7 +24,7 @@ class ProjectController {
 
   def users = {
     def project = Project.get(session.project.id)
-    def users = User.list()
+    def users = User.findAllByEnabled(true)
 
     [project: project, usersNotInProject: users]
   }
@@ -50,6 +50,21 @@ class ProjectController {
         flash.success = "Se elimino al usuario correctamente"
         redirect action:'users'
       }
+    }
+  }
+
+  def categories = {
+    def project = Project.get(session.project.id)
+    def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
+    [project: project, categories: categories]
+  }
+
+  def addCategory = {
+    def project = Project.get(session.project.id)
+    def category = new org.nopalsoft.mercury.domain.Category(name: params.name)
+    category.project = project
+    if(category.save(flush:true)){
+      redirect action:'categories'
     }
   }
 }

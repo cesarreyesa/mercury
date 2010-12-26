@@ -18,6 +18,16 @@ class AdminController {
     [user:user]
   }
 
+  def updateUser = {
+    def user = User.get(params.id)
+    user.properties = params
+    if(user.save(flush:true)){
+      redirect action: 'index'
+    }else{
+      render(view:'editUser', model:[user:user])
+    }
+  }
+
   def editRoles = {
     def user = User.get(params.id)
     [user:user, roles: Role.listOrderByAuthority()]
@@ -63,6 +73,7 @@ class AdminController {
     def project = new Project()
     project.properties = params
     project.lead = user
+    project.addToUsers(user)
     if(project.validate() && project.save(flush:true)){
       redirect action:'projects'
     }else{

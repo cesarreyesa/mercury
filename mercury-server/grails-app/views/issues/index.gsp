@@ -16,13 +16,9 @@
 
 <html>
 <head>
-  <title>Incidencias</title>
+  <title>${currentFilter.name}</title>
   <meta name="layout" content="main"/>
   <style type="text/css">
-  .issues {
-
-  }
-
   strong {
     font-weight: bold;
   }
@@ -69,14 +65,14 @@
 <div id="main">
   <div class="block" id="block-text">
     <div class="content">
-      <h2 class="title">Incidencias</h2>
+      <h2 class="title">${currentFilter.name}</h2>
       <div class="inner">
         <div style="text-align:right;padding-bottom:0px;">
           Mostrando <strong>${totalIssues}</strong> incidencias,
-          agrupado por: <strong>${currentFilter.groupBy}</strong>
+          agrupado por: <a href="#" id="groupByAnchor"><strong>${currentFilter.groupBy}</strong></a>
         </div>
           <g:each in="${issueGroups}" var="entry">
-            <h3>${entry.key.name}</h3>
+            <h3>${entry.key.toString()}</h3>
             <table class="table" cellpadding="0" cellspacing="0">
               <tr>
                 <th class="first">P</th>
@@ -122,6 +118,26 @@
   </div>
 </div>
 
+<div id="groupByDialog" title="" style="display:none;">
+  <g:form name="groupByForm" action="index" method="get">
+    <g:select name="groupBy" from="['priority':'Prioridad', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
+  </g:form>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $('#groupByAnchor').click(function(event){
+      event.preventDefault();
+      var position = $(this).position();
+      $( "#groupByDialog").dialog({
+        minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+      });
+    });
+    $('#groupBy').change(function(){
+      $('#groupByForm').submit();
+    });
+  });
+</script>
 </body>
 </html>
 

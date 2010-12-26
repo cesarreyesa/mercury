@@ -43,19 +43,23 @@
                 <label class="label">Prioridad</label>
                 <g:select name="priority.id" value="${issue.priority?.id}" from="${Priority.list()}" optionKey="id" optionValue="name" />
               </div>
+              <div class="group">
+                <label class="label">Fecha de entrega</label>
+                <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" />
+              </div>
             </div>
             <div class="column right" style="width:250px;">
               <div class="group">
                 <label class="label">Reportador:</label>
-                <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" />
+                <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" />
               </div>
               <div class="group">
                 <label class="label">Asignado a:</label>
-                <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+                <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
               </div>
               <div class="group">
                 <label class="label">Observadores:</label>
-                <g:select name="watchers" from="${project.users.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
+                <g:select name="watchers" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
                         multiple="true" value="${issue.watchers}" style="height:100px;"/>
               </div>
             </div>
@@ -63,9 +67,9 @@
 
           <div class="group navform wat-cf">
             <button class="button" type="submit">
-              <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Save" /> Save
+              <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Guardar" /> Guardar
             </button>
-            <g:link action="index" class="button"><img src="${resource(dir:'images/icons', file:'cross.png')}" alt="Cancel"/> Cancel</g:link>
+            <g:link action="index" class="button"><img src="${resource(dir:'images/icons', file:'cross.png')}" alt="Cancel"/> Cancelar</g:link>
           </div>
         </g:form>
       </div>
@@ -75,6 +79,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
+    $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
     $('#summary').focus();
   });
 </script>
