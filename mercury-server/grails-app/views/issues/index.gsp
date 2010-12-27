@@ -69,7 +69,7 @@
       <div class="inner">
         <div style="text-align:right;padding-bottom:0px;">
           Mostrando <strong>${totalIssues}</strong> incidencias,
-          agrupado por: <a href="#" id="groupByAnchor"><strong>${currentFilter.groupBy}</strong></a>
+          agrupado por: <a href="#" id="groupByAnchor"><strong><g:message code="issue.${currentFilter.groupBy.toString().toLowerCase()}"/></strong></a>
         </div>
           <g:each in="${issueGroups}" var="entry">
             <h3>${entry.key.toString()}</h3>

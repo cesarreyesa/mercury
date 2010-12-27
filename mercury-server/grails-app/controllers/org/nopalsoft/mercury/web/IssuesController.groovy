@@ -55,13 +55,13 @@ class IssuesController {
     if(filter.groupBy == GroupBy.Priority){
       def groups = issues.collect{ it.priority }.unique()
       for(def group : groups){
-        issueGroups[group] = issues.findAll { it.priority == group}
+        issueGroups[message(code:"priority.${group.code}")] = issues.findAll { it.priority == group}
       }
     }
     if(filter.groupBy == GroupBy.Type){
       def groups = issues.collect{ it.issueType }.unique()
       for(def group : groups){
-        issueGroups[group] = issues.findAll { it.issueType == group}
+        issueGroups[message(code:"issueType.${group.code}")] = issues.findAll { it.issueType == group}
       }
     }
     if(filter.groupBy == GroupBy.Assignee){
