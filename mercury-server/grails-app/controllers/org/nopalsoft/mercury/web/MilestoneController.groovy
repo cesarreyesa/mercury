@@ -40,12 +40,24 @@ class MilestoneController {
       }
     }
     flash.message = "Si se pudo"
-    redirect action: 'index'
+    redirect action: 'index', id: params.id
   }
 
   private def addIssueToMilestone(it, Milestone milestone) {
     def issue = Issue.get(it as long)
     issue.milestone = milestone
     issue.save()
+  }
+
+  def create = {
+    def milestone = new Milestone()
+    def project = Project.load(session.project.id)
+    milestone.project = project
+    milestone.name = params.name
+    milestone.startDate = Date.parse("dd/MM/yyyy", params.startDate)
+    milestone.endDate = Date.parse("dd/MM/yyyy", params.endDate)
+    milestone.save()
+
+    redirect action: 'index', id: params.actualMilestone
   }
 }

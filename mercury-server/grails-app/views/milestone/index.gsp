@@ -11,6 +11,20 @@
   <head>
     <title>Entregas</title>
     <meta name="layout" content="main"/>
+    <style type="text/css">
+      .custom-bar {
+          -moz-border-radius-topleft: 4px;
+          -moz-border-radius-topright: 4px;
+          background: none repeat scroll 0 0 #36393D;
+          border-bottom: 5px solid #1A1A1A;
+          color: #FFFFFF;
+          font-size: 13px;
+          margin: 0;
+          padding: 10px 15px;
+          font-family: helvetica,arial,sans-serif;
+      }
+
+    </style>
   </head>
   <body>
     <content tag="navbar">
@@ -21,7 +35,8 @@
         <div class="content">
           <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
           <div class="inner">
-            <g:form action="addIssuesToMilestone" onsubmit="validateForm();">
+            <g:form action="addIssuesToMilestone">
+              <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
               <table class="table" cellpadding="0" cellspacing="0">
                 <tr>
                   <td colspan="6">
@@ -59,7 +74,14 @@
     </div>
   <div id="sidebar">
     <div class="block">
-        <h3>Entregas</h3>
+      <div class="custom-bar">
+        <div style="display:inline;">
+          <span>Entregas</span>
+        </div>
+        <div style="color: black;display:inline;padding-left:150px">
+          <span id="new" >Nuevo</span>
+        </div>
+      </div>
         <ul class="navigation">
           <li class="${!milestone ? 'active' : ''}">
             <g:link action="index">Sin asignar</g:link>
@@ -73,11 +95,63 @@
       </div>
     </div>
 
-<script type="text/javascript">
-  function validateForm() {
-    alert('test');
-    alert($("#milestone"));
-  }
+  <div id="newMilestoneDialog" title="Nueva lista de entregas" style="display:none;">
+    <div class="form">
+      <g:form action="create">
+        <div class="row">
+          <div class="box">
+            <div class="label">
+              <label>Nombre:</label>
+            </div>
+            <div class="field">
+              <g:hiddenField name="actualMilestone" value="${milestone?.id ?: ''}"/>
+              <g:textField name="name" style="width:400px;"/>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="clear:both;">
+          <div class="label">
+            <label>Fecha de Inicio:</label>
+          </div>
+          <div class="field">
+            <g:textField name="startDate" value="${formatDate(date:new Date(), format:'dd/MM/yyyy')}" />
+          </div>
+        </div>
+        <div class="row" style="clear:both;">
+          <div class="label">
+            <label>Fecha de Final:</label>
+          </div>
+          <div class="field">
+            <g:textField name="endDate" value="${formatDate(date:new Date(), format:'dd/MM/yyyy')}" />
+          </div>
+        </div>
+        <div class="row">
+          <g:submitButton name="save" value="Guardar"/>
+        </div>
+      </g:form>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    $(function() {
+      $("#new").styledButton({
+        'orientation' : 'alone',
+        'action' : function () {
+          var position = $(this).position();
+          $("#newMilestoneDialog").dialog({
+            width:550, modal: true, position: [position.left, position.top + $(this).height()]
+          });
+        }
+      });
+    });
+
+    $(document).ready(function () {
+      $("#startDate").datepicker({dateFormat: 'dd/mm/yy'});
+      $("#endDate").datepicker({dateFormat: 'dd/mm/yy'});
+      $('#name').focus();
+    });
+
 </script>
   </body>
 </html>

@@ -15,6 +15,8 @@ class Milestone {
   }
 
   static mapping = {
+    version false
+    id generator: 'increment'
     project(nullable: false, lazy: true)
   }
 }
