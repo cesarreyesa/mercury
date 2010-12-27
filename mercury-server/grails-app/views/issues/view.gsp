@@ -93,6 +93,10 @@
           <td>${issue.priority.name}</td>
         </tr>
         <tr>
+          <td>Categoria</td>
+          <td>${issue.category?.name}</td>
+        </tr>
+        <tr>
           <td>Entrega</td>
           <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
         </tr>

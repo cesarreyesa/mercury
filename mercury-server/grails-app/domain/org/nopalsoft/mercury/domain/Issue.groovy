@@ -37,6 +37,7 @@ class Issue {
   Resolution resolution
   Priority priority
   Milestone milestone
+  Category category
 
   static hasMany = [attachments:IssueAttachment, watchers: User]
 
@@ -58,6 +59,7 @@ class Issue {
     dateResolved(nullable:true)
     assignee(nullable:true)
     milestone(nullable:true)
+    category(nullable:true)
   }
 
   static mapping = {
@@ -66,7 +68,6 @@ class Issue {
     priority column:'priority'
     date column:'date_'
     dueDate column:'end_date'
-    milestone(nullable: true)
     watchers joinTable: [name:'issue_watcher', key:'issue_id', column: 'user_id']
   }
 }

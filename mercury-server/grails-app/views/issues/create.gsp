@@ -44,6 +44,10 @@
                 <g:select name="priority.id" value="${issue.priority?.id}" from="${Priority.list()}" optionKey="id" optionValue="name" />
               </div>
               <div class="group">
+                <label class="label">Categoria</label>
+                <g:select name="category.id" value="${issue.category?.id}" from="${categories}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
+              </div>
+              <div class="group">
                 <label class="label">Fecha de entrega</label>
                 <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" />
               </div>

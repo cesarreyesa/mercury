@@ -92,7 +92,8 @@ class IssuesController {
     def issue = new Issue()
     def user = User.get(springSecurityService.principal.id)
     issue.reporter = user
-    [issue: issue, project: project]
+    def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
+    [issue: issue, project: project, categories: categories]
   }
 
   def save = {
@@ -116,7 +117,8 @@ class IssuesController {
 
   def edit = {
     def issue = Issue.findByCode(params.id)
-    [issue: issue, project: issue.project]
+    def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(issue.project)
+    [issue: issue, project: issue.project, categories: categories]
   }
 
   def saveEdit = {
