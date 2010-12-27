@@ -18,6 +18,7 @@ class IssueFilter{
 
 enum GroupBy {
   Priority,
+  Category,
   Type,
   Status,
   Assignee,

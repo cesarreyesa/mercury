@@ -9,4 +9,8 @@ class Category {
   static constraints = {
     name(unique: true, blank: false)
   }
+
+  public String toString(){
+    name
+  }
 }

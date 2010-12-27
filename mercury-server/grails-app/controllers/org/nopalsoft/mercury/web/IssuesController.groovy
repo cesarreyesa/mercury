@@ -45,6 +45,8 @@ class IssuesController {
     if(params.groupBy){
       if(params.groupBy == 'priority')
         filter.groupBy = GroupBy.Priority
+      if(params.groupBy == 'category')
+        filter.groupBy = GroupBy.Category
       if(params.groupBy == 'type')
         filter.groupBy = GroupBy.Type
       if(params.groupBy == 'assignee')
@@ -62,6 +64,12 @@ class IssuesController {
       def groups = issues.collect{ it.issueType }.unique()
       for(def group : groups){
         issueGroups[message(code:"issueType.${group.code}")] = issues.findAll { it.issueType == group}
+      }
+    }
+    if(filter.groupBy == GroupBy.Category){
+      def groups = issues.collect{ it.category }.unique()
+      for(def group : groups){
+        issueGroups[group ?: 'Sin categoria'] = issues.findAll { it.category == group}
       }
     }
     if(filter.groupBy == GroupBy.Assignee){

@@ -120,7 +120,7 @@
 
 <div id="groupByDialog" title="" style="display:none;">
   <g:form name="groupByForm" action="index" method="get">
-    <g:select name="groupBy" from="['priority':'Prioridad', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
+    <g:select name="groupBy" from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
   </g:form>
 </div>
 
