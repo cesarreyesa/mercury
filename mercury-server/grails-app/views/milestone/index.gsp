@@ -60,7 +60,7 @@
                     <td><g:checkBox name="issue" value="${issue.id}" checked="false"/></td>
                     <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
                     <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
-                    <td><g:link action="view" id="${issue.code}">${issue.summary}</g:link></td>
+                    <td><g:link controller="issues" action="view" id="${issue.code}">${issue.summary}</g:link></td>
                     <td>${issue.reporter.fullName}</td>
                     <td><g:if test="${issue.attachments}">[A]</g:if></td>
                   </tr>
