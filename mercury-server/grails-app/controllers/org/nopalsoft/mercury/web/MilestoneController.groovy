@@ -9,7 +9,7 @@ class MilestoneController {
 
   def index = {
     if (!session.project) {
-      render(view: 'chooseProject', model: [projects: Project.findAll()])
+      redirect(controller: 'home')
 
     } else {
       def issues

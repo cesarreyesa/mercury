@@ -39,9 +39,12 @@
               <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
               <table class="table" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td colspan="6">
+                  <td colspan="5">
                     Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
                     <g:submitButton name="submit" value="Agregar"/>
+                  </td>
+                  <td style="text-align:right;">
+                    Mostrando incidencias <a href="#">abiertas</a>
                   </td>
                 </tr>
                 <tr>
