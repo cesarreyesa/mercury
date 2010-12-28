@@ -57,7 +57,7 @@
                 <tbody>
                 <g:each in="${issues}" var="issue" status="i">
                   <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                    <td><g:checkBox name="issue" value="${issue.id}" checked="false" onclick="console.info('${issue.id}')"/></td>
+                    <td><g:checkBox name="issue" value="${issue.id}" checked="false"/></td>
                     <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
                     <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
                     <td><g:link action="view" id="${issue.code}">${issue.summary}</g:link></td>
@@ -77,9 +77,7 @@
       <div class="custom-bar">
         <div style="display:inline;">
           <span>Entregas</span>
-        </div>
-        <div style="color: black;display:inline;padding-left:150px">
-          <span id="new" >Nuevo</span>
+          <span style="float:right;"><a id="newMilestone" href="#" class="ui-icon ui-icon-circle-plus">Nuevo</a></span>
         </div>
       </div>
         <ul class="navigation">
@@ -97,7 +95,7 @@
 
   <div id="newMilestoneDialog" title="Nueva lista de entregas" style="display:none;">
     <div class="form">
-      <g:form action="create">
+      <g:form action="create" name="newMilestoneForm">
         <div class="row">
           <div class="box">
             <div class="label">
@@ -125,9 +123,6 @@
             <g:textField name="endDate" value="${formatDate(date:new Date(), format:'dd/MM/yyyy')}" />
           </div>
         </div>
-        <div class="row">
-          <g:submitButton name="save" value="Guardar"/>
-        </div>
       </g:form>
     </div>
   </div>
@@ -135,21 +130,21 @@
 
   <script type="text/javascript">
     $(function() {
-      $("#new").styledButton({
-        'orientation' : 'alone',
-        'action' : function () {
-          var position = $(this).position();
-          $("#newMilestoneDialog").dialog({
-            width:550, modal: true, position: [position.left, position.top + $(this).height()]
-          });
-        }
-      });
-    });
-
-    $(document).ready(function () {
       $("#startDate").datepicker({dateFormat: 'dd/mm/yy'});
       $("#endDate").datepicker({dateFormat: 'dd/mm/yy'});
-      $('#name').focus();
+
+      $("#newMilestone").click(function(){
+        $('#name').focus();
+        var position = $(this).position();
+        $("#newMilestoneDialog").dialog({
+          width:550, modal: true, position: [position.left, position.top + $(this).height()],
+          buttons: {
+            "Guardar": function(){
+              $('#newMilestoneForm').submit();
+            }
+          }
+        });
+      });
     });
 
 </script>
