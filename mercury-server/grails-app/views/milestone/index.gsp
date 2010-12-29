@@ -44,7 +44,7 @@
                     <g:submitButton name="submit" value="Agregar"/>
                   </td>
                   <td style="text-align:right;">
-                    Mostrando incidencias <a href="#">abiertas</a>
+                    Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a>
                   </td>
                 </tr>
                 <tr>
