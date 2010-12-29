@@ -21,7 +21,7 @@ class MilestoneController {
         issues = milestone.issues
       } else if(project.currentMilestone) {
         milestone = project.currentMilestone
-        issues = project.currentMilestone.issues
+        issues = project.currentMilestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
       }else {
         issues = issueService.getIssuesNotInMilestone(project)
       }
