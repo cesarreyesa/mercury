@@ -34,15 +34,16 @@
       <h2 class="title">Usuarios</h2>
       <div class="inner">
         <table class="table">
-          <thead>
-            <tr>
-              <th>Usuario</th>
-              <th>Nombre</th>
-              <th>Email</th>
-              %{--<th>Idioma</th>--}%
-              <th>&nbsp;</th>
-            </tr>
-          </thead>
+          <tr>
+            <td colspan="4" align="right"><g:link action="addUser">Agregar</g:link></td>
+          </tr>
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            %{--<th>Idioma</th>--}%
+            <th>&nbsp;</th>
+          </tr>
           <tbody>
             <g:each in="${users}" var="user">
               <tr>

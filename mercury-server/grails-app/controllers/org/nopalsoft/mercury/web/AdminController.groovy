@@ -13,6 +13,22 @@ class AdminController {
     [users: users]
   }
 
+  def addUser = {
+    def user = new User()
+    [user: user]
+  }
+
+  def saveUser = {
+    def user = new User()
+    user.properties = params
+    user.password = springSecurityService.encodePassword(user.password)
+    if(user.save(flush:true)){
+      redirect action: 'editUser', id: user.id
+    }else{
+      render(view:'addUser', model:[user:user])
+    }
+  }
+
   def editUser = {
     def user = User.get(params.id)
     [user:user]

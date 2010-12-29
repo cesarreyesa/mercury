@@ -1,13 +1,13 @@
 <%--
   User: cesarreyes
-  Date: 28/11/10
-  Time: 23:48
+  Date: 28/12/10
+  Time: 19:51
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <title>Edit user</title>
+  <title>Agregar usuario</title>
   <meta content="main" name="layout"/>
 </head>
 <body>
@@ -19,19 +19,15 @@
 <div id="main">
   <div class="block" id="block-text">
 
-    <div class="secondary-navigation">
-      <ul class="wat-cf">
-        <li class="first active"><g:link action="editUser" id="${user.id}">Editar</g:link></li>
-        <li><g:link action="editRoles" id="${user.id}">Permisos</g:link></li>
-      </ul>
-    </div>
-
     <div class="content">
-      <h2 class="title">Editar usuario</h2>
+      <h2 class="title">Agregar usuario</h2>
       <div class="inner">
-        <g:form action="updateUser" class="form">
-          <g:hiddenField name="id" value="${user.id}"/>
-
+        <g:form action="saveUser" class="form">
+          <g:hasErrors bean="${user}">
+             <div class="errors">
+                <g:renderErrors bean="${user}" as="list"/>
+             </div>
+          </g:hasErrors>
           <div class="group">
             <label class="label">Usuario</label>
             <g:textField name="username" value="${user.username}"/>
@@ -43,6 +39,10 @@
           <div class="group">
             <label class="label">Apellido</label>
             <g:textField name="lastName" value="${user.lastName}"/>
+          </div>
+          <div class="group">
+            <label class="label">Contrase&ntilde;a</label>
+            <g:passwordField name="password"/>
           </div>
           <div class="group">
             <label class="label">Email</label>
@@ -64,5 +64,10 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  $(function(){
+    $('#username').focus();
+  });
+</script>
 </body>
 </html>
