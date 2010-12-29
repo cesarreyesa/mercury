@@ -2,12 +2,14 @@ package org.nopalsoft.mercury.web
 
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.User
+import org.nopalsoft.mercury.domain.Milestone
 
 class ProjectController {
 
   def index = {
     def project = Project.get(session.project.id)
-    [project: project]
+    def milestones = Milestone.findAllByProject(project)
+    [project: project, milestones: milestones]
   }
 
   def save = {

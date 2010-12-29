@@ -7,7 +7,7 @@ class Project {
   String description
   Integer lastIssueId
   User lead
-//  private Milestone currentMilestone;
+  Milestone currentMilestone
 //  private List<Component> components = new ArrayList<Component>();
   static hasMany = [users:User]
 
@@ -15,6 +15,7 @@ class Project {
     code(blank: false)
     name(blank: false)
     lastIssueId(nullable: true)
+    currentMilestone(nullable: true)
   }
   
   static mapping = {

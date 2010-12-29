@@ -56,8 +56,12 @@
             <g:textArea name="description" value="${project.description}"/>
           </div>
           <div class="group">
-            <label for="lead.id" class="label";>Lider de proyecto</label>
+            <label for="lead.id" class="label">Lider de proyecto</label>
             <g:select name="lead.id" value="${project.lead.id}" from="${project.users}" optionKey="id" optionValue="fullName" noSelection="['': '']"/>
+          </div>
+          <div class="group">
+            <label for="currentMilestone.id" class="label">Entrega actual</label>
+            <g:select name="currentMilestone.id" value="${project.currentMilestone?.id}" from="${milestones}" optionKey="id" optionValue="name" noSelection="['': '']"/>
           </div>
           <div class="group navform wat-cf">
             <button class="button" type="submit">

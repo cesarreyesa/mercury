@@ -19,7 +19,10 @@ class MilestoneController {
       if (id) {
         milestone = Milestone.get(id)
         issues = milestone.issues
-      } else {
+      } else if(project.currentMilestone) {
+        milestone = project.currentMilestone
+        issues = project.currentMilestone.issues
+      }else {
         issues = issueService.getIssuesNotInMilestone(project)
       }
 

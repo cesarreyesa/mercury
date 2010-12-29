@@ -5,7 +5,7 @@ class Milestone {
   String name
   Date startDate
   Date endDate
-  static belongsTo = [project: Project]
+  Project project
   static hasMany = [issues: Issue]
 
   static constraints = {
