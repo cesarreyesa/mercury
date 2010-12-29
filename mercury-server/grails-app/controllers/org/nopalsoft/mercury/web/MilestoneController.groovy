@@ -18,7 +18,7 @@ class MilestoneController {
       def id = params.long('id')
       if (id) {
         milestone = Milestone.get(id)
-        issues = milestone.issues
+        issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
       } else if(project.currentMilestone) {
         milestone = project.currentMilestone
         issues = project.currentMilestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
