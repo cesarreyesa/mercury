@@ -3,6 +3,7 @@ package org.nopalsoft.mercury.web
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.domain.Issue
+import org.nopalsoft.mercury.domain.MilestoneStatus
 
 class MilestoneController {
   def issueService
@@ -16,18 +17,21 @@ class MilestoneController {
       def milestone = null
       def project = Project.load(session.project.id)
       def id = params.long('id')
+      def showUnassigned = params.boolean('showUnassigned')
       if (id) {
         milestone = Milestone.get(id)
         issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
-      } else if(project.currentMilestone) {
+      } else if(project.currentMilestone && !showUnassigned) {
         milestone = project.currentMilestone
         issues = project.currentMilestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
       }else {
         issues = issueService.getIssuesNotInMilestone(project)
       }
 
-      def milestones = Milestone.findAllByProject(project)
-      [milestone: milestone, milestones: milestones, issues: issues]
+      def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status = :statusParam or m.status is null) order by startDate desc",
+              [projectParam: project, statusParam: MilestoneStatus.OPEN ])
+
+      [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned]
     }
   }
 
@@ -43,7 +47,7 @@ class MilestoneController {
       }
     }
     flash.message = "Si se pudo"
-    redirect action: 'index', id: params.id
+    redirect action: 'index', params: [id: params.id, showUnassigned: params.showUnassigned]
   }
 
   private def addIssueToMilestone(it, Milestone milestone) {
@@ -62,5 +66,20 @@ class MilestoneController {
     milestone.save()
 
     redirect action: 'index', id: params.actualMilestone
+  }
+
+  def closeMilestone = {
+    def milestoneId = params.long("id")
+    if (milestoneId) {
+      def milestone = Milestone.get(milestoneId)
+      def issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
+      if (issues.empty) {
+        milestone.status = MilestoneStatus.CLOSE
+        milestone.save()
+        redirect action: 'index'
+      }
+    }
+
+    redirect action: 'index', params: [id: params.id, showUnassigned: params.showUnassigned]
   }
 }

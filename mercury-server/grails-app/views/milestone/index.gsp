@@ -37,11 +37,13 @@
           <div class="inner">
             <g:form action="addIssuesToMilestone">
               <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
+              <g:hiddenField name="showUnassigned" value="${showUnassigned}"/>
               <table class="table" cellpadding="0" cellspacing="0">
                 <tr>
                   <td colspan="5">
                     Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
                     <g:submitButton name="submit" value="Agregar"/>
+                    <span id="close" style="float:right;">Cerrar Entrega</span>
                   </td>
                   <td style="text-align:right;">
                     Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a>
@@ -85,7 +87,7 @@
       </div>
         <ul class="navigation">
           <li class="${!milestone ? 'active' : ''}">
-            <g:link action="index">Sin asignar</g:link>
+            <g:link action="index" params="${[showUnassigned:true]}">Sin asignar</g:link>
           </li>
           <g:each in="${milestones}" var="milestoneItem">
             <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
@@ -130,6 +132,11 @@
     </div>
   </div>
 
+  <g:form action="closeMilestone" name="closeMilestoneForm" class="form" style="display:none">
+    <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
+    <g:hiddenField name="showUnassigned" value="${showUnassigned}"/>
+  </g:form>
+
 
   <script type="text/javascript">
     $(function() {
@@ -147,6 +154,13 @@
             }
           }
         });
+      });
+
+      $("#close").styledButton({
+        'orientation' : 'alone',
+        'action' : function () {
+          $('#closeMilestoneForm').submit();
+        }
       });
     });
 
