@@ -1,3 +1,7 @@
 .simple .ui-dialog-titlebar {
     display:none;
 }
+
+.ui-dialog-buttonset{
+    float:none !important;
+}

@@ -1,9 +1,7 @@
 <%--
-  Created by IntelliJ IDEA.
   User: cesarreyes
   Date: 01/11/10
   Time: 19:09
-  To change this template use File | Settings | File Templates.
 --%>
 
 <%@ page import="org.nopalsoft.mercury.domain.Resolution" contentType="text/html;charset=UTF-8" %>
@@ -125,34 +123,20 @@
 
 
 <div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
-  <g:form action="assignIssue" id="${issue.code}">
-    <div class="form">
-      <div class="row">
-        <div class="label">
-          <label>Asignar a:</label>
-        </div>
-        <div class="field">
-          <g:select name="assignee.id" value="${issue.assignee?.id}" from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="label">
-          <label>Comentario:</label>
-        </div>
-        <div class="field">
-          <g:textArea name="assignComment" style="width:500px;height:100px;"/>
-        </div>
-      </div>
-      <div class="row">
-        <g:submitButton name="assignIssue" value="Asignar" />
-      </div>
+  <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form">
+    <div class="group">
+      <label class="label">Asignar a:</label>
+      <g:select name="assignee.id" value="${issue.assignee?.id}" from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+    </div>
+    <div class="group">
+      <label class="label">Comentario:</label>
+      <g:textArea name="assignComment" style="width:500px;height:100px;"/>
     </div>
   </g:form>
 </div>
 
 <div id="addAttachmentDialog" title="Archivos adjuntos" style="display:none;">
   <div class="form">
-
     <div class="row">
       <table>
         <g:each in="${issue.attachments}" var="attachment">
@@ -189,29 +173,16 @@
 </div>
 
 <div id="resolveIssueDialog" title="Resolver incidencia" style="display:none;">
-  <div class="form">
-    <g:form action="resolveIssue" id="${issue.code}">
-      <div class="row">
-        <div class="box">
-          <div class="label">
-            <label>Resolucion:</label>
-          </div>
-          <g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
-        </div>
-      </div>
-      <div class="row" style="clear:both;">
-        <div class="label">
-          <label>Comentario:</label>
-        </div>
-        <div class="field">
-          <g:textArea name="resolveComment" style="width:500px;height:100px;"/>
-        </div>
-      </div>
-      <div class="row">
-        <g:submitButton name="resolveIssue" value="Resolver" />
-      </div>
-    </g:form>
-  </div>
+  <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form">
+    <div class="group">
+      <label class="label">Resolucion:</label>
+      <g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
+    </div>
+    <div class="group">
+      <label class="label">Comentario:</label>
+      <g:textArea name="resolveComment" style="width:500px;height:100px;"/>
+    </div>
+  </g:form>
 </div>
 
 <script type="text/javascript">
@@ -221,7 +192,12 @@
       'action' : function () {
         var position = $(this).position();
         $( "#resolveIssueDialog").dialog({
-          width:550, modal: true, position: [position.left, position.top + $(this).height()]
+          width:550, modal: true, position: [position.left, position.top + $(this).height()],
+          buttons:{
+            "Resolver":function(){
+              $('#resolveIssueForm').submit();
+            }
+          }
         });
       }
     });
@@ -230,7 +206,12 @@
       'action' : function () {
         var position = $(this).position();
         $( "#assignIssueDialog").dialog({
-          width:550, modal: true, position: [position.left, position.top + $(this).height()]
+          width:550, modal: true, position: [position.left, position.top + $(this).height()],
+          buttons:{
+            "Asignar": function(){
+              $('#assignIssueForm').submit();
+            }
+          }
         });
       }
     });
