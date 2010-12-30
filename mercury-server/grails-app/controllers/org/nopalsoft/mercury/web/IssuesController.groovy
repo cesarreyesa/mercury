@@ -207,7 +207,11 @@ class IssuesController {
 
   def resolveIssue = {
     def issue = Issue.findByCode(params.id)
-    issueService.resolveIssue issue, Resolution.get(params.resolution), params.resolveComment
+    def notifyUsers = []
+    if(params.notifyTo){
+      notifyUsers << User.load(params.long('notifyTo'))
+    }
+    issueService.resolveIssue issue, Resolution.get(params.resolution), params.resolveComment, notifyUsers
     flash.message = "Se resolvio correctamente"
     redirect(action:'view', params:[id:issue.code])
   }

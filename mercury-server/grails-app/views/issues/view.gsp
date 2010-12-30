@@ -179,6 +179,11 @@
       <g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
     </div>
     <div class="group">
+      <label class="label">Notificar a:</label>
+      <g:select name="notifyTo" from="${issue.project.users.findAll{ it.enabled && it.id != issue.reporter.id }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="['':'Seleccione...']"/>
+      <div class="description">Si desea que alguien m&aacute;s, ademas de quien abrio la incidencia sea notificado.</div>
+    </div>
+    <div class="group">
       <label class="label">Comentario:</label>
       <g:textArea name="resolveComment" style="width:500px;height:100px;"/>
     </div>
