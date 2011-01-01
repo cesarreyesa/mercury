@@ -59,7 +59,7 @@
       </div>
       <div id="search-box">
         <g:form controller="issues" action="index" method="get">
-          <g:textField name="search"/>
+          <g:textField name="search" class="text_field" style="width:150px;"/>
           <g:submitButton name="submit" value="Buscar"/>
         </g:form>
       </div>
