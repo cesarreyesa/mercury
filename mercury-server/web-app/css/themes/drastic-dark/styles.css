@@ -259,6 +259,10 @@ hr {
   border-bottom:1px solid #F0F0EE;
 }
 
+.table tr.noborder td {
+  border-bottom:none;
+}
+
 .table tr.even {
   background: #ebebeb;
 }

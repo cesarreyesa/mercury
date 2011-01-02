@@ -22,7 +22,7 @@
     <th>A</th>
   </tr>
   <g:each in="${issues}" var="issue" status="i">
-    <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+    <tr class="${(i % 2) == 0 ? 'odd' : 'even'} ${extendedView ? 'noborder' : ''}">
       <g:if test="${includeCheckbox}">
         <td><g:checkBox name="issue" value="${issue.id}" checked="false"/></td>
       </g:if>
@@ -33,5 +33,16 @@
       <td style="white-space:nowrap;">${issue.assignee ? issue.assignee.fullName : '--'}</td>
       <td><g:if test="${issue.attachments}">[A]</g:if></td>
     </tr>
+    <g:if test="${extendedView && issue.description}">
+      <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+        <g:if test="${includeCheckbox}">
+          <td>&nbsp;</td>
+        </g:if>
+        <td colspan="2">&nbsp;</td>
+        <td colspan="4" style="font-size:80%;">
+          ${issue.description}
+        </td>
+      </tr>
+    </g:if>
   </g:each>
 </table>
