@@ -73,26 +73,7 @@
         </div>
           <g:each in="${issueGroups}" var="entry">
             <h3>${entry.key.toString()}</h3>
-            <table class="table" cellpadding="0" cellspacing="0">
-              <tr>
-                <th class="first">P</th>
-                <th>Codigo</th>
-                <th>Resumen</th>
-                <th>Reportador</th>
-                <th style="white-space:nowrap;">Asignado a</th>
-                <th>A</th>
-              </tr>
-            <g:each in="${entry.value}" var="issue" status="i">
-              <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
-                <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
-                <td><g:link action="view" id="${issue.code}">${issue.summary}</g:link></td>
-                <td style="white-space:nowrap;">${issue.reporter.fullName}</td>
-                <td style="white-space:nowrap;">${issue.assignee ? issue.assignee.fullName : '--'}</td>
-                <td><g:if test="${issue.attachments}">[A]</g:if></td>
-              </tr>
-            </g:each>
-            </table>
+            <g:render template="issuesTable" model="[issues:entry.value]"/>
           </g:each>
         <div class="actions-bar wat-cf">
           <div class="pagination">
