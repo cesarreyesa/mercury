@@ -228,12 +228,11 @@ class IssueService {
     //usersToSend.addAll(issue.watchers.asList())
 
     usersToSend.unique().each {User user ->
-      println user.email
       try {
         mailService.sendMail {
           to user.email
           subject "[NUEVA $issue.code] $issue.summary"
-          body view:"/emails/newIssue", model:[issue: issue, createdBy: createdBy]
+          body view:"/emails/newIssue", model:[issue: issue, editedBy: createdBy]
         }
       } catch (Exception ex) {
         println ex
@@ -248,6 +247,21 @@ class IssueService {
 
   public void saveIssue(Issue issue, String comment){
     issue.lastUpdated = new Date()
+
+    User editedBy = User.get(springSecurityService.principal.id)
+    def usersToSend = issue.watchers + issue.reporter
+
+    usersToSend.unique().findAll{ it.id != editedBy.id }.each {User user ->
+      try {
+        mailService.sendMail {
+          to user.email
+          subject "Incidencia Editada. [$issue.code] $issue.summary"
+          body view:"/emails/editedIssue", model:[issue: issue, editedBy: editedBy, comment:comment]
+        }
+      } catch (Exception ex) {
+        println ex
+      }
+    }
 
     logIssue(issue, comment)
 
