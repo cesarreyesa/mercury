@@ -29,11 +29,11 @@
             <div class="column left" style="width:420px;">
               <div class="group">
                 <label for="summary" class="label">Resumen:</label>
-                <g:textField name="summary" value="${issue.summary}" style="width:400px;"/>
+                <g:textField name="summary" value="${issue.summary}" class="text_field"/>
               </div>
               <div class="group">
                 <label class="label">Descripcion:</label>
-                <g:textArea name="description" value="${issue.description}" style="width:400px;height:100px;"/>
+                <g:textArea name="description" value="${issue.description}" style="height:100px;" class="text_area"/>
               </div>
               <div class="group">
                 <label class="label">Tipo de incidencia</label>
@@ -49,7 +49,7 @@
               </div>
               <div class="group">
                 <label class="label">Fecha de entrega</label>
-                <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" />
+                <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" class="text_field" style="width:100px;"/>
               </div>
             </div>
             <div class="column right" style="width:250px;">
