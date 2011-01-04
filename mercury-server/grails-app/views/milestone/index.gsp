@@ -33,6 +33,20 @@
     <div id="main">
       <div class="block" id="block-text">
         <div class="content">
+          <g:if test="${flash.message}">
+            <div class="flash">
+              <div class="message error">
+                ${flash.message}
+              </div>
+            </div>
+          </g:if>
+          <g:if test="${flash.success}">
+            <div class="flash">
+              <div class="message notice">
+                ${flash.success}
+              </div>
+            </div>
+          </g:if>
           <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
           <div class="inner">
             <g:form action="addIssuesToMilestone">
@@ -53,11 +67,12 @@
                   <th class="first">
                     <g:checkBox name="selectAll" onclick="jQuery('[name=issue]').attr('checked', this.checked)"/>
                   </th>
-                  <th>P</th>
+                  <th class="first">P</th>
                   <th>Codigo</th>
                   <th>Resumen</th>
                   <th>Reportador</th>
-                  <th class="last">A</th>
+                  <th style="white-space:nowrap;">Asignado a</th>
+                  <th>A</th>
                 </tr>
                 <tbody>
                 <g:each in="${issues}" var="issue" status="i">
@@ -66,7 +81,8 @@
                     <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
                     <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
                     <td><g:link controller="issues" action="view" id="${issue.code}">${issue.summary}</g:link></td>
-                    <td>${issue.reporter.fullName}</td>
+                    <td style="white-space:nowrap;">${issue.reporter.fullName}</td>
+                    <td style="white-space:nowrap;">${issue.assignee ? issue.assignee.fullName : '--'}</td>
                     <td><g:if test="${issue.attachments}">[A]</g:if></td>
                   </tr>
                 </g:each>
@@ -81,7 +97,7 @@
     <div class="block">
       <div class="custom-bar">
         <div style="display:inline;">
-          <span>Entregas</span>
+          <span>Entregas:</span>
           <span style="float:right;"><a id="newMilestone" href="#" class="ui-icon ui-icon-circle-plus">Nuevo</a></span>
         </div>
       </div>

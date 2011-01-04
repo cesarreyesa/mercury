@@ -46,7 +46,7 @@ class MilestoneController {
         addIssueToMilestone(it, milestone)
       }
     }
-    flash.message = "Si se pudo"
+    flash.success = "Las incidencias se han agregado correctamente a la entrega."
     redirect action: 'index', params: [id: params.id, showUnassigned: params.showUnassigned]
   }
 
@@ -77,7 +77,10 @@ class MilestoneController {
         milestone.status = MilestoneStatus.CLOSE
         milestone.save()
         redirect action: 'index'
+      } else {
+        flash.message = "No se puede cerrar la entrega porque existen incidencias abiertas."
       }
+
     }
 
     redirect action: 'index', params: [id: params.id, showUnassigned: params.showUnassigned]
