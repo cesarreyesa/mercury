@@ -20,6 +20,9 @@
     <th>Reportador</th>
     <th style="white-space:nowrap;">Asignado a</th>
     <th>A</th>
+    <g:if test="${enableIssueSort}">
+      <th>Ordenar</th>
+    </g:if>
   </tr>
   <g:each in="${issues}" var="issue" status="i">
     <tr class="${(i % 2) == 0 ? 'odd' : 'even'} ${extendedView ? 'noborder' : ''}">
@@ -32,6 +35,22 @@
       <td style="white-space:nowrap;">${issue.reporter.fullName}</td>
       <td style="white-space:nowrap;">${issue.assignee ? issue.assignee.fullName : '--'}</td>
       <td><g:if test="${issue.attachments}">[A]</g:if></td>
+      <g:if test="${enableIssueSort}">
+        <td>
+          <g:if test="${i > 0}">
+            <a href="#" onclick="$('#moveUpForm input[type=hidden]#issue').val(${issue.id});$('#moveUpForm').submit();return false;">▲</a>
+          </g:if>
+          <g:else>
+            ▲
+          </g:else>|
+          <g:if test="${i < issues.size() - 1}">
+            <a href="#" onclick="$('#moveDownForm input[type=hidden]#issue').val(${issue.id});$('#moveDownForm').submit();return false;">▼</a>
+          </g:if>
+          <g:else>
+            ▼
+          </g:else>
+        </td>
+      </g:if>
     </tr>
     <g:if test="${extendedView && issue.description}">
       <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
@@ -46,3 +65,4 @@
     </g:if>
   </g:each>
 </table>
+

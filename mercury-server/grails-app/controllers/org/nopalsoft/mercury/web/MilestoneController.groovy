@@ -19,7 +19,7 @@ class MilestoneController {
       if (id) {
         milestone = Milestone.get(id)
         issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
-      } else if(project.currentMilestone) {
+      } else if(project.currentMilestone && params.id != 'pending') {
         milestone = project.currentMilestone
         issues = project.currentMilestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
       }else {
@@ -48,8 +48,22 @@ class MilestoneController {
 
   private def addIssueToMilestone(it, Milestone milestone) {
     def issue = Issue.get(it as long)
-    issue.milestone = milestone
-    issue.save()
+    milestone.addToIssues(issue)
+    milestone.save()
+  }
+
+  def moveUp = {
+    def milestone = Milestone.load(params.milestone)
+    def issue = Issue.load(params.issue)
+    milestone.moveUp issue
+    redirect action: 'index', id: params.milestone
+  }
+
+  def moveDown = {
+    def milestone = Milestone.load(params.milestone)
+    def issue = Issue.load(params.issue)
+    milestone.moveDown issue
+    redirect action: 'index', id: params.milestone
   }
 
   def create = {

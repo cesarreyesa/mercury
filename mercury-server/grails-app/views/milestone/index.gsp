@@ -42,7 +42,15 @@
                 <g:submitButton name="submit" value="Agregar"/>
                 <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a></span>
               </div>
-              <g:render template="/issues/issuesTable" model="[issues:issues, includeCheckbox:true]" />
+              <g:render template="/issues/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: milestone != null]" />
+            </g:form>
+            <g:form name="moveUpForm" controller="milestone" action="moveUp">
+              <g:hiddenField name="milestone" value="${milestone?.id}"/>
+              <g:hiddenField name="issue"/>
+            </g:form>
+            <g:form name="moveDownForm" controller="milestone" action="moveDown">
+              <g:hiddenField name="milestone" value="${milestone?.id}"/>
+              <g:hiddenField name="issue"/>
             </g:form>
           </div>
         </div>
@@ -58,7 +66,7 @@
       </div>
         <ul class="navigation">
           <li class="${!milestone ? 'active' : ''}">
-            <g:link action="index">Sin asignar</g:link>
+            <g:link action="index" id="pending">Sin asignar</g:link>
           </li>
           <g:each in="${milestones}" var="milestoneItem">
             <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
