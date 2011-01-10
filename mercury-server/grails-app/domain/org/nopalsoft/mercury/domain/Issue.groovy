@@ -72,11 +72,6 @@ class Issue {
   }
 }
 
-//  @ManyToMany(cascade = CascadeType.ALL)
-//  @JoinTable(name = "issue_component",
-//  joinColumns = @JoinColumn(name = "issue_id"), inverseJoinColumns = @JoinColumn(name = "component_id"))
-//  List<Component> components = new ArrayList<Component>();
-//
 //  @Column(name = "date_closed")
 //  Date dateClosed;
 //

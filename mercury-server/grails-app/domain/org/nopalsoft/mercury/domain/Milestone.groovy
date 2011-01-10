@@ -7,7 +7,7 @@ class Milestone {
   Date endDate
   Project project
   static hasMany = [issues: Issue]
-  List issues
+//  List issues
 
   def moveUp(issue){
     issues.eachWithIndex(){ o, idx ->
@@ -46,5 +46,6 @@ class Milestone {
     version false
     id generator: 'increment'
     project(nullable: false, lazy: true)
+    issues(inverse:true)
   }
 }
