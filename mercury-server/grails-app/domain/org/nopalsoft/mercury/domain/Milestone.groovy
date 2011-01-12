@@ -6,6 +6,7 @@ class Milestone {
   Date startDate
   Date endDate
   Project project
+  MilestoneStatus status = MilestoneStatus.OPEN
   static hasMany = [issues: Issue]
 //  List issues
 
@@ -40,6 +41,7 @@ class Milestone {
     name(unique: true, blank: false)
     startDate(nullable: false)
     endDate(nullable: false)
+    status(nullable: false)
   }
 
   static mapping = {

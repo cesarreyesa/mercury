@@ -33,6 +33,20 @@
     <div id="main">
       <div class="block" id="block-text">
         <div class="content">
+          <g:if test="${flash.message}">
+            <div class="flash">
+              <div class="message error">
+                ${flash.message}
+              </div>
+            </div>
+          </g:if>
+          <g:if test="${flash.success}">
+            <div class="flash">
+              <div class="message notice">
+                ${flash.success}
+              </div>
+            </div>
+          </g:if>
           <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
           <div class="inner">
             <g:form action="addIssuesToMilestone">
@@ -41,6 +55,7 @@
                 Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
                 <g:submitButton name="submit" value="Agregar"/>
                 <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a></span>
+                <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
               </div>
               <g:render template="/issues/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]" />
             </g:form>
@@ -60,13 +75,13 @@
     <div class="block">
       <div class="custom-bar">
         <div style="display:inline;">
-          <span>Entregas</span>
+          <span>Entregas:</span>
           <span style="float:right;"><a id="newMilestone" href="#" class="ui-icon ui-icon-circle-plus">Nuevo</a></span>
         </div>
       </div>
         <ul class="navigation">
           <li class="${!milestone ? 'active' : ''}">
-            <g:link action="index" id="pending">Sin asignar</g:link>
+            <g:link action="index" params="${[showUnassigned:true]}">Sin asignar</g:link>
           </li>
           <g:each in="${milestones}" var="milestoneItem">
             <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
@@ -111,6 +126,11 @@
     </div>
   </div>
 
+  <g:form action="closeMilestone" name="closeMilestoneForm" class="form" style="display:none">
+    <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
+    <g:hiddenField name="showUnassigned" value="${showUnassigned}"/>
+  </g:form>
+
 
   <script type="text/javascript">
     $(function() {
@@ -128,6 +148,13 @@
             }
           }
         });
+      });
+
+      $("#close").styledButton({
+        'orientation' : 'alone',
+        'action' : function () {
+          $('#closeMilestoneForm').submit();
+        }
       });
     });
 
