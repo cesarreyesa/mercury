@@ -42,7 +42,7 @@
                 <g:submitButton name="submit" value="Agregar"/>
                 <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a></span>
               </div>
-              <g:render template="/issues/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: milestone != null]" />
+              <g:render template="/issues/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]" />
             </g:form>
             <g:form name="moveUpForm" controller="milestone" action="moveUp">
               <g:hiddenField name="milestone" value="${milestone?.id}"/>
