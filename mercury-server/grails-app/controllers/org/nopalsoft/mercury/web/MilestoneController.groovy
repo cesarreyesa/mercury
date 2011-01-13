@@ -21,11 +21,7 @@ class MilestoneController {
       if (id) {
         milestone = Milestone.get(id)
         issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
-<<<<<<< HEAD
-      } else if(project.currentMilestone && params.id != 'pending') {
-=======
-      } else if(project.currentMilestone && !showUnassigned) {
->>>>>>> 3f558970afb9670099a8e5be69ae704608db1f61
+      } else if(project.currentMilestone && !showUnassigned && params.id != 'pending') {
         milestone = project.currentMilestone
         issues = project.currentMilestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
       }else {
