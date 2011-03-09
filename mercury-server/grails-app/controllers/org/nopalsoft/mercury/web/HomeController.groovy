@@ -11,7 +11,7 @@ class HomeController {
 
   def index = {
     if (!session.project) {
-      render(view: 'chooseProject', model: [projects: Project.findAll()])
+      redirect(action: 'chooseProject')
     }else{
       def user = User.get(springSecurityService.principal.id)
       def model = new HashMap<String, ?>();
