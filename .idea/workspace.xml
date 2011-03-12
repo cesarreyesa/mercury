@@ -14,12 +14,24 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0cfa61bd-336b-47de-87e4-2bc101dd7dde" name="Default" comment="">
+    <list default="true" id="0cfa61bd-336b-47de-87e4-2bc101dd7dde" name="Default" comment="Merge branch 'master' of git://github.com/cesarreyesa/mercury&#10;&#10;Conflicts:&#10;&#9;mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy&#10;&#9;mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Milestone.groovy&#10;&#9;mercury-server/grails-app/views/milestone/index.gsp&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/conf/Config.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/conf/Config.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/conf/CustomFilters.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/conf/CustomFilters.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/conf/DataSource.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/conf/DataSource.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/AdminController.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/AdminController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/HomeController.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/HomeController.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/ProjectController.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/ProjectController.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Issue.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Issue.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Milestone.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Milestone.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/User.groovy" afterPath="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/User.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/views/issues/_issuesTable.gsp" afterPath="$PROJECT_DIR$/mercury-server/grails-app/views/issues/_issuesTable.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/views/login/recoverPassword.gsp" afterPath="$PROJECT_DIR$/mercury-server/grails-app/views/login/recoverPassword.gsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/grails-app/views/milestone/index.gsp" afterPath="$PROJECT_DIR$/mercury-server/grails-app/views/milestone/index.gsp" />
     </list>
     <list id="1ff69704-5752-4c04-adc4-1e861b7b24f0" name="No commit" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mercury-server/mercury-server-grailsPlugins.iml" afterPath="$PROJECT_DIR$/mercury-server/mercury-server-grailsPlugins.iml" />
     </list>
     <ignored path="mercury.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,7 +52,7 @@
   </component>
   <component name="DebuggerManager">
     <line_breakpoints>
-      <breakpoint url="file://$USER_HOME$/.grails/1.3.5/projects/mercury-server/plugins/spring-security-core-1.0.1/grails-app/services/grails/plugins/springsecurity/SpringSecurityService.groovy" line="179" class="grails.plugins.springsecurity.SpringSecurityService" package="grails.plugins.springsecurity">
+      <breakpoint url="file://$USER_HOME$/.grails/1.3.5/projects/mercury-server/plugins/spring-security-core-1.0.1/grails-app/services/grails/plugins/springsecurity/SpringSecurityService.groovy" line="179" class="Class at SpringSecurityService.groovy:179" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -105,7 +117,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy" line="83" class="org.nopalsoft.mercury.web.MilestoneController$_closure4" package="org.nopalsoft.mercury.web">
+      <breakpoint url="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy" line="83" class="Class at MilestoneController.groovy:83" package="">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -166,8 +178,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -176,28 +188,43 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MilestoneController.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="User.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/User.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="47" selection-start="453" selection-end="453" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MilestoneController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="82" selection-start="1491" selection-end="1491" vertical-scroll-proportion="0.753876">
+            <state line="24" column="67" selection-start="841" selection-end="841" vertical-scroll-proportion="-15.521739">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IssuesController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/IssuesController.groovy">
+      <file leaf-file-name="Milestone.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Milestone.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="238" column="62" selection-start="9377" selection-end="9377" vertical-scroll-proportion="-6.521739">
+            <state line="15" column="52" selection-start="355" selection-end="355" vertical-scroll-proportion="0.44117647">
               <folding />
             </state>
           </provider>
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/edit.gsp">
+      <file leaf-file-name="Config.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/conf/Config.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="12.285714">
+            <state line="46" column="132" selection-start="2241" selection-end="2241" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -206,7 +233,7 @@
       <file leaf-file-name="view.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/view.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="14" selection-start="3472" selection-end="3472" vertical-scroll-proportion="-10.77551">
+            <state line="109" column="14" selection-start="3472" selection-end="3472" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -215,7 +242,7 @@
       <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/milestone/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="20" selection-start="960" selection-end="960" vertical-scroll-proportion="-3.2653062">
+            <state line="38" column="20" selection-start="1105" selection-end="1105" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -224,7 +251,7 @@
       <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="47" selection-start="2053" selection-end="2053" vertical-scroll-proportion="9.020409">
+            <state line="79" column="47" selection-start="2053" selection-end="2053" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -233,7 +260,7 @@
       <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/project/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="53" selection-start="221" selection-end="221" vertical-scroll-proportion="11.102041">
+            <state line="10" column="53" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -241,25 +268,25 @@
       </file>
       <file leaf-file-name="Issue.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Issue.groovy">
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="6" selection-start="802" selection-end="802" vertical-scroll-proportion="-7.8139534">
+            <state line="23" column="6" selection-start="734" selection-end="734" vertical-scroll-proportion="0.0">
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Status.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Status.groovy">
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="-6.3255816">
+            <state line="16" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0">
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
           </provider>
         </entry>
       </file>
@@ -296,13 +323,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/mercury-server/grails-app/views/layouts/main.gsp" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/conf/UrlMappings.groovy" />
-        <option value="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/HomeController.groovy" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/views/issues/view.gsp" />
-        <option value="$PROJECT_DIR$/mercury-server/grails-app/conf/Config.groovy" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/services/org/nopalsoft/mercury/service/AdminService.groovy" />
-        <option value="$PROJECT_DIR$/mercury-server/grails-app/conf/DataSource.groovy" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/views/shared/_menu.gsp" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/services/org/nopalsoft/mercury/service/IssueService.groovy" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/views/issues/create.gsp" />
@@ -312,6 +335,10 @@
         <option value="$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Issue.groovy" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/views/milestone/index.gsp" />
         <option value="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy" />
+        <option value="$PROJECT_DIR$/mercury-server/grails-app/conf/Config.groovy" />
+        <option value="$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/HomeController.groovy" />
+        <option value="$PROJECT_DIR$/mercury-server/grails-app/conf/DataSource.groovy" />
+        <option value="$PROJECT_DIR$/mercury-server/grails-app/conf/CustomFilters.groovy" />
       </list>
     </option>
   </component>
@@ -350,6 +377,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Favorites" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -384,13 +414,10 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Favorites" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
@@ -404,9 +431,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Grails.Grails:mercury-server">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
@@ -443,6 +470,24 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" />
       <module name="" />
@@ -469,24 +514,6 @@
       <envs />
       <properties />
       <listeners />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -554,6 +581,28 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote">
+      <option name="LOCAL" value="false" />
+      <server-settings>
+        <option name="DEPLOY_TOMCAT_APPS" value="false" />
+        <option name="BASE_DIRECTORY_NAME" value="_mercury_2" />
+      </server-settings>
+      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="55150" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local">
       <deployment />
       <server-settings>
@@ -597,28 +646,6 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote">
-      <option name="LOCAL" value="false" />
-      <server-settings>
-        <option name="DEPLOY_TOMCAT_APPS" value="false" />
-        <option name="BASE_DIRECTORY_NAME" value="_mercury_2" />
-      </server-settings>
-      <predefined_log_file id="TOMCAT_LOCALHOST_LOG_ID" enabled="true" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="55150" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="false" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -678,7 +705,7 @@
     <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
     <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
     <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <configuration useDefault="true">C:\Users\Gabriel\AppData\Roaming\Subversion</configuration>
+    <configuration useDefault="true">C:\Users\gabriel.chulim\AppData\Roaming\Subversion</configuration>
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="TaskManager">
@@ -712,30 +739,30 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1010" extended-state="6" />
+    <frame x="-1928" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32042253" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30916846" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33215964" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3315565" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19493392" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32042253" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3274648" sideWeight="0.0" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3272921" sideWeight="0.0" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3270925" sideWeight="0.0" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22032085" sideWeight="0.69083154" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1699187" sideWeight="0.66784036" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282532" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -818,122 +845,102 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+    <entry file="jar://$PROJECT_DIR$/../../grails-1.3.5/lib/groovy-all-1.7.5.jar!/org/codehaus/groovy/runtime/DefaultGroovyMethods.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="220" column="46" selection-start="13111" selection-end="13111" vertical-scroll-proportion="0.34979424" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/IssuesController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="62" selection-start="9377" selection-end="9377" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/edit.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/_issuesTable.gsp">
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/conf/DataSource.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="5" column="46" selection-start="122" selection-end="122" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/MilestoneStatus.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/HomeController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="45" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0" />
+        <state line="32" column="21" selection-start="1331" selection-end="1331" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/LoginController.groovy">
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/conf/CustomFilters.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="42" selection-start="2895" selection-end="2895" vertical-scroll-proportion="-10.521739">
+        <state line="12" column="23" selection-start="430" selection-end="430" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/User.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="47" selection-start="453" selection-end="453" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/ProjectController.groovy">
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/conf/Config.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="382" selection-end="382" vertical-scroll-proportion="-0.73913044">
+        <state line="46" column="132" selection-start="2241" selection-end="2241" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/view.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="14" selection-start="3472" selection-end="3472" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/milestone/index.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="20" selection-start="1105" selection-end="1105" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/index.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="79" column="47" selection-start="2053" selection-end="2053" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/project/index.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="53" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Issue.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="6" selection-start="734" selection-end="734" vertical-scroll-proportion="0.0" />
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Status.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="0.0" />
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="67" selection-start="841" selection-end="841" vertical-scroll-proportion="-15.521739">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Milestone.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="52" selection-start="355" selection-end="355" vertical-scroll-proportion="0.44117647">
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
         <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="76" selection-start="87" selection-end="87" vertical-scroll-proportion="-1.9767442">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/index.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="47" selection-start="2053" selection-end="2053" vertical-scroll-proportion="9.020409">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/project/index.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="53" selection-start="221" selection-end="221" vertical-scroll-proportion="11.102041">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Issue.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="6" selection-start="802" selection-end="802" vertical-scroll-proportion="-7.8139534">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/domain/org/nopalsoft/mercury/domain/Status.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="195" selection-end="195" vertical-scroll-proportion="-6.3255816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/view.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="14" selection-start="3472" selection-end="3472" vertical-scroll-proportion="-10.77551">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/issues/edit.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="12.285714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../grails-1.3.5/lib/groovy-all-1.7.5.jar!/org/codehaus/groovy/runtime/DefaultGroovyMethods.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="220" column="46" selection-start="13111" selection-end="13111" vertical-scroll-proportion="0.34979424">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/views/milestone/index.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="20" selection-start="960" selection-end="960" vertical-scroll-proportion="-3.2653062">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/IssuesController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="238" column="62" selection-start="9377" selection-end="9377" vertical-scroll-proportion="-6.521739">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mercury-server/grails-app/controllers/org/nopalsoft/mercury/web/MilestoneController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="82" selection-start="1491" selection-end="1491" vertical-scroll-proportion="0.753876">
-          <folding />
-        </state>
       </provider>
     </entry>
   </component>
@@ -975,6 +982,11 @@
               </list>
             </option>
           </splitter-proportions>
+        </settings>
+      </state>
+      <state key="Copyright.UI">
+        <settings>
+          <splitter-proportions />
         </settings>
       </state>
       <state key="FacetStructureConfigurable.UI">
@@ -1035,6 +1047,11 @@
               </list>
             </option>
           </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions />
         </settings>
       </state>
     </states>

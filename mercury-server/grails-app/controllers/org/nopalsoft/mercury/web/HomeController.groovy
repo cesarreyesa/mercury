@@ -11,7 +11,7 @@ class HomeController {
 
   def index = {
     if (!session.project) {
-      render(view: 'chooseProject', model: [projects: Project.findAll()])
+      redirect(action: 'chooseProject')
     }else{
       def user = User.get(springSecurityService.principal.id)
       def model = new HashMap<String, ?>();
@@ -26,8 +26,12 @@ class HomeController {
   }
 
   def chooseProject = {
-    def user = User.get(springSecurityService.principal.id)
-    [projects: Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])]
+    def projects = null
+    if(springSecurityService.principal instanceof User){
+      def user = User.get(springSecurityService.principal.id)
+      projects = Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])
+    }
+    [projects: projects]
   }
 
   def changeProject = {

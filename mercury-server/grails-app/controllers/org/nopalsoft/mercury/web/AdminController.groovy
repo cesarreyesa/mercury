@@ -3,7 +3,9 @@ package org.nopalsoft.mercury.web
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Role
 import org.nopalsoft.mercury.domain.Project
+import grails.plugins.springsecurity.Secured
 
+@Secured(['role_admin'])
 class AdminController {
 
   def springSecurityService

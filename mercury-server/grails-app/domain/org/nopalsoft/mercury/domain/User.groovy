@@ -4,54 +4,62 @@ package org.nopalsoft.mercury.domain
  * org.nopalsoft.mercury.domain.User domain class.
  */
 class User {
-  static transients = ['pass']
-  static hasMany = [authorities: Role]
-  static belongsTo = Role
+   static transients = ['pass']
+   static hasMany = [authorities: Role]
+   static belongsTo = Role
 
-  /** Username   */
-  String username
-  String firstName
-  String lastName
-  /** MD5 Password   */
-  String password
-  /** enabled   */
-  boolean enabled
-  boolean accountLocked
-  boolean passwordExpired
-  boolean accountExpired
+   /** Username    */
+   String username
+   String firstName
+   String lastName
+   /** MD5 Password    */
+   String password
+   /** enabled    */
+   boolean enabled
+   boolean accountLocked
+   boolean passwordExpired
+   boolean accountExpired
 
-  String email
+   String email
 
-  Map settings
+   Map settings
 
-  def getFullName() {
-    return "$firstName $lastName";
-  }
+   def getFullName() {
+      return "$firstName $lastName";
+   }
 //  boolean emailShow
 
-  /** description   */
+   /** description    */
 //  String description = ''
 
-  /** plain password to create a MD5 password   */
-  String pass = '[secret]'
+   /** plain password to create a MD5 password    */
+   String pass = '[secret]'
 
-  static constraints = {
-    username(blank: false, unique: true)
+   static constraints = {
+      username(blank: false, unique: true)
 //    fullName(blank: false)
-    password(blank: false)
-    enabled()
-  }
+      password(blank: false)
+      enabled()
+   }
 
-  static mapping = {
-    table 'app_user'
-    version false
-    enabled column: 'account_enabled'
-    accountLocked column: 'account_locked'
-    passwordExpired column: 'credentials_expired'
-    authorities joinTable: [name: 'user_role', key: 'user_id', column: 'role_name']
-  }
+   static mapping = {
+      table 'app_user'
+      version false
+      enabled column: 'account_enabled'
+      accountLocked column: 'account_locked'
+      passwordExpired column: 'credentials_expired'
+      authorities joinTable: [name: 'user_role', key: 'user_id', column: 'role_name']
+   }
 
-  public String toString(){
-    fullName
-  }
+   public String toString() {
+      fullName
+   }
+
+   public boolean isInProject(Project project){
+      return project?.users?.id?.contains(id)
+   }
+
+   public boolean isProjectLead(Project project){
+      return project?.lead?.id == id
+   }
 }

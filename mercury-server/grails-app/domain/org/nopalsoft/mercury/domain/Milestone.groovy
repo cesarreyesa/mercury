@@ -8,6 +8,34 @@ class Milestone {
   Project project
   MilestoneStatus status = MilestoneStatus.OPEN
   static hasMany = [issues: Issue]
+//  List issues
+
+  def moveUp(issue){
+    issues.eachWithIndex(){ o, idx ->
+      if ((o.id == issue.id) && idx > 0) {
+        def swap = issues[idx-1]
+        issues[idx-1] = issues[idx]
+        issues[idx] = swap
+        save()
+        return
+      }
+    }
+  }
+
+  def moveDown(issue){
+    def max = issues.size()
+    def index = 0
+    issues.eachWithIndex(){ o, idx ->
+      if ((o.id == issue.id)) {
+        index = idx
+        return
+      }
+    }
+    if(index < issues.size()){
+      Collections.swap(issues, index, index + 1)
+      save()
+    }
+  }
 
   static constraints = {
     name(unique: true, blank: false)
@@ -20,5 +48,6 @@ class Milestone {
     version false
     id generator: 'increment'
     project(nullable: false, lazy: true)
+    issues(inverse:true)
   }
 }

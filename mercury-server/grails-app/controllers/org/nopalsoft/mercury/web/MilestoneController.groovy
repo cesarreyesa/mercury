@@ -18,14 +18,10 @@ class MilestoneController {
       def project = Project.load(session.project.id)
       def id = params.long('id')
       def showUnassigned = params.boolean('showUnassigned')
-      def milestoneIsReadyToClose = false
-
       if (id) {
         milestone = Milestone.get(id)
         issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
-        def resolvedIssues = milestone.issues.findAll{ it.status.code == 'resolved' || it.status.code == 'closed'}
-        milestoneIsReadyToClose = issues.empty && !resolvedIssues.empty
-      } else if(project.currentMilestone && !showUnassigned) {
+      } else if(project.currentMilestone && !showUnassigned && params.id != 'pending') {
         milestone = project.currentMilestone
         issues = project.currentMilestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
       }else {
@@ -35,10 +31,7 @@ class MilestoneController {
       def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status = :statusParam or m.status is null) order by startDate desc",
               [projectParam: project, statusParam: MilestoneStatus.OPEN ])
 
-      if (milestoneIsReadyToClose) {
-        flash.success = "Ya no existen incidencias abiertas en la entrega."
-      }
-      [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned, milestoneIsReadyToClose: milestoneIsReadyToClose]
+      [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned]
     }
   }
 
@@ -59,8 +52,22 @@ class MilestoneController {
 
   private def addIssueToMilestone(it, Milestone milestone) {
     def issue = Issue.get(it as long)
-    issue.milestone = milestone
-    issue.save()
+    milestone.addToIssues(issue)
+    milestone.save()
+  }
+
+  def moveUp = {
+    def milestone = Milestone.load(params.milestone)
+    def issue = Issue.load(params.issue)
+    milestone.moveUp issue
+    redirect action: 'index', id: params.milestone
+  }
+
+  def moveDown = {
+    def milestone = Milestone.load(params.milestone)
+    def issue = Issue.load(params.issue)
+    milestone.moveDown issue
+    redirect action: 'index', id: params.milestone
   }
 
   def create = {
@@ -79,14 +86,11 @@ class MilestoneController {
     def milestoneId = params.long("id")
     if (milestoneId) {
       def milestone = Milestone.get(milestoneId)
-      def openIssues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
-      def resolvedIssues = milestone.issues.findAll{ it.status.code == 'resolved' || it.status.code == 'closed'}
-      if (openIssues.empty && !resolvedIssues.empty) {
+      def issues = milestone.issues.findAll{ it.status.code != 'resolved' && it.status.code != 'closed'}
+      if (issues.empty) {
         milestone.status = MilestoneStatus.CLOSE
         milestone.save()
         redirect action: 'index'
-      } else if (resolvedIssues.empty){
-        flash.message = "No se puede cerrar la entrega porque no tiene incidencias asignadas."
       } else {
         flash.message = "No se puede cerrar la entrega porque existen incidencias abiertas."
       }

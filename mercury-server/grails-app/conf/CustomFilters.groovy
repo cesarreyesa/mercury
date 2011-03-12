@@ -16,6 +16,7 @@ class CustomFilters {
           }
           else if(controllerName != 'home' && actionName != 'changeProject'){
             redirect controller:'home', action:'chooseProject'
+
           }
         }
       }
