@@ -3,7 +3,9 @@ package org.nopalsoft.mercury.web
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Milestone
+import grails.plugins.springsecurity.Secured
 
+@Secured(['user'])
 class ProjectController {
 
    def springSecurityService

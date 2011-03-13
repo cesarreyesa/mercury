@@ -4,7 +4,9 @@ import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.domain.Issue
 import org.nopalsoft.mercury.domain.MilestoneStatus
+import grails.plugins.springsecurity.Secured
 
+@Secured(['user'])
 class MilestoneController {
   def issueService
 

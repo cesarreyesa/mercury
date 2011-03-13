@@ -3,7 +3,9 @@ package org.nopalsoft.mercury.web
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.User
 import javax.servlet.http.Cookie
+import grails.plugins.springsecurity.Secured
 
+@Secured(['user'])
 class HomeController {
 
   def issueService

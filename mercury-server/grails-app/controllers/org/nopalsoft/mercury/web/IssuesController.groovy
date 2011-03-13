@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 import org.nopalsoft.mercury.domain.Resolution
 import org.nopalsoft.mercury.domain.GroupBy
+import grails.plugins.springsecurity.Secured
 
+@Secured(['user'])
 class IssuesController {
 
   def issueService
