@@ -3,7 +3,9 @@ package org.nopalsoft.mercury.web
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.User
 import javax.servlet.http.Cookie
+import grails.plugins.springsecurity.Secured
 
+@Secured(['user'])
 class HomeController {
 
   def issueService
@@ -26,12 +28,8 @@ class HomeController {
   }
 
   def chooseProject = {
-    def projects = null
-    if(springSecurityService.principal instanceof User){
-      def user = User.get(springSecurityService.principal.id)
-      projects = Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])
-    }
-    [projects: projects]
+    def user = User.get(springSecurityService.principal.id)
+    [projects: Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])]
   }
 
   def changeProject = {
