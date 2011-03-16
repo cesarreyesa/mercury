@@ -2,7 +2,7 @@ dataSource {
   pooled = true
   driverClassName = "org.postgresql.Driver"
   username = "postgres"
-  password = "postgres"
+  password = "sa"
 }
 hibernate {
   cache.use_second_level_cache = true
@@ -17,7 +17,7 @@ environments {
       dbCreate = "update"
       url = "jdbc:postgresql://localhost:5432/mercury"
       username = "postgres"
-      password = "postgres"
+      password = "sa"
     }
   }
   test {
@@ -28,11 +28,8 @@ environments {
   }
   production {
     dataSource {
-      driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
       dbCreate = "update"
-      url = "jdbc:sqlserver://192.168.1.8;databaseName=mercury"
-      username = "mercury"
-      password = "Chiapas21"
+      url = "jdbc:hsqldb:file:prodDb;shutdown=true"
     }
   }
 }
