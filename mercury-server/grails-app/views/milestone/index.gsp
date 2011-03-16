@@ -57,7 +57,7 @@
                 <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a></span>
                 <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
               </div>
-              <g:render template="/issues/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]" />
+              <g:render template="/shared/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]" />
             </g:form>
             <g:form name="moveUpForm" controller="milestone" action="moveUp">
               <g:hiddenField name="milestone" value="${milestone?.id}"/>

@@ -78,24 +78,32 @@ class IssueService {
   }
 
   public List<Issue> getIssues(Project project, String query, String type, IssueFilter filter, String statusDate, String from, String until, int offset, int maxResults) {
-    DetachedCriteria crit = createCriteria(project, query, type, filter, statusDate, true)
+     return getIssues([project], query, type, filter, statusDate, from, until, offset, maxResults)
+  }
+
+  public List<Issue> getIssues(List<Project> projects, String query, String type, IssueFilter filter, String statusDate, String from, String until, int offset, int maxResults) {
+    DetachedCriteria crit = createCriteria(projects, query, type, filter, statusDate, true)
 
     def hibernateTemplate = new HibernateTemplate(sessionFactory)
     return (List<Issue>) hibernateTemplate.findByCriteria(crit, offset, maxResults);
   }
 
   public int getIssuesCount(Project project, String query, String type, IssueFilter filter, String statusDate, String from, String until) {
-    DetachedCriteria crit = createCriteria(project, query, type, filter, statusDate, false)
+     return getIssuesCount([project], query, type, filter, statusDate, from, until)
+  }
+
+  public int getIssuesCount(List<Project> projects, String query, String type, IssueFilter filter, String statusDate, String from, String until) {
+    DetachedCriteria crit = createCriteria(projects, query, type, filter, statusDate, false)
     crit.setProjection(Projections.rowCount())
     def hibernateTemplate = new HibernateTemplate(sessionFactory)
     def list = hibernateTemplate.findByCriteria(crit)
     return (int) list[0];
   }
 
-  private DetachedCriteria createCriteria(Project project, String query, String type, IssueFilter filter, String statusDate, boolean addSort) {
+  private DetachedCriteria createCriteria(List<Project> projects, String query, String type, IssueFilter filter, String statusDate, boolean addSort) {
     DetachedCriteria crit = DetachedCriteria.forClass(Issue.class);
-    if (project != null) {
-      crit.add(Restrictions.eq("project", project));
+    if (projects != null) {
+      crit.add(Restrictions.in("project", projects));
     }
     if (query) {
       Disjunction disjunction = Restrictions.disjunction();
@@ -178,6 +186,9 @@ class IssueService {
 //          dateUntil = DateUtils.fromSmartDate(until);
 //      }
 
+    if(filter.createdFrom && filter.createdUntil){
+      crit.add(Restrictions.between("date", filter.createdFrom, filter.createdUntil));
+    }
     if (statusDate && "resolved".equals(statusDate.toLowerCase())) {
       crit.add(Restrictions.between("dateResolved", dateFrom, dateUntil));
     }
