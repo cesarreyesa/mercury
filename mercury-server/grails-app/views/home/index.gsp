@@ -38,7 +38,7 @@
 
 <script type="text/javascript">
 
-  google.load('visualization', '1', {packages:['imagepiechart']});
+  google.load('visualization', '1', {packages:['corechart']});
   google.setOnLoadCallback(drawVisualization);
 
   function drawVisualization() {
@@ -52,8 +52,8 @@
     issuesByStatus.setValue(${i}, 1, ${summary["count"]});
   </g:each>
 
-    new google.visualization.ImagePieChart(document.getElementById('issuesByStatusDiv')).
-        draw(issuesByStatus, {title:"Resumen del proyecto"});
+    new google.visualization.PieChart(document.getElementById('issuesByStatusDiv')).
+        draw(issuesByStatus, {width: 450, height: 300, title:"Resumen del proyecto"});
 
     var issuesByPriority = new google.visualization.DataTable();
     issuesByPriority.addColumn('string', 'Priority');
@@ -65,8 +65,8 @@
     issuesByPriority.setValue(${i}, 1, ${summary["count"]});
   </g:each>
 
-    new google.visualization.ImagePieChart(document.getElementById('issuesByPriorityDiv')).
-        draw(issuesByPriority, {title:"Incidencias abiertas por prioridad"});
+    new google.visualization.PieChart(document.getElementById('issuesByPriorityDiv')).
+        draw(issuesByPriority, {width: 450, height: 300, title:"Incidencias abiertas por prioridad"});
 
     var issuesByAssignee = new google.visualization.DataTable();
     issuesByAssignee.addColumn('string', 'Assignee');
@@ -76,8 +76,8 @@
     issuesByAssignee.setValue(${i}, 0, '${summary["assignee"].fullName}');
     issuesByAssignee.setValue(${i}, 1, ${summary["count"]});
   </g:each>
-    new google.visualization.ImagePieChart(document.getElementById('issuesByAssigneeDiv')).
-        draw(issuesByAssignee, {title:"Incidencias abiertas por encargado"});
+    new google.visualization.PieChart(document.getElementById('issuesByAssigneeDiv')).
+        draw(issuesByAssignee, {width: 450, height: 300, title:"Incidencias abiertas por encargado"});
 
     var openIssuesByPriority = new google.visualization.DataTable();
     openIssuesByPriority.addColumn('string', 'Assignee');
@@ -87,8 +87,8 @@
     openIssuesByPriority.setValue(${i}, 0, '${summary["priority"].name}');
     openIssuesByPriority.setValue(${i}, 1, ${summary["count"]});
   </g:each>
-    new google.visualization.ImagePieChart(document.getElementById('openIssuesByPriorityDiv')).
-        draw(openIssuesByPriority, {title:"Mis Pendientes por prioridad"});
+    new google.visualization.PieChart(document.getElementById('openIssuesByPriorityDiv')).
+        draw(openIssuesByPriority, {width: 450, height: 300, title:"Mis Pendientes por prioridad"});
   }
 
 
