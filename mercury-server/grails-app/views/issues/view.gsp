@@ -79,6 +79,14 @@
     <div class="content">
       <table style="width:100%;">
         <tr>
+          <td>Entrega</td>
+          <td>${issue.milestone ? issue.milestone.name : "Sin asignar"}</td>
+        </tr>
+        <tr>
+          <td>Fecha de entrega</td>
+          <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
+        </tr>
+        <tr>
           <td>Tipo</td>
           <td>${issue.issueType.name}</td>
         </tr>
@@ -93,10 +101,6 @@
         <tr>
           <td>Categoria</td>
           <td>${issue.category?.name}</td>
-        </tr>
-        <tr>
-          <td>Entrega</td>
-          <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
         </tr>
         <tr>
           <td>Reportador</td>

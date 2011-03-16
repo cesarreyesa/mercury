@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse
 import org.nopalsoft.mercury.domain.Resolution
 import org.nopalsoft.mercury.domain.GroupBy
 import grails.plugins.springsecurity.Secured
+import org.nopalsoft.mercury.domain.Milestone
+import org.nopalsoft.mercury.domain.MilestoneStatus
 
 @Secured(['user'])
 class IssuesController {
@@ -103,7 +105,8 @@ class IssuesController {
     def user = User.get(springSecurityService.principal.id)
     issue.reporter = user
     def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
-    [issue: issue, project: project, categories: categories]
+    def milestones = Milestone.findAll ("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: project, statusParam: MilestoneStatus.OPEN ])
+    [issue: issue, project: project, categories: categories, milestones: milestones]
   }
 
   def save = {
