@@ -80,7 +80,7 @@
       <table style="width:100%;">
         <tr>
           <td>Entrega</td>
-          <td>${issue.milestone ? issue.milestone.name : "Sin asignar"}</td>
+          <td><g:link controller="milestone" action="index" id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>
         </tr>
         <tr>
           <td>Fecha de entrega</td>
