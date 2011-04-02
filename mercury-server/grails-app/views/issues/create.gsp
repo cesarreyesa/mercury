@@ -36,6 +36,14 @@
                 <g:textArea name="description" value="${issue.description}" style="height:100px;" class="text_area"/>
               </div>
               <div class="group">
+                <label class="label">Entrega</label>
+                <g:select name="milestone.id" value="${issue.milestone?.id}" from="${milestones}" optionKey="id" optionValue="name" noSelection="['':'-Sin asignar-']"/>
+              </div>
+              <div class="group">
+                <label class="label">Fecha de entrega</label>
+                <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" class="text_field" style="width:100px;"/>
+              </div>
+              <div class="group">
                 <label class="label">Tipo de incidencia</label>
                 <g:select name="issueType.id" value="${issue.issueType?.id}" from="${IssueType.list()}" optionKey="id" optionValue="name"/>
               </div>
@@ -46,10 +54,6 @@
               <div class="group">
                 <label class="label">Categoria</label>
                 <g:select name="category.id" value="${issue.category?.id}" from="${categories}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
-              </div>
-              <div class="group">
-                <label class="label">Fecha de entrega</label>
-                <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" class="text_field" style="width:100px;"/>
               </div>
             </div>
             <div class="column right" style="width:250px;">

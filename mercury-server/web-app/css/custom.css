@@ -5,3 +5,13 @@
 .ui-dialog-buttonset{
     float:none !important;
 }
+
+.multiselect {
+	width:260px;
+	overflow: hidden;
+	position: absolute;
+	background: #f9f9f9;
+	border: 1px solid #ddd;
+	margin: 0;
+	padding:5px 0 5px 10px;
+}

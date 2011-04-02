@@ -53,8 +53,8 @@ grails.spring.bean.packages = []
 // set per-environment serverURL stem for creating absolute links
 environments {
   production {
-    grails.serverURL = "http://arnom.grupoargos.com.mx/mercury"
-    attachmentsPath = "D:/opt/nopalsoft/mercury/attachments/"
+    grails.serverURL = "http://www.changeme.com"
+    attachmentsPath = "/opt/nopalsoft/mercury/attachments/"
   }
   development {
     grails.serverURL = "http://localhost:8080/mercury-server"

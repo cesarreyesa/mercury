@@ -16,16 +16,9 @@
 
   <li <g:if test="${selected == 'release'}">class="active"</g:if>>
     <g:link controller="milestone" action="index">Entregas</g:link></li>
-  %{--<li style="float:right;padding:3px;">--}%
-    %{--<g:form controller="issues">--}%
-      %{--<g:textField class="searchBox" type="text" id="query" name="query" title="Enter a query and press enter to jump" value="${params.query ?: 'Buscar'}"--}%
-              %{--onfocus="if (this.value == 'Buscar') {--}%
-                %{--this.value = '';--}%
-              %{--}" onblur="if (this.value == '') {--}%
-        %{--this.value = 'Buscar';--}%
-      %{--}"/>--}%
-    %{--</g:form>--}%
-  %{--</li>--}%
+
+  <li <g:if test="${selected == 'reports'}">class="active"</g:if>>
+    <g:link controller="reports" action="index">Reportes</g:link></li>
 </g:if>
 <g:else>
 

@@ -9,9 +9,9 @@ package org.nopalsoft.mercury.domain
  */
 public enum MilestoneStatus {
   OPEN,
-  CLOSE
+  CLOSED
 
   static list () {
-    [OPEN, CLOSE]
+    [OPEN, CLOSED]
   }
 }

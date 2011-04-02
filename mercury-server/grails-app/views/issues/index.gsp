@@ -18,43 +18,6 @@
 <head>
   <title>${currentFilter.name}</title>
   <meta name="layout" content="main"/>
-  <style type="text/css">
-  strong {
-    font-weight: bold;
-  }
-
-  .issues thead td {
-    border-bottom: 1px solid #666;
-  }
-
-  .issue td {
-    margin: 0;
-    padding: 3px;
-    border-bottom: 1px solid #ccc;
-  }
-
-  .issue a, .issue a:visited {
-    color: #084B96;
-  }
-
-  .paginator{
-    padding-top:20px;
-    padding-bottom:5px;
-  }
-
-  .paginator a.step{
-    border:1px solid #ccc;
-    padding: 2px 5px;
-    margin:4px;
-  }
-
-  .paginator .currentStep{
-    background-color:#ccc;
-    color:#fff;
-    padding: 2px 5px;
-  }
-
-  </style>
 </head>
 <body>
 
@@ -82,7 +45,7 @@
         </div>
           <g:each in="${issueGroups}" var="entry">
             <h3>${entry.key.toString()}</h3>
-            <g:render template="issuesTable" model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
+            <g:render template="/shared/issuesTable" model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
           </g:each>
         <div class="actions-bar wat-cf">
           <div class="pagination">
