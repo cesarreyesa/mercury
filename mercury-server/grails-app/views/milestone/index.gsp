@@ -57,7 +57,7 @@
                <div style="padding-bottom:10px;">
                   Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
                   <g:submitButton name="submit" value="Agregar"/>
-                  <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a></span>
+                  <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#" id="issuesStatusFilter">${status.name}</a></span>
                   <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
                </div>
                <g:render template="/shared/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]"/>
@@ -141,6 +141,12 @@
    </g:form>
 </div>
 
+<div id="issuesStatusFilterDialog" title="" style="display:none;">
+   <g:form name="issuesFilterForm" action="index" method="get">
+       <g:select name="issueStatus" value="${status.id}" from="${statusList}" optionKey="id" optionValue="name"/>
+   </g:form>
+</div>
+
 <script type="text/javascript">
    $(function() {
       $("#startDate").datepicker({dateFormat: 'dd/mm/yy'});
@@ -166,7 +172,7 @@
          }
       });
 
-      $('#milestonesFilter').click(function() {
+      $('#milestonesFilter').click(function(event) {
          event.preventDefault();
          var position = $(this).position();
          $("#milestonesFilterDialog").dialog({
@@ -174,9 +180,23 @@
          });
       });
 
-      $('#milestoneStatus').change(function(){
-        $('#milestonesFilterForm').submit();
+      $('#issuesStatusFilter').click(function(event) {
+         event.preventDefault();
+         var position = $(this).position();
+         $("#issuesStatusFilterDialog").dialog({
+            minHeight:0, width:200, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+         });
       });
+
+       $('#milestoneStatus').change(function() {
+           $('#milestonesFilterForm').append($('#issueStatus'));
+           $('#milestonesFilterForm').submit();
+       });
+
+       $('#issueStatus').change(function() {
+           $('#issuesFilterForm').append($('#milestoneStatus'));
+           $('#issuesFilterForm').submit();
+       });
    });
 
 </script>

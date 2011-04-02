@@ -5,6 +5,7 @@ import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.domain.Issue
 import org.nopalsoft.mercury.domain.MilestoneStatus
 import grails.plugins.springsecurity.Secured
+import org.nopalsoft.mercury.domain.Status
 
 @Secured(['user'])
 class MilestoneController {
@@ -38,7 +39,7 @@ class MilestoneController {
          } else if (project.currentMilestone && !showUnassigned && params.id != 'pending') {
             if(milestones.contains(project.currentMilestone)){
                milestone = project.currentMilestone
-               issues = project.currentMilestone.issues.findAll { it.status.code != 'resolved' && it.status.code != 'closed'}
+               issues = project.currentMilestone.issues
             }else{
                issues = issueService.getIssuesNotInMilestone(project)
             }
@@ -46,7 +47,16 @@ class MilestoneController {
             issues = issueService.getIssuesNotInMilestone(project)
          }
 
-         [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned]
+          def issueStatusId = params.long("issueStatus")
+          def status = null
+          if (issueStatusId != null) {
+              status = Status.findById(issueStatusId)
+          } else {
+              status = Status.findByCode('open')
+          }
+          issues = issues.findAll { it.status.code != status.code}
+
+          [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned, status: status, statusList: Status.all]
       }
    }
 

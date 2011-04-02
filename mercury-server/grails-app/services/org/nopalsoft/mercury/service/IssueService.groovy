@@ -429,7 +429,7 @@ class IssueService {
   }
 
   public List<Issue> getIssuesNotInMilestone(Project project) {
-    return Issue.findAll("from Issue issue where issue.milestone is null and issue.status.code not in ('resolved', 'closed') and issue.project = :projectParam", [projectParam: project]);
+    return Issue.findAll("from Issue issue where issue.milestone is null and issue.project = :projectParam", [projectParam: project]);
   }
 
 
