@@ -54,7 +54,7 @@ class MilestoneController {
           } else {
               status = Status.findByCode('open')
           }
-          issues = issues.findAll { it.status.code != status.code}
+          issues = issues.findAll { it.status.code == status.code}
 
           [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned, status: status, statusList: Status.all]
       }
