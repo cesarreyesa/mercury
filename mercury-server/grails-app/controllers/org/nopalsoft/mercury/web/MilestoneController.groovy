@@ -33,28 +33,29 @@ class MilestoneController {
          }
          def milestones = milestonesService.getMilestones(project, milestoneStatus)
 
-         if (id) {
-            milestone = Milestone.get(id)
-            issues = milestone.issues.findAll { it.status.code != 'resolved' && it.status.code != 'closed'}
-         } else if (project.currentMilestone && !showUnassigned && params.id != 'pending') {
-            if(milestones.contains(project.currentMilestone)){
-               milestone = project.currentMilestone
-               issues = project.currentMilestone.issues
-            }else{
-               issues = issueService.getIssuesNotInMilestone(project)
-            }
-         } else {
-            issues = issueService.getIssuesNotInMilestone(project)
-         }
-
           def issueStatusId = params.long("issueStatus")
-          def status = null
+          def status
           if (issueStatusId != null) {
               status = Status.findById(issueStatusId)
           } else {
               status = Status.findByCode('open')
           }
-          issues = issues.findAll { it.status.code == status.code}
+
+          def orderByProperties = ["priority", "date"]
+         if (id) {
+            milestone = Milestone.load(id)
+             issues = issueService.getIssues (milestone, status, orderByProperties)
+//            issues = milestone.issues
+         } else if (project.currentMilestone && !showUnassigned && params.id != 'pending') {
+            if(milestones.contains(project.currentMilestone)) {
+               milestone = project.currentMilestone
+                issues = issueService.getIssues (milestone, status, orderByProperties)
+            } else {
+               issues = issueService.getIssuesNotInMilestone(project, status, orderByProperties)
+            }
+         } else {
+            issues = issueService.getIssuesNotInMilestone(project, status, orderByProperties)
+         }
 
           [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned, status: status, statusList: Status.all]
       }
