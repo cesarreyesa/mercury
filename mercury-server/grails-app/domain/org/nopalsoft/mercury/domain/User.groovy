@@ -43,6 +43,7 @@ class User {
    }
 
    static mapping = {
+       id generator: 'increment'
       table 'app_user'
       version false
       enabled column: 'account_enabled'
