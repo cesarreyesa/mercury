@@ -4,7 +4,7 @@ package org.nopalsoft.mercury.domain
  * org.nopalsoft.mercury.domain.User domain class.
  */
 class User {
-   static transients = ['pass']
+   static transients = ['pass', 'workingOn']
    static hasMany = [authorities: Role]
    static belongsTo = Role
 
@@ -43,6 +43,7 @@ class User {
    }
 
    static mapping = {
+      id generator: 'increment'
       table 'app_user'
       version false
       enabled column: 'account_enabled'
@@ -62,4 +63,14 @@ class User {
    public boolean isProjectLead(Project project){
       return project?.lead?.id == id
    }
+
+   public Issue workingOn(){
+      def issueId = settings["WorkingOn"]
+      if(issueId){
+         return Issue.get(Long.parseLong(issueId.toString()))
+      }
+      return null
+   }
+
+
 }
