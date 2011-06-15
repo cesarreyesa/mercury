@@ -163,6 +163,13 @@ class IssuesController {
       redirect(action: 'view', params: [id: issue.code])
    }
 
+   def closeIssue = {
+      def issue = Issue.findByCode(params.id)
+      issueService.closeIssue issue, params.closeComment
+      flash.message = "Se cerro correctamente"
+      redirect(action: 'view', params: [id: issue.code])
+   }
+
    def addComment = {
       def issue = Issue.findByCode(params.id)
       issueService.saveIssue issue, params.comment
