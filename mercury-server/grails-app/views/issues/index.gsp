@@ -16,80 +16,88 @@
 
 <html>
 <head>
-  <title>${currentFilter.name}</title>
-  <meta name="layout" content="main"/>
+   <title>${currentFilter.name}</title>
+   <meta name="layout" content="main"/>
 </head>
+
 <body>
 
 <content tag="navbar">
-  <g:render template="/shared/menu" model="[selected:'issues']"/>
+   <g:render template="/shared/menu" model="[selected:'issues']"/>
 </content>
 
 <div id="main">
-  <div class="block" id="block-text">
-    <div class="content">
-      <h2 class="title">
-        ${currentFilter.name}
-        <span style="padding-right:20px;;float:right;font-size:x-small;font-weight:normal;">
-        <g:if test="${params.boolean('extendedView')}">
-          <g:link action="index" params="[extendedView:false]">Ocultar detalles</g:link></span>
-        </g:if>
-        <g:else>
-          <g:link action="index" params="[extendedView:true]">Mostrar detalles</g:link></span>
-        </g:else>
-      </h2>
-      <div class="inner">
-        <div style="text-align:right;padding-bottom:0px;">
-          Mostrando <strong>${totalIssues}</strong> incidencias,
-          agrupado por: <a href="#" id="groupByAnchor"><strong><g:message code="issue.${currentFilter.groupBy.toString().toLowerCase()}"/></strong></a>
-        </div>
-          <g:each in="${issueGroups}" var="entry">
-            <h3>${entry.key.toString()}</h3>
-            <g:render template="/shared/issuesTable" model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
-          </g:each>
-        <div class="actions-bar wat-cf">
-          <div class="pagination">
-            <g:paginate next="Siguiente" prev="Atras" maxsteps="4" max="50" total="${totalIssues}" params="${[filter: currentFilter.id]}"/>
-          </div>
-        </div>
+   <div class="block" id="block-text">
+      <div class="content">
+         <h2 class="title">
+            ${currentFilter.name}
+         <span style="padding-right:20px;;float:right;font-size:x-small;font-weight:normal;">
+            <g:if test="${params.boolean('extendedView')}">
+               <g:link action="index" params="[extendedView:false]">Ocultar detalles</g:link></span>
+            </g:if>
+            <g:else>
+               <g:link action="index" params="[extendedView:true]">Mostrar detalles</g:link></span>
+            </g:else>
+         </h2>
 
+         <div class="inner">
+            <div style="text-align:right;padding-bottom:0px;">
+               Mostrando <strong>${totalIssues}</strong> incidencias,
+            agrupado por: <a href="#" id="groupByAnchor"><strong><g:message
+                  code="issue.${currentFilter.groupBy.toString().toLowerCase()}"/></strong></a>
+            </div>
+            <g:each in="${issueGroups}" var="entry">
+               <h3>${entry.key.toString()}</h3>
+               <g:render template="/shared/issuesTable"
+                         model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
+            </g:each>
+            <div class="actions-bar wat-cf">
+               <div class="pagination">
+                  <g:paginate next="Siguiente" prev="Atras" maxsteps="4" max="50" total="${totalIssues}"
+                              params="${[filter: currentFilter.id]}"/>
+               </div>
+            </div>
+
+         </div>
       </div>
-    </div>
-  </div>
+   </div>
 </div>
 
 <div id="sidebar">
-  <div class="block">
-    <h3>Filtros</h3>
-    <ul class="navigation">
-      <g:each in="${filters}" var="filter">
-        <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
-          <g:link action="index" params="${[filter:filter.id]}">${filter.name}</g:link>
-        </li>
-      </g:each>
-    </ul>
-  </div>
+   <div class="block">
+      <h3>Filtros</h3>
+      <ul class="navigation">
+         <g:each in="${filters}" var="filter">
+            <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
+               <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
+            </li>
+         </g:each>
+      </ul>
+   </div>
 </div>
 
 <div id="groupByDialog" title="" style="display:none;">
-  <g:form name="groupByForm" action="index" method="get">
-    <g:select name="groupBy" from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']" optionKey="key" optionValue="value"/>
-  </g:form>
+   <g:form name="groupByForm" action="index" method="get">
+      <g:hiddenField name="filter" value="${params.filter}"/>
+      <g:select name="groupBy"
+                from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']"
+                optionKey="key" optionValue="value"/>
+   </g:form>
 </div>
 
 <script type="text/javascript">
-  $(function(){
-    $('#groupByAnchor').click(function(event){
-      event.preventDefault();
-      var position = $(this).position();
-      $( "#groupByDialog").dialog({
-        minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+   $(function() {
+      $('#groupByAnchor').click(function(event) {
+         event.preventDefault();
+         var position = $(this).position();
+         $("#groupByDialog").dialog({
+                  minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+               });
       });
-    });
-    $('#groupBy').change(function(){
-      $('#groupByForm').submit();
-    });
-  });
+      $('#groupBy').change(function() {
+         $('#groupByForm').submit();
+      });
+   });
 </script>
 </body>
 </html>

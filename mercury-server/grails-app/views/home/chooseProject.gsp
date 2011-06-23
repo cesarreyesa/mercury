@@ -11,7 +11,7 @@
 <html>
 <head>
   <title>Escoge un proyecto</title>
-  <meta name="layout" content="main"/>
+  <meta name="layout" content="${layout ?: 'main'}"/>
 </head>
 <body>
 <content tag="navbar">
