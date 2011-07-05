@@ -11,7 +11,7 @@ class MessagesController {
 
    def index = {
       def project = Project.get(session.project.id)
-      def messages = Message.findAllByProject(project)
+      def messages = Message.findAllByProject(project, [sort:'dateCreated', order:'desc'])
       [messages: messages, project: project]
    }
 
