@@ -22,10 +22,15 @@
          <div class="inner">
 
             <div class="issue-menu" style="margin-top:20px;">
-               <span id="resolve">Resolver</span>
-               <span id="assign">Asignar</span>
-               <span id="attach">Archivos adjuntos (${issue.attachments.size()})</span>
-               <span id="edit">Editar</span>
+               <g:if test="${!issue.resolution}">
+                  <button id="resolve">Resolver</button>
+               </g:if>
+               <g:elseif test="${issue.status?.code != 'closed'}">
+                  <button id="close">Cerrar</button>
+               </g:elseif>
+               <button id="assign">Asignar</button>
+               <button id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
+               <button id="edit">Editar</button>
                %{--<div style="float:right;">--}%
                %{--<span id="back"><<</span>--}%
                %{--<span id="next">>></span>--}%
@@ -125,7 +130,6 @@
    </div>
 </div>
 
-
 <div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
    <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form">
       <div class="group">
@@ -135,6 +139,15 @@
       <div class="group">
          <label class="label">Comentario:</label>
          <g:textArea name="assignComment" style="width:500px;height:100px;"/>
+      </div>
+   </g:form>
+</div>
+
+<div id="closeIssueDialog" title="Cerrar Incidencia" style="display:none;">
+   <g:form action="closeIssue" name="closeIssueForm" id="${issue.code}" class="form">
+      <div class="group">
+         <label class="label">Comentario:</label>
+         <g:textArea name="closeComment" style="width:500px;height:100px;"/>
       </div>
    </g:form>
 </div>
@@ -198,49 +211,58 @@
 
 <script type="text/javascript">
    $(function() {
-      $("#resolve").styledButton({
-         'orientation' : 'alone',
-         'action' : function () {
+      if($("#resolve")){
+         $("#resolve").button();
+         $('#resolve').click(function(e) {
             var position = $(this).position();
             $("#resolveIssueDialog").dialog({
                width:550, modal: true, position: [position.left, position.top + $(this).height()],
                buttons:{
-                  "Resolver":function() {
-                     $('#resolveIssueForm').submit();
-                  }
+                 "Resolver":function() {
+                    $('#resolveIssueForm').submit();
+                 }
                }
             });
-         }
-      });
+         });
+      }
 
-      $("#assign").styledButton({
-         'orientation' : 'alone',
-         'action' : function () {
+      if($("#close")){
+         $("#close").button();
+         $('#close').click(function(e) {
             var position = $(this).position();
-            $("#assignIssueDialog").dialog({
+            $("#closeIssueDialog").dialog({
                width:550, modal: true, position: [position.left, position.top + $(this).height()],
                buttons:{
-                  "Asignar": function() {
-                     $('#assignIssueForm').submit();
-                  }
+                 "Cerrar":function() {
+                    $('#closeIssueForm').submit();
+                 }
                }
             });
-         }
+         });
+      }
+
+      $("#assign").button();
+      $('#assign').click(function () {
+         var position = $(this).position();
+         $("#assignIssueDialog").dialog({
+            width:550, modal: true, position: [position.left, position.top + $(this).height()],
+            buttons:{
+               "Asignar": function() {
+                  $('#assignIssueForm').submit();
+               }
+            }
+         });
       });
-      $("#attach").styledButton({
-         'orientation' : 'alone',
-         'action' : function () {
-            var position = $(this).position();
-            $("#addAttachmentDialog").dialog({
-               width:550, modal: true, position: [position.left, position.top + $(this).height()]
-            });
-         }
+      $("#attach").button();
+      $('#attach').click(function () {
+         var position = $(this).position();
+         $("#addAttachmentDialog").dialog({
+            width:550, modal: true, position: [position.left, position.top + $(this).height()]
+         });
       });
-      $("#edit").styledButton({
-         'orientation' : 'alone',
-         'action' : function () {
-            document.location.href = '${createLink(action:'edit', id: issue.code)}';
-         }
+      $("#edit").button();
+      $('#edit').click(function () {
+         document.location.href = '${createLink(action:'edit', id: issue.code)}';
       });
 //    $("#back").styledButton({
 //      'orientation' : 'alone',
