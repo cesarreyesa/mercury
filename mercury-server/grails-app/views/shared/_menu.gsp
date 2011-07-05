@@ -14,6 +14,9 @@
   <li <g:if test="${selected == 'new'}">class="active"</g:if>>
     <g:link controller="issues" action="create">Nueva Incidencia</g:link></li>
 
+   <li <g:if test="${selected == 'messages'}">class="active"</g:if>>
+     <g:link controller="messages">Mensajes</g:link></li>
+
   <li <g:if test="${selected == 'release'}">class="active"</g:if>>
     <g:link controller="milestone" action="index">Entregas</g:link></li>
 
