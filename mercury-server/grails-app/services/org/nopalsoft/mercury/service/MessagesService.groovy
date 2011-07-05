@@ -19,7 +19,7 @@ class MessagesService {
          project.users.each {User u ->
            try {
              mailService.sendMail {
-               to 'cesarreyesa@gmail.com'
+               to u.email
                subject "[Nuevo Mensaje] $message.title"
                body view:"/emails/newMessage", model:[message: message]
              }
