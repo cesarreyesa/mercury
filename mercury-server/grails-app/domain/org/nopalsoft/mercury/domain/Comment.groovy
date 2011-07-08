@@ -3,7 +3,7 @@ package org.nopalsoft.mercury.domain
 class Comment {
 
    User user
-   Date date
+   Date dateCreated
    String content
 
    static constraints = {
@@ -14,6 +14,5 @@ class Comment {
       table name: 'comment_'
       id generator: 'increment'
       version false
-      date column: 'date_'
    }
 }

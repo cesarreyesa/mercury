@@ -3,6 +3,7 @@ package org.nopalsoft.mercury.service
 import org.nopalsoft.mercury.domain.Message
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Project
+import org.nopalsoft.mercury.domain.Conversation
 
 class MessagesService {
 
@@ -14,6 +15,9 @@ class MessagesService {
    def newMessage = { Message message ->
       User user = User.get(springSecurityService.principal.id)
       message.user = user
+      def conversation = new Conversation()
+      conversation.save(flush:true)
+      message.conversation = conversation
       if(message.save(flush:true)){
          def project = Project.get(message.project.id)
          project.users.each {User u ->

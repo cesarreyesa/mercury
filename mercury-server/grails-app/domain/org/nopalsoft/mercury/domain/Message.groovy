@@ -6,9 +6,9 @@ class Message {
    Project project
    String title
    String body
-   static hasMany = [comments: Comment]
    Date dateCreated
    Date lastUpdated
+   Conversation conversation
 
    static constraints = {
       title(blank:false, maxSize: 200)

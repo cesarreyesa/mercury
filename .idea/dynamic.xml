@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DynamicElementsStorage">
+    <option name="containingClasses">
+      <map>
+        <entry key="java.lang.Object">
+          <value>
+            <DClassElement>
+              <option name="name" value="java.lang.Object" />
+              <option name="myName" value="java.lang.Object" />
+              <option name="myProperties">
+                <set>
+                  <DPropertyElement>
+                    <option name="name" value="conversation" />
+                    <option name="type" value="org.nopalsoft.mercury.domain.Conversation" />
+                    <option name="myType" value="org.nopalsoft.mercury.domain.Conversation" />
+                    <option name="myStatic" value="false" />
+                    <option name="myName" value="conversation" />
+                  </DPropertyElement>
+                </set>
+              </option>
+            </DClassElement>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
+
