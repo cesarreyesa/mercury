@@ -28,12 +28,12 @@
          <div class="inner">
             <g:each in="${messages}" var="message">
                <br/>
+               <h3><strong>${message.title}</strong></h3>
                <span><g:formatDate date="${message.dateCreated}" format="E, dd MMM"/></span> :: <span>Created by ${message.user.fullName}</span>
                <hr/>
-               <h3><strong>${message.title}</strong></h3>
                <p>${message.body}</p>
 
-               <g:render template="/shared/comments" model="[conversation: message.conversation]"/>
+               <g:render template="/shared/comments" model="[conversation: message.conversation, controller:'messages']"/>
             </g:each>
           </div>
        </div>

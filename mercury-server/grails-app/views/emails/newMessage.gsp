@@ -1,11 +1,4 @@
-<%--
-  User: cesarreyes
-  Date: 04/07/11
-  Time: 23:50
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" %>
-Se ha creado un mensaje nuevo en Mercury, creado por ${message.user.fullName}
+<%-- User: cesarreyes, Date: 04/07/11, Time: 23:50 --%><%@ page contentType="text/html;charset=UTF-8" %>Se ha creado un mensaje nuevo en Mercury, creado por ${message.user.fullName}
 
 Titulo:
 ${message.title}

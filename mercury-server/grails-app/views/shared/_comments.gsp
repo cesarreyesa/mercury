@@ -33,14 +33,14 @@
       <hr/>
    </div>
 
-   <g:each in="${conversation.comments}" var="comment">
+   <g:each in="${conversation.comments.sort { c -> c.dateCreated }}" var="comment">
       <div class="comment">
          <p>${comment.dateCreated} | ${comment.user.fullName}</p>
          <p>${comment.content}</p>
       </div>
    </g:each>
    <div class="addComment">
-      <g:form controller="conversation" action="addComment" id="${conversation.id}">
+      <g:form controller="${controller}" action="addComment" id="${conversation.id}">
          <g:hiddenField name="url" value="${request.forwardURI}"/>
          <div class="title">Agregar un comentario</div>
          <g:textArea name="comment" class="text" rows="2" cols="30"/>

@@ -3,11 +3,15 @@ package org.nopalsoft.mercury.web
 import grails.plugins.springsecurity.Secured
 import org.nopalsoft.mercury.domain.Message
 import org.nopalsoft.mercury.domain.Project
+import org.nopalsoft.mercury.domain.Comment
+import org.nopalsoft.mercury.domain.Conversation
+import org.nopalsoft.mercury.domain.User
 
 @Secured(['user'])
 class MessagesController {
 
    def messagesService
+   def springSecurityService
 
    def index = {
       def project = Project.get(session.project.id)
@@ -36,4 +40,19 @@ class MessagesController {
          redirect(action: 'create')
       }
    }
+
+   def addComment = {
+      def conversation = Conversation.get(params.id)
+      def message = Message.findByConversation(conversation)
+      def comment = new Comment()
+      comment.content = params.comment
+      comment.user = User.get(springSecurityService.principal.id)
+      conversation.addToComments(comment)
+      conversation.save(flush:true)
+
+      messagesService.notifyComment(message, comment)
+
+      redirect(url:params.url)
+   }
+
 }
