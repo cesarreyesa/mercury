@@ -43,9 +43,8 @@ class MessagesController {
    }
 
    def view = {
-      def project = Project.get(session.project.id)
       def message = Message.get(params.id)
-      [message: message, project: project]
+      [message: message, project: message.project]
    }
 
    def edit = {
