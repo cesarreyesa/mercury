@@ -47,7 +47,7 @@ class MessagesService {
              mailService.sendMail {
                to u.email
                subject "[Mensaje editado] $message.title"
-               body view:"/emails/messageEdited", model:[message: message]
+               body view:"/emails/messageEdited", model: [message: message]
              }
            } catch (Exception ex) {
              println ex

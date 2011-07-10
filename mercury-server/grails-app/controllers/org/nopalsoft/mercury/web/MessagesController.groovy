@@ -58,7 +58,7 @@ class MessagesController {
          def message = Message.get(params.id)
          message.properties = params
          if(!message.hasErrors() && messagesService.saveMessage(message)){
-            flash.successMessage = "Se ha creado un mensaje"
+            flash.successMessage = "Se ha editado un mensaje"
             redirect(action: "view", params: [id: message.id])
          }else{
             def project = Project.get(session.project.id)
