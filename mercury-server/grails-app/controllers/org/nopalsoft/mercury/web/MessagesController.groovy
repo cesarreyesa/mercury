@@ -6,6 +6,7 @@ import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.Comment
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.User
+import com.petebevin.markdown.MarkdownProcessor
 
 @Secured(['user'])
 class MessagesController {
@@ -26,7 +27,7 @@ class MessagesController {
    }
 
    def save = {
-      if (request.isPost()) {
+      if (request.isPost() && !params.id) {
          def message = new Message()
          message.properties = params
          if(!message.hasErrors() && messagesService.newMessage(message)){
@@ -38,6 +39,34 @@ class MessagesController {
          }
       }else{
          redirect(action: 'create')
+      }
+   }
+
+   def view = {
+      def project = Project.get(session.project.id)
+      def message = Message.get(params.id)
+      [message: message, project: project]
+   }
+
+   def edit = {
+      def project = Project.get(session.project.id)
+      def message = Message.get(params.id)
+      render(view: 'create', model: [message: message, project: project])
+   }
+
+   def update = {
+      if (request.isPost() && params.id) {
+         def message = Message.get(params.id)
+         message.properties = params
+         if(!message.hasErrors() && messagesService.saveMessage(message)){
+            flash.successMessage = "Se ha creado un mensaje"
+            redirect(action: "view", params: [id: message.id])
+         }else{
+            def project = Project.get(session.project.id)
+            render(view: 'edit', model: [message: message, project: project])
+         }
+      }else{
+         redirect(action: 'index')
       }
    }
 

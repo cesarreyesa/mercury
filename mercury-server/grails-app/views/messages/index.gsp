@@ -9,6 +9,10 @@
 <head>
    <title>Mensajes</title>
    <meta content="main" name="layout">
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}" />
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}" />
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.markitup.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js/sets/default', file: 'set.js')}"></script>
 </head>
 
 <body>
@@ -28,10 +32,10 @@
          <div class="inner">
             <g:each in="${messages}" var="message">
                <br/>
-               <h3><strong>${message.title}</strong></h3>
+               <h3><strong><g:link action="view" id="${message.id}">${message.title}</g:link></strong></h3>
                <span><g:formatDate date="${message.dateCreated}" format="E, dd MMM"/></span> :: <span>Created by ${message.user.fullName}</span>
                <hr/>
-               <p>${message.body}</p>
+               <p><g:markdownToHtml>${message.body}</g:markdownToHtml></p>
 
                <g:render template="/shared/comments" model="[conversation: message.conversation, controller:'messages']"/>
             </g:each>

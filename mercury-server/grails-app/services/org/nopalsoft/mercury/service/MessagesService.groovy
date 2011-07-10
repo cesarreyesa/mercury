@@ -37,6 +37,27 @@ class MessagesService {
       return false
    }
 
+   def saveMessage = { Message message ->
+      User user = User.get(springSecurityService.principal.id)
+      message.user = user
+      if(message.save(flush:true)){
+         def project = Project.get(message.project.id)
+         project.users.each {User u ->
+           try {
+             mailService.sendMail {
+               to u.email
+               subject "[Mensaje editado] $message.title"
+               body view:"/emails/messageEdited", model:[message: message]
+             }
+           } catch (Exception ex) {
+             println ex
+           }
+         }
+         return true
+      }
+      return false
+   }
+
    def notifyComment = { Message message, Comment comment ->
       def project = Project.get(message.project.id)
       project.users.each {User u ->

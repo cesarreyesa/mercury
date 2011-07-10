@@ -33,7 +33,7 @@
       <div class="inner">
         <table class="table">
           <tr>
-            <td colspan="3" style="text-align:right;"><g:link action="addProject">Agregar</g:link></td>
+            <td colspan="3" style="text-align:right;"><g:link action="addProject">[+] agregar</g:link></td>
           </tr>
           <tr>
             <th>Codigo</th>

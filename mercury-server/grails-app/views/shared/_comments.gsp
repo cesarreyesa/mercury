@@ -36,14 +36,14 @@
    <g:each in="${conversation.comments.sort { c -> c.dateCreated }}" var="comment">
       <div class="comment">
          <p>${comment.dateCreated} | ${comment.user.fullName}</p>
-         <p>${comment.content}</p>
+         <p><g:markdownToHtml>${comment.content}</g:markdownToHtml></p>
       </div>
    </g:each>
    <div class="addComment">
       <g:form controller="${controller}" action="addComment" id="${conversation.id}">
          <g:hiddenField name="url" value="${request.forwardURI}"/>
          <div class="title">Agregar un comentario</div>
-         <g:textArea name="comment" class="text" rows="2" cols="30"/>
+         <g:textArea name="comment" class="text" rows="2" cols="30" style="height:100px;"/>
          <g:submitButton name="addComment" class="button" value="Enviar"/>
       </g:form>
    </div>
@@ -51,4 +51,5 @@
 
 <script type="text/javascript">
    $(".button").button();
+   //$('div.addComment textarea').markItUp(mySettings);
 </script>

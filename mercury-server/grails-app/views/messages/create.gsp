@@ -9,6 +9,10 @@
 <head>
    <title>Nuevo mensaje</title>
    <meta content="main" name="layout">
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}" />
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}" />
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.markitup.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js/sets/default', file: 'set.js')}"></script>
 </head>
 
 <body>
@@ -20,10 +24,16 @@
 <div id="main">
    <div class="block" id="block-text">
       <div class="content">
-         <h2 class="title">Nuevo mensaje</h2>
+         <g:if test="${message.id}">
+            <h2 class="title">Editar mensaje</h2>
+         </g:if>
+         <g:else>
+            <h2 class="title">Nuevo mensaje</h2>
+         </g:else>
 
          <div class="inner">
-            <g:form action="save" name="issueForm" class="form">
+            <g:form action="${message.id ? 'update' : 'save'}" name="issueForm" class="form">
+               <g:hiddenField name="id" value="${message.id}"/>
                <g:hiddenField name="project.id" value="${project.id}"/>
                <g:hasErrors bean="${message}">
                   <div class="errors">
@@ -50,5 +60,9 @@
       </div>
    </div>
 </div>
+
+<script type="text/javascript">
+   $('#body').markItUp(mySettings);
+</script>
 </body>
 </html>
