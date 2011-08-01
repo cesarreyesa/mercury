@@ -5,6 +5,7 @@ import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.domain.Issue
 import org.nopalsoft.mercury.domain.MilestoneStatus
 import grails.plugins.springsecurity.Secured
+import org.nopalsoft.mercury.domain.Status
 
 @Secured(['user'])
 class MilestoneController {
@@ -32,21 +33,31 @@ class MilestoneController {
          }
          def milestones = milestonesService.getMilestones(project, milestoneStatus)
 
+          def issueStatusId = params.long("issueStatus")
+          def status
+          if (issueStatusId != null) {
+              status = Status.findById(issueStatusId)
+          } else {
+              status = Status.findByCode('open')
+          }
+
+          def orderByProperties = ["priority", "date"]
          if (id) {
-            milestone = Milestone.get(id)
-            issues = milestone.issues.findAll { it.status.code != 'resolved' && it.status.code != 'closed'}
+            milestone = Milestone.load(id)
+             issues = issueService.getIssues (milestone, status, orderByProperties)
+//            issues = milestone.issues
          } else if (project.currentMilestone && !showUnassigned && params.id != 'pending') {
-            if(milestones.contains(project.currentMilestone)){
+            if(milestones.contains(project.currentMilestone)) {
                milestone = project.currentMilestone
-               issues = project.currentMilestone.issues.findAll { it.status.code != 'resolved' && it.status.code != 'closed'}
-            }else{
-               issues = issueService.getIssuesNotInMilestone(project)
+                issues = issueService.getIssues (milestone, status, orderByProperties)
+            } else {
+               issues = issueService.getIssuesNotInMilestone(project, status, orderByProperties)
             }
          } else {
-            issues = issueService.getIssuesNotInMilestone(project)
+            issues = issueService.getIssuesNotInMilestone(project, status, orderByProperties)
          }
 
-         [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned]
+          [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned, status: status, statusList: Status.all]
       }
    }
 
