@@ -57,7 +57,7 @@
                <div style="padding-bottom:10px;">
                   Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
                   <g:submitButton name="submit" value="Agregar"/>
-                  <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#">abiertas</a></span>
+                  <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#" id="issuesStatusFilter">${status.name}</a></span>
                   <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
                </div>
                <g:render template="/shared/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]"/>
@@ -84,11 +84,11 @@
       </div>
       <ul class="navigation">
          <li class="${!milestone ? 'active' : ''}">
-            <g:link action="index" params="${[showUnassigned:true]}">Sin asignar</g:link>
+            <g:link action="index" params="${[showUnassigned:true, issueStatus: params.issueStatus]}">Sin asignar</g:link>
          </li>
          <g:each in="${milestones}" var="milestoneItem">
             <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
-               <g:link action="index" params="${[id:milestoneItem.id, milestoneStatus: params.milestoneStatus]}">${milestoneItem.name}</g:link>
+               <g:link action="index" params="${[id:milestoneItem.id, milestoneStatus: params.milestoneStatus, issueStatus: params.issueStatus]}">${milestoneItem.name}</g:link>
             </li>
          </g:each>
       </ul>
@@ -137,7 +137,15 @@
 
 <div id="milestonesFilterDialog" title="" style="display:none;">
    <g:form name="milestonesFilterForm" action="index" method="get">
+       <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
       <g:select name="milestoneStatus" from="['open':'Abiertas', 'closed':'Cerradas', 'all':'Todas']" optionKey="key" optionValue="value" value="${params.milestoneStatus}"/>
+   </g:form>
+</div>
+
+<div id="issuesStatusFilterDialog" title="" style="display:none;">
+   <g:form name="issuesFilterForm" action="index" method="get">
+       <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
+       <g:select name="issueStatus" value="${status.id}" from="${statusList}" optionKey="id" optionValue="name"/>
    </g:form>
 </div>
 
@@ -166,7 +174,7 @@
          }
       });
 
-      $('#milestonesFilter').click(function() {
+      $('#milestonesFilter').click(function(event) {
          event.preventDefault();
          var position = $(this).position();
          $("#milestonesFilterDialog").dialog({
@@ -174,9 +182,23 @@
          });
       });
 
-      $('#milestoneStatus').change(function(){
-        $('#milestonesFilterForm').submit();
+      $('#issuesStatusFilter').click(function(event) {
+         event.preventDefault();
+         var position = $(this).position();
+         $("#issuesStatusFilterDialog").dialog({
+            minHeight:0, width:200, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+         });
       });
+
+       $('#milestoneStatus').change(function() {
+           $('#milestonesFilterForm').append($('#issueStatus'));
+           $('#milestonesFilterForm').submit();
+       });
+
+       $('#issueStatus').change(function() {
+           $('#issuesFilterForm').append($('#milestoneStatus'));
+           $('#issuesFilterForm').submit();
+       });
    });
 
 </script>
