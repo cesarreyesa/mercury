@@ -39,8 +39,6 @@
     <orderEntry type="module-library">
       <library name="Grails User Library">
         <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.web/jars/org.springframework.security.web-3.0.3.RELEASE.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.core/jars/org.springframework.security.core-3.0.3.RELEASE.jar!/" />
           <root url="file://$MODULE_DIR$/lib" />
           <root url="jar://$USER_HOME$/.ivy2/cache/backport-util-concurrent/backport-util-concurrent/jars/backport-util-concurrent-3.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/javax.servlet/servlet-api/jars/servlet-api-2.3.jar!/" />
@@ -48,6 +46,8 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.1.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/net.sourceforge.wurfl/wurfl/jars/wurfl-1.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.mobile/spring-mobile-device/jars/spring-mobile-device-1.0.0.M3.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.web/jars/org.springframework.security.web-3.0.4.RELEASE.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.springframework.security/org.springframework.security.core/jars/org.springframework.security.core-3.0.4.RELEASE.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

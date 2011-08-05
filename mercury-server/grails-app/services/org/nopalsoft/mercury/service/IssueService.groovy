@@ -20,6 +20,7 @@ import org.nopalsoft.mercury.workflow.Action
 import org.nopalsoft.mercury.domain.IssueFilter
 import org.hibernate.criterion.Order
 import org.nopalsoft.mercury.domain.GroupBy
+import org.nopalsoft.mercury.domain.Milestone
 
 class IssueService {
 
@@ -433,9 +434,22 @@ class IssueService {
       return changes
    }
 
-   public List<Issue> getIssuesNotInMilestone(Project project) {
-      return Issue.findAll("from Issue issue where issue.milestone is null and issue.status.code not in ('resolved', 'closed') and issue.project = :projectParam", [projectParam: project]);
-   }
+  public List<Issue> getIssuesNotInMilestone(Project project, Status status, List orderByProperties) {
+      return Issue.withCriteria {
+          orderByProperties.each {order((String) it)}
+          eq("project", project)
+          isNull("milestone")
+          eq("status", status)
+      }
+  }
+
+  public List<Issue> getIssues(Milestone milestone, Status status, List orderByProperties) {
+      return Issue.withCriteria {
+          orderByProperties.each {order((String) it)}
+          eq ("milestone", milestone)
+          eq ("status", status)
+      }
+  }
 
 
 }

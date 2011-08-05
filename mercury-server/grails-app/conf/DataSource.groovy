@@ -1,8 +1,8 @@
 dataSource {
   pooled = true
   driverClassName = "org.postgresql.Driver"
-  username = "postgres"
-  password = "sa"
+  username = "nopal"
+  password = "lapon"
 }
 hibernate {
   cache.use_second_level_cache = true
@@ -15,9 +15,10 @@ environments {
     dataSource {
 //			dbCreate = "create-drop" // one of 'create', 'create-drop','update'
       dbCreate = "update"
-      url = "jdbc:postgresql://localhost:5432/mercury"
-      username = "postgres"
-      password = "sa"
+      url = "jdbc:postgresql://localhost:5432/mercury2"
+      username = "nopal"
+      password = "lapon"
+       loggingSql = true
     }
   }
   test {
