@@ -7,6 +7,7 @@ import org.nopalsoft.mercury.domain.Comment
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.User
 import com.petebevin.markdown.MarkdownProcessor
+import org.nopalsoft.mercury.domain.Role
 
 @Secured(['user', 'role_admin'])
 class MessagesController {
@@ -23,7 +24,7 @@ class MessagesController {
    def create = {
       def project = Project.get(session.project.id)
       def message = new Message()
-      [message: message, project: project]
+      [message: message, project: project, roles: Role.listOrderByAuthority()]
    }
 
    def save = {

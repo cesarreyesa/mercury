@@ -49,6 +49,11 @@
                  <g:textArea name="body" value="${message.body}" style="height:100px;" class="text_area"/>
                </div>
 
+               <div class="group">
+                  <label class="label">Visible a:</label>
+                  <g:select name="followerRoles" from="${roles}" optionKey="id" optionValue="authority" noSelection="['':'Seleccione...']"/>
+               </div>
+
                <div class="group navform wat-cf">
                  <button class="button" type="submit">
                    <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Guardar" /> Guardar
@@ -63,6 +68,7 @@
 
 <script type="text/javascript">
    $('#body').markItUp(mySettings);
+   $('#title').focus();
 </script>
 </body>
 </html>

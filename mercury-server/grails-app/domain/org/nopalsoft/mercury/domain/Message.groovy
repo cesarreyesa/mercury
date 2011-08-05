@@ -8,6 +8,7 @@ class Message {
    String body
    Date dateCreated
    Date lastUpdated
+   static hasMany = [followerRoles: Role]
    Conversation conversation
 
    static constraints = {
