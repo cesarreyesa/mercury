@@ -6,7 +6,7 @@ import org.nopalsoft.mercury.domain.Issue
 import org.nopalsoft.mercury.domain.MilestoneStatus
 import grails.plugins.springsecurity.Secured
 
-@Secured(['user'])
+@Secured(['user', 'role_admin'])
 class MilestoneController {
    def issueService
    def milestonesService

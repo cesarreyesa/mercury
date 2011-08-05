@@ -8,7 +8,7 @@ import org.apache.commons.lang.time.DateUtils
 import org.nopalsoft.mercury.domain.Status
 import org.apache.commons.collections.CollectionUtils
 
-@Secured(['user'])
+@Secured(['user', 'role_admin'])
 class ReportsController {
 
    def issueService

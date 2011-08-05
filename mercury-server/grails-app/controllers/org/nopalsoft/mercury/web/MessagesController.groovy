@@ -8,7 +8,7 @@ import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.User
 import com.petebevin.markdown.MarkdownProcessor
 
-@Secured(['user'])
+@Secured(['user', 'role_admin'])
 class MessagesController {
 
    def messagesService

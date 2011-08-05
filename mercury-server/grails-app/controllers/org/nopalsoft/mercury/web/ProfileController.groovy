@@ -3,7 +3,7 @@ package org.nopalsoft.mercury.web
 import org.nopalsoft.mercury.domain.User
 import grails.plugins.springsecurity.Secured
 
-@Secured(['user'])
+@Secured(['user', 'role_admin'])
 class ProfileController {
 
   def springSecurityService

@@ -17,7 +17,7 @@ import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.domain.MilestoneStatus
 import grails.converters.JSON
 
-@Secured(['user'])
+@Secured(['user', 'role_admin'])
 class IssuesController {
 
    def issueService

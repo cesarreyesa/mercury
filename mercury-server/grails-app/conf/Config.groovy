@@ -111,3 +111,6 @@ grails.plugins.springsecurity.userLookup.authorityDomainClass = "org.nopalsoft.m
 grails.plugins.springsecurity.userLookup.passwordPropertyName = "password"
 //grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'org.nopalsoft.mercury.domain.UserRole'
 //grails.plugins.springsecurity.authority.className = 'org.nopalsoft.mercury.domain.Role'
+
+adminUsername="admin"
+adminPassword="nimda"
