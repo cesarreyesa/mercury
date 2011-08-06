@@ -6,6 +6,10 @@
   <title>
     Nueva incidencia
   </title>
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}" />
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}" />
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.markitup.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js/sets/default', file: 'set.js')}"></script>
 </head>
 <body>
 
@@ -33,7 +37,7 @@
               </div>
               <div class="group">
                 <label class="label">Descripcion:</label>
-                <g:textArea name="description" value="${issue.description}" style="height:100px;" class="text_area"/>
+                <g:textArea name="description" value="${issue.description}" style="height:100px;width: 420px;" class="text_area"/>
               </div>
               <div class="group">
                 <label class="label">Entrega</label>
@@ -86,10 +90,11 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function () {
-    $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
-    $('#summary').focus();
-  });
+   $(function() {
+      $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
+      $('#summary').focus();
+      $('#description').markItUp(mySettings);
+   });
 </script>
 
 </body>

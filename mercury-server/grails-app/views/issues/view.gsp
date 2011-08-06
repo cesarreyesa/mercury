@@ -40,7 +40,7 @@
             <h2 class="title">${issue.code} ${issue.summary}</h2>
 
             <div style="margin-bottom:20px;">
-               <p>${issue.description}</p>
+               <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
             </div>
 
             <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">

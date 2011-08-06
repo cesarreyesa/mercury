@@ -67,8 +67,10 @@
 </div>
 
 <script type="text/javascript">
-   $('#body').markItUp(mySettings);
-   $('#title').focus();
+   $(function(){
+      $('#body').markItUp(mySettings);
+      $('#title').focus();
+   });
 </script>
 </body>
 </html>

@@ -9,6 +9,10 @@
 <head>
   <meta name="layout" content="main">
   <title>${issue.summary}</title>
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}" />
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}" />
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.markitup.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js/sets/default', file: 'set.js')}"></script>
 </head>
 <body>
 
@@ -80,9 +84,10 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function () {
+  $(function () {
     $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
     $('#summary').focus();
+     $('#description').markItUp(mySettings);
   });
 </script>
 
