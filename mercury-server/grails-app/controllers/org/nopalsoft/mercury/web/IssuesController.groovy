@@ -111,6 +111,16 @@ class IssuesController {
       [issue: issue, project: project, categories: categories, milestones: milestones]
    }
 
+   def newIssueWindow = {
+      def project = Project.get(session.project.id)
+      def issue = new Issue()
+      def user = User.get(springSecurityService.principal.id)
+      issue.reporter = user
+      def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
+      def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: project, statusParam: MilestoneStatus.OPEN])
+      [issue: issue, project: project, categories: categories, milestones: milestones]
+   }
+
    def save = {
       if (request.isPost()) {
          def issue = new Issue()

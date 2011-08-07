@@ -53,7 +53,7 @@
 
       <div id="user-navigation">
          <ul class="wat-cf">
-            <li><g:link controller="issues" action="create">[+]</g:link></li>
+            <li><g:link controller="issues" action="create" elementId="newIssueLink">[+]</g:link></li>
             <li style="color: #ffffff;">Trabajando en:
                <g:set var="workingOn" value="${session.user.workingOn()}"/>
                <g:if test="${workingOn}">
@@ -101,6 +101,23 @@
    </div>
 
 </div>
+
+<div id="newIssueDialog" title="Nueva Incidencia" style="display:none;">
+
+</div>
+
+<script type="text/javascript">
+   $(function(){
+      $('#newIssueLink').click(function(e) {
+         e.preventDefault();
+         var position = $(this).position();
+         $("#newIssueDialog").dialog({
+            width:730, modal: true, position: [$(document).width() - 730, position.top + $(this).height()]
+         });
+         $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}');
+      });
+   });
+</script>
 </body>
 </html>
 
