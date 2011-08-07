@@ -140,6 +140,25 @@ class IssuesController {
       }
    }
 
+   def saveAjax = {
+      if (request.isPost()) {
+         def issue = new Issue()
+         bindData issue, params, ['dueDate']
+         issue.dueDate = params.dueDate ? Date.parse("dd/MM/yyyy", params.dueDate) : null
+         if (issueService.newIssue(issue)) {
+            flash.message = "Se creo correctamente."
+            redirect(action: 'view', params: [id: issue.code])
+         }
+         else {
+            def project = Project.get(session.project.id)
+            render(view: 'create', model: [issue: issue, project: project])
+            return;
+         }
+      } else {
+         render(view: 'create')
+      }
+   }
+
    def edit = {
       def issue = Issue.findByCode(params.id)
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(issue.project)

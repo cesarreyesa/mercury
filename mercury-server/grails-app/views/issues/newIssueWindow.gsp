@@ -103,6 +103,15 @@
       $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
       $('#summary').focus();
       $('#newIssueButton').button();
+      $('#newIssueButton').click(function(e){
+         e.preventDefault();
+         $.post('${createLink(controller:'issues', action: 'saveAjax')}', $('#issueForm').serialize(), function(data, textStatus){
+            $("#newIssueDialog").html('Incidencia creada exitosamente');
+            setTimeout(function(){
+               $('#newIssueDialog').dialog('close');
+            }, 1000)
+         });
+      });
       $('#newIssueCancel').click(function(e){
          e.preventDefault();
          $('#newIssueDialog').dialog('close');
