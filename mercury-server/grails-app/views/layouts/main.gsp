@@ -53,6 +53,7 @@
 
       <div id="user-navigation">
          <ul class="wat-cf">
+            <li><g:link controller="issues" action="create">[+]</g:link></li>
             <li style="color: #ffffff;">Trabajando en:
                <g:set var="workingOn" value="${session.user.workingOn()}"/>
                <g:if test="${workingOn}">
@@ -64,7 +65,7 @@
             </li>
             <li><g:link controller="profile"><sec:ifLoggedIn>${session.user}</sec:ifLoggedIn> (ver perfil)</g:link></li>
             <li><g:link controller="project">Configuraci&oacute;n</g:link></li>
-            <li><g:link controller="admin">Administracion</g:link></li>
+            <li><g:link controller="admin"><img src="${resource(dir:'images', file:'cog.png')}" /> </g:link></li>
             <li><g:link controller="logout" class="logout">salir</g:link></li>
          </ul>
       </div>
