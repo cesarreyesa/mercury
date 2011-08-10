@@ -21,6 +21,7 @@ import org.nopalsoft.mercury.domain.IssueFilter
 import org.hibernate.criterion.Order
 import org.nopalsoft.mercury.domain.GroupBy
 import org.nopalsoft.mercury.domain.Milestone
+import org.nopalsoft.mercury.utils.SmartDate
 
 class IssueService {
 
@@ -187,14 +188,16 @@ class IssueService {
       //          dateUntil = DateUtils.fromSmartDate(until);
       //      }
 
-      if (filter.createdFrom && filter.createdUntil) {
-         crit.add(Restrictions.between("date", filter.createdFrom, filter.createdUntil));
+      if (filter.createdFrom || filter.createdUntil) {
+         def until = new SmartDate().fromSmartDate(filter.createdUntil) ?: new Date()
+         def from = new SmartDate().fromSmartDate(filter.createdFrom)
+         crit.add(Restrictions.between("date", from, until))
       }
       if (statusDate && "resolved".equals(statusDate.toLowerCase())) {
-         crit.add(Restrictions.between("dateResolved", dateFrom, dateUntil));
+         crit.add(Restrictions.between("dateResolved", dateFrom, dateUntil))
       }
       if (statusDate && "closed".equals(statusDate.toLowerCase())) {
-         crit.add(Restrictions.between("dateClosed", dateFrom, dateUntil));
+         crit.add(Restrictions.between("dateClosed", dateFrom, dateUntil))
       }
 
       if (filter.groupBy && addSort) {

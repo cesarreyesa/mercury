@@ -26,14 +26,15 @@ class IssuesController {
    def getFilters = { user ->
       def filters = [
             new IssueFilter(id: 1, name: 'Mis Pendientes', status: 'open,progress', assignee: user.username, groupBy: GroupBy.Priority),
-            new IssueFilter(id: 2, name: 'Mis Solicitudes Sin Resolver', status: 'open,progres', reporter: user.username, groupBy: GroupBy.Priority),
-            new IssueFilter(id: 3, name: 'Pendientes', status: 'open,progress', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 4, name: 'En Progreso', status: 'progress', assignee: user.username, groupBy: GroupBy.Priority),
-            new IssueFilter(id: 5, name: 'Pendientes sin asignar', status: 'open,progress', assignee: 'null', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 6, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: user.username, groupBy: GroupBy.Priority),
-            new IssueFilter(id: 7, name: 'Cerrados en la ultima semana', status: 'closed', assignee: '-1w', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 8, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', assignee: '-1w', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 9, name: 'Todas', groupBy: GroupBy.Priority)
+            new IssueFilter(id: 2, name: 'Abiertas recientemente', status: 'open,progress', createdFrom: '-2w', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 3, name: 'Mis Solicitudes Sin Resolver', status: 'open,progres', reporter: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id: 4, name: 'Pendientes', status: 'open,progress', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 5, name: 'En Progreso', status: 'progress', assignee: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id: 6, name: 'Pendientes sin asignar', status: 'open,progress', assignee: 'null', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 7, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: user.username, groupBy: GroupBy.Priority),
+            new IssueFilter(id: 8, name: 'Cerrados en la ultima semana', status: 'closed', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 9, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 10, name: 'Todas', groupBy: GroupBy.Priority)
       ]
       filters
    }

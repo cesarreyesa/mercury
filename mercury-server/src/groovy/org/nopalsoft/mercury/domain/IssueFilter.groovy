@@ -11,8 +11,8 @@ class IssueFilter {
    String priority
    String assignee
    String from
-   Date createdFrom
-   Date createdUntil
+   String createdFrom
+   String createdUntil
    String name
    String reporter
    GroupBy groupBy
