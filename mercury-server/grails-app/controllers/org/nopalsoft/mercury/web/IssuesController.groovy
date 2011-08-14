@@ -107,6 +107,9 @@ class IssuesController {
       def issue = new Issue()
       def user = User.get(springSecurityService.principal.id)
       issue.reporter = user
+      if(params.parent){
+         issue.parent = Issue.findByCode(params.parent);
+      }
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
       def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: project, statusParam: MilestoneStatus.OPEN])
       [issue: issue, project: project, categories: categories, milestones: milestones]
@@ -117,6 +120,9 @@ class IssuesController {
       def issue = new Issue()
       def user = User.get(springSecurityService.principal.id)
       issue.reporter = user
+      if(params.parent){
+         issue.parent = Issue.findByCode(params.parent);
+      }
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
       def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: project, statusParam: MilestoneStatus.OPEN])
       [issue: issue, project: project, categories: categories, milestones: milestones]

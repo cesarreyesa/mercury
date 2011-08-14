@@ -23,53 +23,54 @@ package org.nopalsoft.mercury.domain
 
 class Issue {
 
-  String code
+   String code
 
-  String summary
-  String description
-  Status status
-  Date date
-  Date lastUpdated
-  Date dueDate
-  Date dateResolved
-  Project project
-  IssueType issueType
-  Resolution resolution
-  Priority priority
-  Milestone milestone
-  Category category
+   String summary
+   String description
+   Status status
+   Date date
+   Date lastUpdated
+   Date dueDate
+   Date dateResolved
+   Project project
+   IssueType issueType
+   Resolution resolution
+   Priority priority
+   Milestone milestone
+   Category category
+   Issue parent
 
-  static hasMany = [attachments:IssueAttachment, watchers: User]
+   static hasMany = [attachments: IssueAttachment, watchers: User]
 
 //  Long estimate;
 
-//  Long timeSpent;
-//  Date lastWorkDate;
+   //  Long timeSpent;
+   //  Date lastWorkDate;
 
-  User assignee
-  User reporter
+   User assignee
+   User reporter
 
-  static constraints = {
-    code (unique:true)
-    summary (blank:false)
-    description (nullable:true, maxSize:4000)
-    date (blank:false)
-    dueDate (nullable:true)
-    resolution(nullable:true)
-    dateResolved(nullable:true)
-    assignee(nullable:true)
-    milestone(nullable:true)
-    category(nullable:true)
-  }
+   static constraints = {
+      code(unique: true)
+      summary(blank: false)
+      description(nullable: true, maxSize: 4000)
+      date(blank: false)
+      dueDate(nullable: true)
+      resolution(nullable: true)
+      dateResolved(nullable: true)
+      assignee(nullable: true)
+      milestone(nullable: true)
+      category(nullable: true)
+   }
 
-  static mapping = {
-    id generator: 'increment'
-    version false
-    priority column:'priority'
-    date column:'date_'
-    dueDate column:'end_date'
-    watchers joinTable: [name:'issue_watcher', key:'issue_id', column: 'user_id']
-  }
+   static mapping = {
+      id generator: 'increment'
+      version false
+      priority column: 'priority'
+      date column: 'date_'
+      dueDate column: 'end_date'
+      watchers joinTable: [name: 'issue_watcher', key: 'issue_id', column: 'user_id']
+   }
 }
 
 //  @Column(name = "date_closed")

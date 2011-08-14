@@ -83,6 +83,12 @@
       <h3>Propiedades</h3>
       <div class="content">
          <table style="width:100%;">
+            <g:if test="${issue.parent}">
+               <tr>
+                  <td>Padre</td>
+                  <td><g:link controller="issues" action="view" id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
+               </tr>
+            </g:if>
             <tr>
                <td>Entrega</td>
                <td><g:link controller="milestone" action="index" id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>

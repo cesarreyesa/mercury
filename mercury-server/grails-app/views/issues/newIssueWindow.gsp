@@ -18,6 +18,7 @@
    <div class="inner">
       <g:form action="save" name="issueForm" class="form">
          <g:hiddenField name="project.id" value="${project.id}"/>
+         <g:hiddenField name="parent.id" value="${issue.parent?.id}"/>
          <g:hasErrors bean="${issue}">
             <div class="errors">
                <g:renderErrors bean="${issue}" as="list"/>

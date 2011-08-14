@@ -4,7 +4,17 @@
   Time: 21:20
 --%>
 
-<table class="table" cellpadding="0" cellspacing="0">
+<style type="text/css">
+   .issueOptions {
+      visibility:hidden;
+      /*margin:.5em 0 .25em 0;*/
+   }
+   .issues tr:hover .issueOptions{
+      visibility:visible;
+   }
+</style>
+
+<table class="table issues" cellpadding="0" cellspacing="0">
   <tr>
     <g:if test="${includeCheckbox}">
       <th class="first">
@@ -29,7 +39,10 @@
       </g:if>
       <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
       <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
-      <td><g:link controller="issues" action="view" id="${issue.code}">${issue.summary}</g:link></td>
+      <td>
+         <g:link controller="issues" action="view" id="${issue.code}">${issue.summary}</g:link>
+         <span class="issueOptions" style="float: right;"><a href="#" class="addSubIssue" data-code="${issue.code}">add sub issue</a></span>
+      </td>
       <td style="white-space:nowrap;">${issue.reporter.fullName}</td>
       <td style="white-space:nowrap;"><g:formatDate date="${issue.date}" format="d, MMM yyyy"/></td>
       <td style="white-space:nowrap;">${issue.assignee ? issue.assignee.fullName : '--'}</td>
@@ -48,3 +61,14 @@
     </g:if>
   </g:each>
 </table>
+
+<script type="text/javascript">
+   $('.addSubIssue').click(function(e) {
+      e.preventDefault();
+      var position = $(this).position();
+      $("#newIssueDialog").dialog({
+         width:730, modal: true, position: [position.left - (730 / 2), position.top + $(this).height()]
+      });
+      $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('code'));
+   });
+</script>
