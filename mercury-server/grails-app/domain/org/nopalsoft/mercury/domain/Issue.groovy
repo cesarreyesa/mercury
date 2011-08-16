@@ -40,7 +40,7 @@ class Issue {
    Category category
    Issue parent
 
-   static hasMany = [attachments: IssueAttachment, watchers: User]
+   static hasMany = [attachments: IssueAttachment, watchers: User, childs: Issue]
 
 //  Long estimate;
 

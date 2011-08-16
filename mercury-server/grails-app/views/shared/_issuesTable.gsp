@@ -12,6 +12,11 @@
    .issues tr:hover .issueOptions{
       visibility:visible;
    }
+   .issues tr.sub td{
+      font-size: 80%;
+      padding-top: 3px;
+      padding-bottom: 3px;
+   }
 </style>
 
 <table class="table issues" cellpadding="0" cellspacing="0">
@@ -33,13 +38,14 @@
     <th>A</th>
   </tr>
   <g:each in="${issues}" var="issue" status="i">
-    <tr class="${(i % 2) == 0 ? 'odd' : 'even'} ${extendedView ? 'noborder' : ''}">
+    <tr class="${(i % 2) == 0 ? 'odd' : 'even'} ${(extendedView || issue.childs.size() > 0) ? 'noborder' : ''}">
       <g:if test="${includeCheckbox}">
         <td><g:checkBox name="issue" value="${issue.id}" checked="false"/></td>
       </g:if>
       <td><img src="${resource(dir: 'images/icons', file: issue.priority.icon)}" alt="${issue.priority.name}"></td>
       <td style="white-space:nowrap;"><g:link action="view" id="${issue.code}">${issue.code}</g:link></td>
       <td>
+         ${issue.childs.size() > 0 ? '&#9658;' : ''}
          <g:link controller="issues" action="view" id="${issue.code}">${issue.summary}</g:link>
          <span class="issueOptions" style="float: right;"><a href="#" class="addSubIssue" data-code="${issue.code}">add sub issue</a></span>
       </td>
@@ -59,6 +65,26 @@
         </td>
       </tr>
     </g:if>
+     <g:each in="${issue.childs}" var="child">
+        <tr class="${(i % 2) == 0 ? 'odd' : 'even'} noborder sub">
+           <g:if test="${includeCheckbox}">
+              <td>&nbsp;</td>
+           </g:if>
+           <td>
+              %{--<img src="${resource(dir: 'images/icons', file: child.priority.icon)}" alt="${child.priority.name}">--}%
+              &nbsp;
+           </td>
+           <td style="white-space:nowrap;">
+              %{--<g:link action="view" id="${child.code}">${child.code}</g:link>--}%
+              &nbsp;
+           </td>
+           <td style="padding-left: 25px;">
+              <g:link controller="issues" action="view" id="${child.code}">${child.code} - ${child.summary}</g:link>
+              <span class="issueOptions" style="float: right;"><a href="#" class="addSubIssue" data-code="${child.code}">add sub issue</a></span>
+           </td>
+           <td colspan="4">&nbsp;</td>
+        </tr>
+     </g:each>
   </g:each>
 </table>
 
@@ -69,6 +95,6 @@
       $("#newIssueDialog").dialog({
          width:730, modal: true, position: [position.left - (730 / 2), position.top + $(this).height()]
       });
-      $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('code'));
+      $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('code') + '&reload=true');
    });
 </script>

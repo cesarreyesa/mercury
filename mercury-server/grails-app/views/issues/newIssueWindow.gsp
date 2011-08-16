@@ -110,6 +110,9 @@
             $("#newIssueDialog").html('Incidencia creada exitosamente');
             setTimeout(function(){
                $('#newIssueDialog').dialog('close');
+               <g:if test="${params.reload == 'true'}">
+                  window.location=window.location;
+               </g:if>
             }, 1000)
          });
       });
