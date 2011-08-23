@@ -30,7 +30,7 @@
     <g:else>
       <th class="first">P</th>
     </g:else>
-    <th>Codigo</th>
+    <th>C&oacute;digo</th>
     <th>Resumen</th>
     <th>Reportador</th>
     <th>Creado</th>
@@ -65,7 +65,7 @@
         </td>
       </tr>
     </g:if>
-     <g:each in="${issue.childs}" var="child">
+     <g:each in="${issue.childs.findAll{ it.status?.code != 'closed' }}" var="child">
         <tr class="${(i % 2) == 0 ? 'odd' : 'even'} noborder sub">
            <g:if test="${includeCheckbox}">
               <td>&nbsp;</td>
