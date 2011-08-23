@@ -122,6 +122,11 @@ class IssuesController {
       issue.reporter = user
       if(params.parent){
          issue.parent = Issue.findByCode(params.parent);
+         issue.assignee = issue.parent.assignee
+         issue.priority = issue.parent.priority
+         issue.issueType = issue.parent.issueType
+         issue.category = issue.parent.category
+         issue.milestone = issue.parent.milestone
       }
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
       def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: project, statusParam: MilestoneStatus.OPEN])
