@@ -104,6 +104,7 @@ class IssueService {
 
    private DetachedCriteria createCriteria(List<Project> projects, String query, String type, IssueFilter filter, String statusDate, boolean addSort) {
       DetachedCriteria crit = DetachedCriteria.forClass(Issue.class);
+      crit.add(Restrictions.isNull("parent"))
       if (projects != null) {
          crit.add(Restrictions.in("project", projects));
       }
@@ -437,22 +438,24 @@ class IssueService {
       return changes
    }
 
-  public List<Issue> getIssuesNotInMilestone(Project project, Status status, List orderByProperties) {
+   public List<Issue> getIssuesNotInMilestone(Project project, Status status, List orderByProperties) {
       return Issue.withCriteria {
-          orderByProperties.each {order((String) it)}
-          eq("project", project)
-          isNull("milestone")
-          eq("status", status)
+         orderByProperties.each {order((String) it)}
+         eq("project", project)
+         isNull("milestone")
+         eq("status", status)
+         isNull("parent")
       }
-  }
+   }
 
-  public List<Issue> getIssues(Milestone milestone, Status status, List orderByProperties) {
+   public List<Issue> getIssues(Milestone milestone, Status status, List orderByProperties) {
       return Issue.withCriteria {
-          orderByProperties.each {order((String) it)}
-          eq ("milestone", milestone)
-          eq ("status", status)
+         orderByProperties.each {order((String) it)}
+         eq("milestone", milestone)
+         eq("status", status)
+         isNull("parent")
       }
-  }
+   }
 
 
 }
