@@ -3,7 +3,7 @@ import grails.plugins.springsecurity.SecurityConfigType
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
- grails.config.locations = [ "file:/opt/nopalsoft/mercury/config/config.groovy"]
+// grails.config.locations = [ "file:/dir/config.groovy"]
 //                             "classpath:${appName}-config.groovy",
 //                             "file:${userHome}/.grails/${appName}-config.properties",
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
@@ -114,3 +114,17 @@ grails.plugins.springsecurity.userLookup.passwordPropertyName = "password"
 
 adminUsername="admin"
 adminPassword="nimda"
+
+grails {
+   mail {
+     host = "smtp.gmail.com"
+     port = 465
+     username = "youracount@gmail.com"
+     password = "yourpassword"
+     props = ["mail.smtp.auth":"true",
+              "mail.smtp.socketFactory.port":"465",
+              "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+              "mail.smtp.socketFactory.fallback":"false"]
+   }
+}
+
