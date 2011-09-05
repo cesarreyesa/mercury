@@ -29,53 +29,53 @@
 
    </style>
 </head>
-<body>
+
 <content tag="navbar">
    <g:render template="/shared/menu" model="[selected:'release']"/>
 </content>
-<div id="main">
-   <div class="block" id="block-text">
-      <div class="content">
-         <g:if test="${flash.message}">
-            <div class="flash">
-               <div class="message error">
-                  ${flash.message}
-               </div>
+
+<body>
+
+<div class="row">
+   <div class="span12 columns">
+      <g:if test="${flash.message}">
+         <div class="flash">
+            <div class="message error">
+               ${flash.message}
             </div>
-         </g:if>
-         <g:if test="${flash.success}">
-            <div class="flash">
-               <div class="message notice">
-                  ${flash.success}
-               </div>
-            </div>
-         </g:if>
-         <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
-         <div class="inner">
-            <g:form action="addIssuesToMilestone">
-               <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
-               <div style="padding-bottom:10px;">
-                  Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
-                  <g:submitButton name="submit" value="Agregar"/>
-                  <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#" id="issuesStatusFilter">${status.name}</a></span>
-                  <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
-               </div>
-               <g:render template="/shared/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]"/>
-            </g:form>
-            <g:form name="moveUpForm" controller="milestone" action="moveUp">
-               <g:hiddenField name="milestone" value="${milestone?.id}"/>
-               <g:hiddenField name="issue"/>
-            </g:form>
-            <g:form name="moveDownForm" controller="milestone" action="moveDown">
-               <g:hiddenField name="milestone" value="${milestone?.id}"/>
-               <g:hiddenField name="issue"/>
-            </g:form>
          </div>
+      </g:if>
+      <g:if test="${flash.success}">
+         <div class="flash">
+            <div class="message notice">
+               ${flash.success}
+            </div>
+         </div>
+      </g:if>
+      <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
+      <div class="inner">
+         <g:form action="addIssuesToMilestone">
+            <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
+            <div style="padding-bottom:10px;">
+               Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
+               <g:submitButton name="submit" value="Agregar"/>
+               <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#" id="issuesStatusFilter">${status.name}</a></span>
+               <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
+            </div>
+            <g:render template="/shared/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]"/>
+         </g:form>
+         <g:form name="moveUpForm" controller="milestone" action="moveUp">
+            <g:hiddenField name="milestone" value="${milestone?.id}"/>
+            <g:hiddenField name="issue"/>
+         </g:form>
+         <g:form name="moveDownForm" controller="milestone" action="moveDown">
+            <g:hiddenField name="milestone" value="${milestone?.id}"/>
+            <g:hiddenField name="issue"/>
+         </g:form>
       </div>
    </div>
-</div>
-<div id="sidebar">
-   <div class="block">
+
+   <div class="span4 columns">
       <div class="custom-bar">
          <div style="display:inline;">
             <span>Entregas <a href="#" id="milestonesFilter">(${message(code:'milestone.statusFilter.' + (params.milestoneStatus ?: 'open'))})</a>:</span>
@@ -93,6 +93,7 @@
          </g:each>
       </ul>
    </div>
+
 </div>
 
 <div id="newMilestoneDialog" title="Nueva lista de entregas" style="display:none;">
@@ -165,13 +166,6 @@
                }
             }
          });
-      });
-
-      $("#close").styledButton({
-         'orientation' : 'alone',
-         'action' : function () {
-            $('#closeMilestoneForm').submit();
-         }
       });
 
       $('#milestonesFilter').click(function(event) {

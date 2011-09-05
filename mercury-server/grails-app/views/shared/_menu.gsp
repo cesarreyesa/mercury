@@ -11,9 +11,6 @@
   <li <g:if test="${selected == 'issues'}">class="active"</g:if>>
     <g:link controller="issues">Incidencias</g:link></li>
 
-  <li <g:if test="${selected == 'new'}">class="active"</g:if>>
-    <g:link controller="issues" action="create">Nueva Incidencia</g:link></li>
-
    <li <g:if test="${selected == 'messages'}">class="active"</g:if>>
      <g:link controller="messages">Mensajes</g:link></li>
 

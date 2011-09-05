@@ -26,8 +26,8 @@
    <g:render template="/shared/menu" model="[selected:'issues']"/>
 </content>
 
-<div id="main">
-   <div class="block" id="block-text">
+<div class="row">
+   <div class="span12 columns">
       <div class="content">
          <h2 class="title">
             ${currentFilter.name}
@@ -61,30 +61,30 @@
          </div>
       </div>
    </div>
-</div>
 
-<div id="sidebar">
-   <div class="block">
-      <h3>Filtros</h3>
-      <ul class="navigation">
-         <g:each in="${filters}" var="filter">
-            <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
-               <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
-            </li>
-         </g:each>
-      </ul>
+   <div class="span4 columns">
+      <div class="block">
+         <h3>Filtros</h3>
+         <ul class="navigation">
+            <g:each in="${filters}" var="filter">
+               <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
+                  <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
+               </li>
+            </g:each>
+         </ul>
+      </div>
    </div>
-</div>
 
-<div id="groupByDialog" title="" style="display:none;">
-   <g:form name="groupByForm" action="index" method="get">
-      <g:hiddenField name="filter" value="${params.filter}"/>
-      <g:select name="groupBy"
-                from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']"
-                optionKey="key" optionValue="value"/>
-   </g:form>
-</div>
+   <div id="groupByDialog" title="" style="display:none;">
+      <g:form name="groupByForm" action="index" method="get">
+         <g:hiddenField name="filter" value="${params.filter}"/>
+         <g:select name="groupBy"
+                   from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']"
+                   optionKey="key" optionValue="value"/>
+      </g:form>
+   </div>
 
+</div>
 <script type="text/javascript">
    $(function() {
       $('#groupByAnchor').click(function(event) {

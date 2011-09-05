@@ -16,70 +16,63 @@
    <g:render template="/shared/menu" model="[selected:'issues']"/>
 </content>
 
-<div id="main">
-   <div class="block" id="block-text">
-      <div class="content">
-         <div class="inner">
+<div class="row">
+   <div class="span12 columns">
 
-            <div class="issue-menu" style="margin-top:20px;">
-               <g:if test="${!issue.resolution}">
-                  <button id="resolve">Resolver</button>
-               </g:if>
-               <g:elseif test="${issue.status?.code != 'closed'}">
-                  <button id="close">Cerrar</button>
-               </g:elseif>
-               <button id="assign">Asignar</button>
-               <button id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
-               <button id="edit">Editar</button>
-               %{--<div style="float:right;">--}%
-               %{--<span id="back"><<</span>--}%
-               %{--<span id="next">>></span>--}%
-               %{--</div>--}%
-            </div>
+      <div class="issue-menu" style="margin-top:20px;">
+         <g:if test="${!issue.resolution}">
+            <button id="resolve">Resolver</button>
+         </g:if>
+         <g:elseif test="${issue.status?.code != 'closed'}">
+            <button id="close">Cerrar</button>
+         </g:elseif>
+         <button id="assign">Asignar</button>
+         <button id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
+         <button id="edit">Editar</button>
+         %{--<div style="float:right;">--}%
+         %{--<span id="back"><<</span>--}%
+         %{--<span id="next">>></span>--}%
+         %{--</div>--}%
+      </div>
 
-            <h2 class="title">${issue.code} ${issue.summary}</h2>
+      <h2 class="title">${issue.code} ${issue.summary}</h2>
 
-            <div style="margin-bottom:20px;">
-               <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
-            </div>
+      <div style="margin-bottom:20px;">
+         <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
+      </div>
 
-            <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
-               <h3>Historia (${logs.size()})</h3>
-               <div id="logs" style="font-size:x-small;">
-                  <g:each in="${logs}" var="log">
-                     <div class="comment" style="margin: 10px;5px;">
-                        <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
-                           ${log.user.fullName} ${log.date}
-                        </div>
-                        <g:if test="${log.changes}">
-                           <ul>
-                              <g:each in="${log.changes}" var="change">
-                                 <g:set var="property" value="issue.${change.property}"/>
-                                 <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>
-                              </g:each>
-                           </ul>
-                        </g:if>
-                        <div>
-                           ${log.comment}
-                        </div>
-                     </div>
-                  </g:each>
+      <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
+         <h3>Historia (${logs.size()})</h3>
+         <div id="logs" style="font-size:x-small;">
+            <g:each in="${logs}" var="log">
+               <div class="comment" style="margin: 10px;5px;">
+                  <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
+                     ${log.user.fullName} ${log.date}
+                  </div>
+                  <g:if test="${log.changes}">
+                     <ul>
+                        <g:each in="${log.changes}" var="change">
+                           <g:set var="property" value="issue.${change.property}"/>
+                           <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>
+                        </g:each>
+                     </ul>
+                  </g:if>
+                  <div>
+                     ${log.comment}
+                  </div>
                </div>
-               <div style="margin: 5px;">
-                  <g:form action="addComment" id="${issue.code}">
-                     Agregar comentario<br>
-                     <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
-                     <g:submitButton name="addComment" value="Agregar comentario"/>
-                  </g:form>
-               </div>
-            </div>
+            </g:each>
+         </div>
+         <div style="margin: 5px;">
+            <g:form action="addComment" id="${issue.code}">
+               Agregar comentario<br>
+               <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
+               <g:submitButton name="addComment" value="Agregar comentario"/>
+            </g:form>
          </div>
       </div>
    </div>
-</div>
-
-<div id="sidebar">
-   <div class="block">
+   <div class="span4 columns">
       <h3>Propiedades</h3>
       <div class="content">
          <table style="width:100%;">

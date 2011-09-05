@@ -2,91 +2,128 @@
 <%@ page import="org.nopalsoft.mercury.domain.Priority; org.nopalsoft.mercury.domain.IssueType" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <meta name="layout" content="main"/>
-  <title>
-    Nueva incidencia
-  </title>
-   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}" />
-   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}" />
+   <meta name="layout" content="main"/>
+   <title>
+      Nueva incidencia
+   </title>
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}"/>
+   <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}"/>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.markitup.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js/sets/default', file: 'set.js')}"></script>
 </head>
+
 <body>
 
 <content tag="navbar">
-  <g:render template="/shared/menu" model="[selected:'new']"/>
+   <g:render template="/shared/menu" model="[selected:'new']"/>
 </content>
 
-<div id="main">
-  <div class="block" id="block-text">
-    <div class="content">
-      <h2 class="title">Nueva incidencia</h2>
-      <div class="inner">
-        <g:form action="save" name="issueForm" class="form">
-          <g:hiddenField name="project.id" value="${project.id}"/>
-          <g:hasErrors bean="${issue}">
-             <div class="errors">
-                <g:renderErrors bean="${issue}" as="list"/>
-             </div>
-          </g:hasErrors>
-          <div class="columns wat-cf">
-            <div class="column left" style="width:420px;">
-              <div class="group">
-                <label for="summary" class="label">Resumen:</label>
-                <g:textField name="summary" value="${issue.summary}" class="text_field"/>
-              </div>
-              <div class="group">
-                <label class="label">Descripcion:</label>
-                <g:textArea name="description" value="${issue.description}" style="height:100px;width: 420px;" class="text_area"/>
-              </div>
-              <div class="group">
-                <label class="label">Entrega</label>
-                <g:select name="milestone.id" value="${issue.milestone?.id}" from="${milestones}" optionKey="id" optionValue="name" noSelection="['':'-Sin asignar-']"/>
-              </div>
-              <div class="group">
-                <label class="label">Fecha de entrega</label>
-                <g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" class="text_field" style="width:100px;"/>
-              </div>
-              <div class="group">
-                <label class="label">Tipo de incidencia</label>
-                <g:select name="issueType.id" value="${issue.issueType?.id}" from="${IssueType.list()}" optionKey="id" optionValue="name"/>
-              </div>
-              <div class="group">
-                <label class="label">Prioridad</label>
-                <g:select name="priority.id" value="${issue.priority?.id}" from="${Priority.list()}" optionKey="id" optionValue="name" />
-              </div>
-              <div class="group">
-                <label class="label">Categoria</label>
-                <g:select name="category.id" value="${issue.category?.id}" from="${categories}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
-              </div>
-            </div>
-            <div class="column right" style="width:250px;">
-              <div class="group">
-                <label class="label">Reportador:</label>
-                <g:select name="reporter.id" value="${issue.reporter?.id}" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" />
-              </div>
-              <div class="group">
-                <label class="label">Asignado a:</label>
-                <g:select name="assignee.id" value="${issue.assignee?.id}" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
-              </div>
-              <div class="group">
-                <label class="label">Observadores:</label>
-                <g:select name="watchers" from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName"
-                        multiple="true" value="${issue.watchers}" style="height:100px;"/>
-              </div>
-            </div>
-          </div>
+<div class="content">
+   <h2 class="title">Nueva incidencia</h2>
 
-          <div class="group navform wat-cf">
-            <button class="button" type="submit">
-              <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Guardar" /> Guardar
-            </button>
-            <g:link action="index" class="button"><img src="${resource(dir:'images/icons', file:'cross.png')}" alt="Cancel"/> Cancelar</g:link>
-          </div>
-        </g:form>
+   <g:form action="save" name="issueForm" class="form-stacked">
+      <g:hiddenField name="project.id" value="${project.id}"/>
+      <g:hasErrors bean="${issue}">
+         <div class="alert-message block-message error">
+            <g:eachError bean="${issue}">
+               <p><g:message error="${it}"/></p>
+            </g:eachError>
+         </div>
+      </g:hasErrors>
+      <div class="row">
+         <div class="span8 columns">
+            <div class="clearfix">
+               <label for="summary">Resumen:</label>
+
+               <div class="input">
+                  <g:textField name="summary" value="${issue.summary}" class="xlarge"/>
+               </div>
+            </div>
+
+            <div class="clearfix">
+               <label>Descripcion:</label>
+
+               <div class="input"><g:textArea name="description" value="${issue.description}"
+                                              style="height:100px;width: 420px;"
+                                              class="text_area"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Entrega</label>
+
+               <div class="input"><g:select name="milestone.id" value="${issue.milestone?.id}" from="${milestones}"
+                                            optionKey="id"
+                                            optionValue="name" noSelection="['':'-Sin asignar-']"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Fecha de entrega</label>
+
+               <div class="input"><g:textField name="dueDate"
+                                               value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}"
+                                               class="text_field" style="width:100px;"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Tipo de incidencia</label>
+
+               <div class="input"><g:select name="issueType.id" value="${issue.issueType?.id}"
+                                            from="${IssueType.list()}" optionKey="id"
+                                            optionValue="name"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Prioridad</label>
+
+               <div class="input"><g:select name="priority.id" value="${issue.priority?.id}" from="${Priority.list()}"
+                                            optionKey="id"
+                                            optionValue="name"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Categoria</label>
+
+               <div class="input"><g:select name="category.id" value="${issue.category?.id}" from="${categories}"
+                                            optionKey="id"
+                                            optionValue="name" noSelection="['':'Seleccione...']"/></div>
+            </div>
+         </div>
+
+         <div class="span4 columns">
+            <div class="clearfix">
+               <label>Reportador:</label>
+
+               <div class="input"><g:select name="reporter.id" value="${issue.reporter?.id}"
+                                            from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}"
+                                            optionKey="id"
+                                            optionValue="fullName"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Asignado a:</label>
+
+               <div class="input"><g:select name="assignee.id" value="${issue.assignee?.id}"
+                                            from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}"
+                                            optionKey="id"
+                                            optionValue="fullName" noSelection="${['':'Seleccione']}"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label>Observadores:</label>
+
+               <div class="input"><g:select name="watchers"
+                                            from="${project.users.findAll{ it.enabled }.sort{ it.fullName }}"
+                                            optionKey="id" optionValue="fullName"
+                                            multiple="true" value="${issue.watchers}" style="height:100px;"/></div>
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
+
+      <div class="actions">
+         <g:submitButton name="save" class="btn primary" value="Guardar"/>
+         <g:link action="index">cancelar</g:link>
+      </div>
+   </g:form>
 </div>
 
 <script type="text/javascript">
