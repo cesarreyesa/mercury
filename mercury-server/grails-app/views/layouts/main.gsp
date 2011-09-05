@@ -29,7 +29,7 @@
 
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-1.1.1.css')}" type="text/css"/>
    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'base.css')}" type="text/css" media="screen"/>--}%
-   %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css" media="screen"/>--}%
+   <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css" media="screen"/>
    %{--<link rel="stylesheet" href="${resource(dir:'css/themes/default', file:'styles.css')}" type="text/css" media="screen" />--}%
    %{--<link rel="stylesheet" href="${resource(dir: 'css/themes/drastic-dark', file: 'styles.css')}" type="text/css" media="screen"/>--}%
 

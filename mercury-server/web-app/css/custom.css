@@ -1,17 +1,97 @@
-.simple .ui-dialog-titlebar {
-    display:none;
+/*.simple .ui-dialog-titlebar {*/
+    /*display:none;*/
+/*}*/
+
+/*.ui-dialog-buttonset{*/
+    /*float:none !important;*/
+/*}*/
+
+/*.multiselect {*/
+	/*width:260px;*/
+	/*overflow: hidden;*/
+	/*position: absolute;*/
+	/*background: #f9f9f9;*/
+	/*border: 1px solid #ddd;*/
+	/*margin: 0;*/
+	/*padding:5px 0 5px 10px;*/
+/*}*/
+
+
+.sidebar {
 }
 
-.ui-dialog-buttonset{
-    float:none !important;
+.sidebar h3 {
+  padding: 0 10px;
+  margin: 0;
+  font-size: 13px;
 }
 
-.multiselect {
-	width:260px;
-	overflow: hidden;
-	position: absolute;
-	background: #f9f9f9;
-	border: 1px solid #ddd;
-	margin: 0;
-	padding:5px 0 5px 10px;
+.sidebar .block {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.sidebar .block .content {
+  padding: 0 15px;
+}
+
+.sidebar ul.navigation li a:link, .sidebar ul.navigation li a:visited {
+  display: block;
+  padding: 5px 10px;
+}
+
+.sidebar .block .sidebar-block, .sidebar .notice {
+  padding:10px;
+}
+
+#user-navigation ul, #main-navigation ul, .secondary-navigation ul, .sidebar ul.navigation {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#main-navigation ul li a:link, #main-navigation ul li a:visited, #main-navigation ul li a:hover, #main-navigation ul li a:active,
+.secondary-navigation ul li a:link, .secondary-navigation ul li a:visited, .secondary-navigation ul li a:hover, .secondary-navigation ul li a:active,
+#user-navigation ul li a:link, #user-navigation ul li a:visited, #user-navigation ul li a:hover, #user-navigation ul li a:active {
+  text-decoration: none;
+  color: #FFF;
+}
+
+
+.sidebar .block {
+  background: #FFF;
+}
+
+.sidebar .block h4 {
+  font-weight: bold;
+}
+
+.sidebar .notice {
+  background: #E6EEFC;
+}
+
+.sidebar .notice h4 {
+  color: #0B43A8;
+}
+
+.sidebar h3 {
+  background: #36393d;
+  color: #FFF;
+  border-bottom: 5px solid #1a1a1a;
+}
+
+.sidebar ul li a:link, .sidebar ul li a:visited {
+  background: #FFF;
+  border-bottom: 1px solid #F0F0EE;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover, .sidebar ul li a:active {
+  background: #666666;
+  color: #ffffff;;
+}
+
+.sidebar ul li.active a{
+  background: #666666;
+  color: #ffffff;;
 }

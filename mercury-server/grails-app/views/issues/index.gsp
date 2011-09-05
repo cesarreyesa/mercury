@@ -63,15 +63,17 @@
    </div>
 
    <div class="span4 columns">
-      <div class="block">
-         <h3>Filtros</h3>
-         <ul class="navigation">
-            <g:each in="${filters}" var="filter">
-               <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
-                  <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
-               </li>
-            </g:each>
-         </ul>
+      <div class="sidebar">
+         <div class="block">
+            <h3>Filtros</h3>
+            <ul class="navigation">
+               <g:each in="${filters}" var="filter">
+                  <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
+                     <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
+                  </li>
+               </g:each>
+            </ul>
+         </div>
       </div>
    </div>
 

@@ -11,23 +11,6 @@
 <head>
    <title>Entregas</title>
    <meta name="layout" content="main"/>
-   <style type="text/css">
-   .custom-bar {
-      -moz-border-radius-topleft: 4px;
-      -moz-border-radius-topright: 4px;
-      background: none repeat scroll 0 0 #36393D;
-      border-bottom: 5px solid #1A1A1A;
-      color: #FFFFFF;
-      font-size: 13px;
-      margin: 0;
-      padding: 10px 15px;
-      font-family: helvetica, arial, sans-serif;
-   }
-   .custom-bar a{
-      color:#fff;
-   }
-
-   </style>
 </head>
 
 <content tag="navbar">
@@ -76,22 +59,24 @@
    </div>
 
    <div class="span4 columns">
-      <div class="custom-bar">
-         <div style="display:inline;">
-            <span>Entregas <a href="#" id="milestonesFilter">(${message(code:'milestone.statusFilter.' + (params.milestoneStatus ?: 'open'))})</a>:</span>
-            <span style="float:right;"><a id="newMilestone" href="#" class="ui-icon ui-icon-circle-plus">Nuevo</a></span>
+      <div class="sidebar">
+         <div class="block">
+            <h3>
+               Entregas <a style="color:#ccc;" href="#" id="milestonesFilter">(${message(code:'milestone.statusFilter.' + (params.milestoneStatus ?: 'open'))})</a>:
+               <span style="float:right;"><a id="newMilestone" href="#" class="ui-icon ui-icon-circle-plus">Nuevo</a></span>
+            </h3>
+            <ul class="navigation">
+               <li class="${!milestone ? 'active' : ''}">
+                  <g:link action="index" params="${[showUnassigned:true, issueStatus: params.issueStatus]}">Sin asignar</g:link>
+               </li>
+               <g:each in="${milestones}" var="milestoneItem">
+                  <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
+                     <g:link action="index" params="${[id:milestoneItem.id, milestoneStatus: params.milestoneStatus, issueStatus: params.issueStatus]}">${milestoneItem.name}</g:link>
+                  </li>
+               </g:each>
+            </ul>
          </div>
       </div>
-      <ul class="navigation">
-         <li class="${!milestone ? 'active' : ''}">
-            <g:link action="index" params="${[showUnassigned:true, issueStatus: params.issueStatus]}">Sin asignar</g:link>
-         </li>
-         <g:each in="${milestones}" var="milestoneItem">
-            <li class="${milestone && milestone.id == milestoneItem.id ? 'active' : ''}">
-               <g:link action="index" params="${[id:milestoneItem.id, milestoneStatus: params.milestoneStatus, issueStatus: params.issueStatus]}">${milestoneItem.name}</g:link>
-            </li>
-         </g:each>
-      </ul>
    </div>
 
 </div>
