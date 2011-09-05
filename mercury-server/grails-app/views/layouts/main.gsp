@@ -49,10 +49,11 @@
 <div class="topbar">
    <div class="fill">
       <div class="container">
-         <h3><a href="#">Mercury</a></h3>
-         %{--<g:link style="color:#ccc;font-size:x-small" controller="home"--}%
-         %{--action="chooseProject"--}%
-         %{--params="[changeProject:'true']">(cambiar proyecto)</g:link>--}%
+         <h3>
+            <g:link controller="home"
+            action="chooseProject"
+            params="[changeProject:'true']">Mercury</g:link>
+         </h3>
          <ul>
             <g:pageProperty name="page.navbar"/>
          </ul>
