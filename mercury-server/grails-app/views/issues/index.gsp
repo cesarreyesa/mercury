@@ -27,10 +27,22 @@
 </content>
 
 <div class="row">
-   <div class="span12 columns">
+   <div id="filters" class="sidebar" style="display: none;position:absolute;border: 1px solid #1a1a1a;">
+      <div class="block">
+         <ul class="navigation">
+            <g:each in="${filters}" var="filter">
+               <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
+                  <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
+               </li>
+            </g:each>
+         </ul>
+      </div>
+   </div>
+
+   <div class="">
       <div class="content">
          <h2 class="title">
-            ${currentFilter.name}
+            <a id="currentFilter" href="#">${currentFilter.name} &#9660;</a>
          <span style="padding-right:20px;;float:right;font-size:x-small;font-weight:normal;">
             <g:if test="${params.boolean('extendedView')}">
                <g:link action="index" params="[extendedView:false]">Ocultar detalles</g:link></span>
@@ -61,44 +73,45 @@
          </div>
       </div>
    </div>
-
-   <div class="span4 columns">
-      <div class="sidebar">
-         <div class="block">
-            <h3>Filtros</h3>
-            <ul class="navigation">
-               <g:each in="${filters}" var="filter">
-                  <li class="${currentFilter?.id == filter.id ? 'active' : ''}">
-                     <g:link action="index" params="${[filter:filter.id, groupBy:params.groupBy]}">${filter.name}</g:link>
-                  </li>
-               </g:each>
-            </ul>
-         </div>
-      </div>
-   </div>
-
-   <div id="groupByDialog" title="" style="display:none;">
-      <g:form name="groupByForm" action="index" method="get">
-         <g:hiddenField name="filter" value="${params.filter}"/>
-         <g:select name="groupBy"
-                   from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']"
-                   optionKey="key" optionValue="value"/>
-      </g:form>
-   </div>
-
 </div>
+
+<div id="groupByDialog" title="" style="display:none;">
+   <g:form name="groupByForm" action="index" method="get">
+      <g:hiddenField name="filter" value="${params.filter}"/>
+      <g:select name="groupBy"
+                from="['priority':'Prioridad', 'category':'Categoria', 'type':'Tipo', 'assignee':'Asignado a', 'reporter':'Reportador']"
+                optionKey="key" optionValue="value"/>
+   </g:form>
+</div>
+
 <script type="text/javascript">
    $(function() {
       $('#groupByAnchor').click(function(event) {
          event.preventDefault();
          var position = $(this).position();
          $("#groupByDialog").dialog({
-                  minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
-               });
+            minHeight:0, position: [position.left, position.top + $(this).height()], resizable:false, dialogClass:'simple'
+         });
       });
       $('#groupBy').change(function() {
          $('#groupByForm').submit();
       });
+
+      $("#currentFilter").click(function(e) {
+         e.preventDefault();
+         if(!$('#filters').is(':visible')){
+            var pos = $("#currentFilter").offset();
+            var height = $("#currentFilter").height();
+            //show the menu directly over the placeholder
+            $("#filters").css({ "left": (pos.left) + "px", "top":(pos.top + height) + "px" });
+            $("#filters").show();
+         }
+         else{
+            $("#filters").hide();
+         }
+      });
+
+
    });
 </script>
 </body>
