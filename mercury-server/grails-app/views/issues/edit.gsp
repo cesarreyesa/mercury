@@ -71,12 +71,10 @@
                     </div>
                 </div>
             </div>
-          <div class="group navform wat-cf">
-            <button class="button" type="submit">
-              <img src="${resource(dir:'images/icons', file:'tick.png')}" alt="Save" /> Guardar
-            </button>
-            <g:link action="view" id="${issue.code}" class="button"><img src="${resource(dir:'images/icons', file:'cross.png')}" alt="Cancel"/> cancelar</g:link>
-          </div>
+           <div class="actions">
+              <g:submitButton name="save" class="btn primary" value="Guardar"/>
+              <g:link action="view" id="${issue.code}" class="button">cancelar</g:link>
+           </div>
         </g:form>
       </div>
     </div>

@@ -30,6 +30,7 @@
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-1.1.1.css')}" type="text/css"/>
    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'base.css')}" type="text/css" media="screen"/>--}%
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css" media="screen"/>
+   <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.dialog2.css')}" type="text/css" media="screen"/>
    %{--<link rel="stylesheet" href="${resource(dir:'css/themes/default', file:'styles.css')}" type="text/css" media="screen" />--}%
    %{--<link rel="stylesheet" href="${resource(dir: 'css/themes/drastic-dark', file: 'styles.css')}" type="text/css" media="screen"/>--}%
 
@@ -39,6 +40,7 @@
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'application.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.dialog2.js')}"></script>
    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.styledButton.js')}"></script>--}%
    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.8.6.custom.min.js')}"></script>--}%
    %{--<script type="text/javascript" src="/mercury-web/js/global.js${cmpVersion}"></script>--}%

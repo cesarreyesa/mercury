@@ -885,7 +885,7 @@ select.xlarge {
 input.xxlarge,
 textarea.xxlarge,
 select.xxlarge {
-  width: 530px;
+  width: 520px;
 }
 textarea.xxlarge {
   overflow-y: scroll;
@@ -1035,7 +1035,8 @@ input[readonly]:focus, textarea[readonly]:focus, input.disabled {
   margin-bottom: 0;
 }
 .form-stacked {
-  padding-left: 20px;
+  /*padding-left: 10px;*/
+  /*padding-right: 10px;*/
 }
 .form-stacked fieldset {
   padding-top: 9px;

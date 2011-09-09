@@ -10,6 +10,7 @@
    <title>${issue.summary}</title>
    <meta name="layout" content="main"/>
 </head>
+
 <body>
 
 <content tag="navbar">
@@ -21,14 +22,14 @@
 
       <div class="issue-menu" style="margin-top:20px;">
          <g:if test="${!issue.resolution}">
-            <button id="resolve">Resolver</button>
+            <button class="btn" id="resolve">Resolver</button>
          </g:if>
          <g:elseif test="${issue.status?.code != 'closed'}">
-            <button id="close">Cerrar</button>
+            <button class="btn" id="close">Cerrar</button>
          </g:elseif>
-         <button id="assign">Asignar</button>
-         <button id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
-         <button id="edit">Editar</button>
+         <button class="btn" id="assign">Asignar</button>
+         <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
+         <button class="btn" id="edit">Editar</button>
          %{--<div style="float:right;">--}%
          %{--<span id="back"><<</span>--}%
          %{--<span id="next">>></span>--}%
@@ -43,17 +44,20 @@
 
       <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
          <h3>Historia (${logs.size()})</h3>
+
          <div id="logs" style="font-size:x-small;">
             <g:each in="${logs}" var="log">
                <div class="comment" style="margin: 10px;5px;">
-                  <div class="comment-user" style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
+                  <div class="comment-user"
+                       style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
                      ${log.user.fullName} ${log.date}
                   </div>
                   <g:if test="${log.changes}">
                      <ul>
                         <g:each in="${log.changes}" var="change">
                            <g:set var="property" value="issue.${change.property}"/>
-                           <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em></li>
+                           <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em>
+                           </li>
                         </g:each>
                      </ul>
                   </g:if>
@@ -63,6 +67,7 @@
                </div>
             </g:each>
          </div>
+
          <div style="margin: 5px;">
             <g:form action="addComment" id="${issue.code}">
                Agregar comentario<br>
@@ -72,19 +77,23 @@
          </div>
       </div>
    </div>
+
    <div class="span4 columns">
       <h3>Propiedades</h3>
+
       <div class="content">
          <table style="width:100%;">
             <g:if test="${issue.parent}">
                <tr>
                   <td>Padre</td>
-                  <td><g:link controller="issues" action="view" id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
+                  <td><g:link controller="issues" action="view"
+                              id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
                </tr>
             </g:if>
             <tr>
                <td>Entrega</td>
-               <td><g:link controller="milestone" action="index" id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>
+               <td><g:link controller="milestone" action="index"
+                           id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>
             </tr>
             <tr>
                <td>Fecha de entrega</td>
@@ -129,58 +138,72 @@
    </div>
 </div>
 
-<div id="assignIssueDialog" title="Asignar Incidencia" style="display:none;">
-   <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form">
-      <div class="group">
-         <label class="label">Asignar a:</label>
-         <g:select name="assignee.id" value="${issue.assignee?.id}" from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="${['':'Seleccione']}"/>
+<div id="assignIssueDialog" style="display:none;">
+   <h1>Asignar Incidencia</h1>
+   <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form-stacked">
+      <div class="clearfix">
+         <label for="assignee.id">Asignar a:</label>
+         <div class="input"><g:select name="assignee.id" value="${issue.assignee?.id}"
+                   from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id"
+                   optionValue="fullName" noSelection="${['':'Seleccione']}"/></div>
       </div>
-      <div class="group">
-         <label class="label">Comentario:</label>
-         <g:textArea name="assignComment" style="width:500px;height:100px;"/>
+
+      <div class="clearfix">
+         <label for="assignComment">Comentario:</label>
+         <div class="input"><g:textArea name="assignComment" class="xxlarge"/></div>
       </div>
    </g:form>
 </div>
 
-<div id="closeIssueDialog" title="Cerrar Incidencia" style="display:none;">
-   <g:form action="closeIssue" name="closeIssueForm" id="${issue.code}" class="form">
-      <div class="group">
-         <label class="label">Comentario:</label>
-         <g:textArea name="closeComment" style="width:500px;height:100px;"/>
+<div id="closeIssueDialog" style="display:none;">
+   <h1>Cerrar Incidencia</h1>
+   <g:form action="closeIssue" name="closeIssueForm" id="${issue.code}" class="form-stacked">
+      <div class="clearfix">
+         <label for="closeComment">Comentario:</label>
+
+         <div class="input"><g:textArea name="closeComment" style="width:500px;height:100px;"/></div>
       </div>
    </g:form>
 </div>
 
-<div id="addAttachmentDialog" title="Archivos adjuntos" style="display:none;">
+<div id="addAttachmentDialog" style="display:none;">
+   <h1>Archivos adjuntos</h1>
    <div class="form">
       <div class="row">
          <table>
             <g:each in="${issue.attachments}" var="attachment">
                <tr>
-                  <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]" target="_blank">${attachment.description ?: attachment.file}</g:link></td>
+                  <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]"
+                              target="_blank">${attachment.description ?: attachment.file}</g:link></td>
                </tr>
             </g:each>
          </table>
       </div>
       <g:uploadForm action="addAttachment" id="${issue.code}">
          <hr/>
+
          <h2>Agregar archivo adjunto</h2>
+
          <div class="row">
             <div class="label">
                <label>Archivo:</label>
             </div>
+
             <div class="field">
                <input type="file" name="file"/>
             </div>
          </div>
+
          <div class="row">
             <div class="label">
                <label>Descripcion:</label>
             </div>
+
             <div class="field">
                <g:textField name="description"/>
             </div>
          </div>
+
          <div class="row">
             <g:submitButton name="addAttachment" value="Adjuntar archivo"/>
          </div>
@@ -188,45 +211,49 @@
    </div>
 </div>
 
-<div id="resolveIssueDialog" title="Resolver incidencia" style="display:none;">
-   <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form">
-      <div class="group">
-         <label class="label">Resolucion:</label>
-         <g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name" noSelection="['':'Seleccione...']"/>
+<div id="resolveIssueDialog" style="display:none;">
+   <h1>Resolver incidencia</h1>
+   <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form-stacked">
+      <div class="clearfix">
+         <label for="resolution">Resolucion:</label>
+         <div class="input"><g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name"
+                   noSelection="['':'Seleccione...']"/></div>
       </div>
-      <div class="group">
-         <label class="label">Notificar a:</label>
-         <g:textField type="text" name="notifyToText" value="" class="autocomplete" style="width:100%;"/>
-         <g:hiddenField name="notifyTo"/>
-         %{--<g:select name="notifyTo" from="${issue.project.users.findAll{ it.enabled && it.id != issue.reporter.id }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="['':'Seleccione...']"/>--}%
-         <div class="description">Si desea que alguien m&aacute;s, ademas de quien abrio la incidencia sea notificado.</div>
+
+      <div class="clearfix">
+         <label for="notifyToText">Notificar a:</label>
+         <div class="input">
+            <g:textField type="text" name="notifyToText" value="" class="autocomplete" style="width:100%;"/>
+            <g:hiddenField name="notifyTo"/>
+            %{--<g:select name="notifyTo" from="${issue.project.users.findAll{ it.enabled && it.id != issue.reporter.id }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="['':'Seleccione...']"/>--}%
+            <span class="help-inline">Si desea que alguien m&aacute;s, ademas de quien abrio la incidencia sea notificado.</span>
+         </div>
       </div>
-      <div class="group">
-         <label class="label">Comentario:</label>
-         <g:textArea name="resolveComment" style="width:100%;height:100px;"/>
+
+      <div class="clearfix">
+         <label for="resolveComment">Comentario:</label>
+         <div class="input"><g:textArea name="resolveComment" style="width:100%;height:100px;"/></div>
       </div>
    </g:form>
 </div>
 
 <script type="text/javascript">
    $(function() {
-      if($("#resolve")){
-         $("#resolve").button();
+      if ($("#resolve")) {
          $('#resolve').click(function(e) {
             var position = $(this).position();
-            $("#resolveIssueDialog").dialog({
+            $("#resolveIssueDialog").dialog2({
                width:550, modal: true, position: [position.left, position.top + $(this).height()],
                buttons:{
-                 "Resolver":function() {
-                    $('#resolveIssueForm').submit();
-                 }
+                  "Resolver":function() {
+                     $('#resolveIssueForm').submit();
+                  }
                }
             });
          });
       }
 
-      if($("#close")){
-         $("#close").button();
+      if ($("#close")) {
          $('#close').click(function(e) {
             var position = $(this).position();
             $("#closeIssueDialog").dialog({
@@ -240,10 +267,9 @@
          });
       }
 
-      $("#assign").button();
       $('#assign').click(function () {
          var position = $(this).position();
-         $("#assignIssueDialog").dialog({
+         $("#assignIssueDialog").dialog2({
             width:550, modal: true, position: [position.left, position.top + $(this).height()],
             buttons:{
                "Asignar": function() {
@@ -252,14 +278,12 @@
             }
          });
       });
-      $("#attach").button();
       $('#attach').click(function () {
          var position = $(this).position();
          $("#addAttachmentDialog").dialog({
             width:550, modal: true, position: [position.left, position.top + $(this).height()]
          });
       });
-      $("#edit").button();
       $('#edit').click(function () {
          document.location.href = '${createLink(action:'edit', id: issue.code)}';
       });
@@ -272,56 +296,53 @@
 //      'action' : function () { alert( 'omfg' ) }
 //    });
 
-      $("#assignIssue").button();
-
-
       $('#notifyToText')
-         .bind( "keydown", function( event ) {
-            if ( event.keyCode === $.ui.keyCode.TAB &&
-                  $( this ).data( "autocomplete" ).menu.active ) {
-               event.preventDefault();
-            }
-         })
-         .autocomplete({
-            source: function(request, response) {
-               $.getJSON('${createLink(action:'users')}', {
-                  term: extractLast(request.term)
-               }, response);
-            },
-            search: function() {
-					// custom minLength
-					var term = extractLast( this.value );
-					if ( term.length < 2 ) {
-						return false;
-					}
-				},
-				focus: function() {
-					// prevent value inserted on focus
-					return false;
-				},
-            select: function(event, ui) {
-               var texts = split( this.value );
-					texts.pop();
-					texts.push( ui.item.label );
-					texts.push( "" );
-					this.value = texts.join( ", " );
+            .bind("keydown", function(event) {
+               if (event.keyCode === $.ui.keyCode.TAB &&
+                     $(this).data("autocomplete").menu.active) {
+                  event.preventDefault();
+               }
+            })
+            .autocomplete({
+               source: function(request, response) {
+                  $.getJSON('${createLink(action:'users')}', {
+                     term: extractLast(request.term)
+                  }, response);
+               },
+               search: function() {
+                  // custom minLength
+                  var term = extractLast(this.value);
+                  if (term.length < 2) {
+                     return false;
+                  }
+               },
+               focus: function() {
+                  // prevent value inserted on focus
+                  return false;
+               },
+               select: function(event, ui) {
+                  var texts = split(this.value);
+                  texts.pop();
+                  texts.push(ui.item.label);
+                  texts.push("");
+                  this.value = texts.join(", ");
 
-               var ids = split( $('#notifyTo').val() );
-					ids.pop();
-					ids.push( ui.item.value );
-					ids.push( "" );
-					$('#notifyTo').val(ids.join( ", " ));
+                  var ids = split($('#notifyTo').val());
+                  ids.pop();
+                  ids.push(ui.item.value);
+                  ids.push("");
+                  $('#notifyTo').val(ids.join(", "));
 
-               return false;
-            }
-         });
+                  return false;
+               }
+            });
    });
 
    function extractLast(term) {
       return split(term).pop();
    }
-   function split( val ) {
-      return val.split( /,\s*/ );
+   function split(val) {
+      return val.split(/,\s*/);
    }
 </script>
 
