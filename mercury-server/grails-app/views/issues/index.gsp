@@ -63,11 +63,8 @@
                <g:render template="/shared/issuesTable"
                          model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
             </g:each>
-            <div class="actions-bar wat-cf">
-               <div class="pagination">
-                  <g:paginate next="Siguiente" prev="Atras" maxsteps="4" max="50" total="${totalIssues}"
-                              params="${[filter: currentFilter.id]}"/>
-               </div>
+            <div class="pagination">
+               <f:paginate total="${totalIssues}" maxsteps="4" max="50" params="${[filter: currentFilter.id]}"/>
             </div>
 
          </div>
