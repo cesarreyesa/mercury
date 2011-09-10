@@ -21,20 +21,16 @@
 
 <body>
 
-<div id="main">
-   <div class="block" id="block-text">
-      <div class="content">
+<div class="content">
 
-         <h2 class="title"><strong>${message.title}</strong> <g:link action="edit" id="${message.id}" style="font-size: small;font-weight: normal;text-decoration: underline;">editar</g:link></h2>
-         <div class="inner">
-            <span><g:formatDate date="${message.dateCreated}" format="E, dd MMM"/></span> :: <span>Created by ${message.user.fullName}</span>
-            <hr/>
-            <g:markdownToHtml>${message.body}</g:markdownToHtml>
-            <g:render template="/shared/comments" model="[conversation: message.conversation, controller:'messages']"/>
-         </div>
-
-      </div>
+   <h2><strong>${message.title}</strong> <g:link action="edit" id="${message.id}" style="font-size: small;font-weight: normal;text-decoration: underline;">editar</g:link></h2>
+   <div class="inner">
+      <span><g:formatDate date="${message.dateCreated}" format="E, dd MMM"/></span> :: <span>Created by ${message.user.fullName}</span>
+      <hr/>
+      <g:markdownToHtml>${message.body}</g:markdownToHtml>
+      <g:render template="/shared/comments" model="[conversation: message.conversation, controller:'messages']"/>
    </div>
+
 </div>
 
 <script type="text/javascript">

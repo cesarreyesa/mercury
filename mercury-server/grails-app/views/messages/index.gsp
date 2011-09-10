@@ -23,7 +23,7 @@
 
 <div class="row">
    <div class="span12 columns">
-      <h2 class="title">
+      <h2>
          Mensajes
          <span style="padding-right:20px;float:right;font-size:small;font-weight:normal;">
             <g:link action="create">[+] nuevo mensaje</g:link>
