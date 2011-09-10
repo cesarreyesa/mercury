@@ -174,7 +174,8 @@ class IssuesController {
    def edit = {
       def issue = Issue.findByCode(params.id)
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(issue.project)
-      [issue: issue, project: issue.project, categories: categories]
+      def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: issue.project, statusParam: MilestoneStatus.OPEN])
+      [issue: issue, project: issue.project, categories: categories, milestones: milestones]
    }
 
    def saveEdit = {
