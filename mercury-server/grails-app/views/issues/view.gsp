@@ -143,13 +143,16 @@
    <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form-stacked">
       <div class="clearfix">
          <label for="assignee.id">Asignar a:</label>
+
          <div class="input"><g:select name="assignee.id" value="${issue.assignee?.id}"
-                   from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}" optionKey="id"
-                   optionValue="fullName" noSelection="${['':'Seleccione']}"/></div>
+                                      from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}"
+                                      optionKey="id"
+                                      optionValue="fullName" noSelection="${['':'Seleccione']}"/></div>
       </div>
 
       <div class="clearfix">
          <label for="assignComment">Comentario:</label>
+
          <div class="input"><g:textArea name="assignComment" class="xxlarge"/></div>
       </div>
    </g:form>
@@ -168,47 +171,35 @@
 
 <div id="addAttachmentDialog" style="display:none;">
    <h1>Archivos adjuntos</h1>
-   <div class="form">
-      <div class="row">
-         <table>
-            <g:each in="${issue.attachments}" var="attachment">
-               <tr>
-                  <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]"
-                              target="_blank">${attachment.description ?: attachment.file}</g:link></td>
-               </tr>
-            </g:each>
-         </table>
+   <table>
+      <g:each in="${issue.attachments}" var="attachment">
+         <tr>
+            <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]"
+                        target="_blank">${attachment.description ?: attachment.file}</g:link></td>
+         </tr>
+      </g:each>
+   </table>
+   <hr/>
+   <g:uploadForm name="attachmentsForm" action="addAttachment" id="${issue.code}" class="form-stacked">
+      <h4>Agregar archivo adjunto</h4>
+
+      <div class="clearfix">
+         <label>Archivo:</label>
+         <div class="input">
+            <input type="file" name="file"/>
+         </div>
       </div>
-      <g:uploadForm action="addAttachment" id="${issue.code}">
-         <hr/>
 
-         <h2>Agregar archivo adjunto</h2>
+      <div class="clearfix">
+         <label>Descripcion:</label>
 
-         <div class="row">
-            <div class="label">
-               <label>Archivo:</label>
-            </div>
-
-            <div class="field">
-               <input type="file" name="file"/>
-            </div>
+         <div class="input">
+            <g:textField name="description"/>
          </div>
+      </div>
 
-         <div class="row">
-            <div class="label">
-               <label>Descripcion:</label>
-            </div>
-
-            <div class="field">
-               <g:textField name="description"/>
-            </div>
-         </div>
-
-         <div class="row">
-            <g:submitButton name="addAttachment" value="Adjuntar archivo"/>
-         </div>
-      </g:uploadForm>
-   </div>
+   </g:uploadForm>
+</div>
 </div>
 
 <div id="resolveIssueDialog" style="display:none;">
@@ -216,12 +207,14 @@
    <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form-stacked">
       <div class="clearfix">
          <label for="resolution">Resolucion:</label>
+
          <div class="input"><g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name"
-                   noSelection="['':'Seleccione...']"/></div>
+                                      noSelection="['':'Seleccione...']"/></div>
       </div>
 
       <div class="clearfix">
          <label for="notifyToText">Notificar a:</label>
+
          <div class="input">
             <g:textField type="text" name="notifyToText" value="" class="autocomplete" style="width:100%;"/>
             <g:hiddenField name="notifyTo"/>
@@ -232,6 +225,7 @@
 
       <div class="clearfix">
          <label for="resolveComment">Comentario:</label>
+
          <div class="input"><g:textArea name="resolveComment" style="width:100%;height:100px;"/></div>
       </div>
    </g:form>
@@ -259,9 +253,9 @@
             $("#closeIssueDialog").dialog({
                width:550, modal: true, position: [position.left, position.top + $(this).height()],
                buttons:{
-                 "Cerrar":function() {
-                    $('#closeIssueForm').submit();
-                 }
+                  "Cerrar":function() {
+                     $('#closeIssueForm').submit();
+                  }
                }
             });
          });
@@ -280,8 +274,13 @@
       });
       $('#attach').click(function () {
          var position = $(this).position();
-         $("#addAttachmentDialog").dialog({
-            width:550, modal: true, position: [position.left, position.top + $(this).height()]
+         $("#addAttachmentDialog").dialog2({
+            width:550, modal: true, position: [position.left, position.top + $(this).height()],
+            buttons:{
+               "Adjuntar archivo":function() {
+                  $('#attachmentsForm').submit();
+               }
+            }
          });
       });
       $('#edit').click(function () {
