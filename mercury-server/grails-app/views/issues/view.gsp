@@ -17,133 +17,140 @@
    <g:render template="/shared/menu" model="[selected:'issues']"/>
 </content>
 
-      <div class="issue-menu" style="margin-top:20px;">
-         <g:if test="${!issue.resolution}">
-            <button class="btn" id="resolve">Resolver</button>
-         </g:if>
-         <g:elseif test="${issue.status?.code != 'closed'}">
-            <button class="btn" id="close">Cerrar</button>
-         </g:elseif>
-         <button class="btn" id="assign">Asignar</button>
-         <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
-         <button class="btn" id="edit">Editar</button>
-         %{--<div style="float:right;">--}%
-         %{--<span id="back"><<</span>--}%
-         %{--<span id="next">>></span>--}%
-         %{--</div>--}%
-      </div>
+<div class="issue-menu" style="margin-top:20px;">
+   <g:if test="${!issue.resolution}">
+      <button class="btn" id="resolve">Resolver</button>
+   </g:if>
+   <g:elseif test="${issue.status?.code != 'closed'}">
+      <button class="btn" id="close">Cerrar</button>
+   </g:elseif>
+   <button class="btn" id="assign">Asignar</button>
+   <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
+   <button class="btn" id="edit">Editar</button>
+   %{--<div style="float:right;">--}%
+   %{--<span id="back"><<</span>--}%
+   %{--<span id="next">>></span>--}%
+   %{--</div>--}%
+</div>
 
-      <div class="row">
-         <div class="span12 columns">
-            <div style="background-color: #eee;padding: 4px;margin-top:10px;margin-bottom:10px;">
-               <div style="background-color: #fff;border: 1px solid #aaa;padding: 4px;">
-                  <span style="font-size: 88%;">
-                     abierta por <strong>${issue.reporter.fullName}</strong> el <g:formatDate date="${issue.date}" format="MMM dd, yyyy"/></span>
-                  <h2>${issue.code} ${issue.summary}</h2>
+<div class="row">
+   <div class="span12 columns">
+      <div class="box">
+         <div class="box-inner">
+            <span class="small">
+               abierta por <strong>${issue.reporter.fullName}</strong> el <g:formatDate date="${issue.date}" format="MMM dd, yyyy"/></span>
+            <h2>${issue.code} ${issue.summary}</h2>
 
-                  <span style="font-size: 88%;">
-                     asignado a <strong>${issue.assignee.fullName}</strong>
-                  </span>
-                  %{--<div style="border: 1px solid #aaa;background-color: #efefef;padding-left: 5px;padding-right: 5px;padding-top: 8px;padding-bottom: 8px;">--}%
+            <span class="small">
+               asignado a <strong>${issue.assignee.fullName}</strong>
+            </span>
 
-                  %{--</div>--}%
-                  <div style="margin-bottom:20px;">
-                     <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
-                  </div>
-               </div>
+            <div style="margin-top: 20px;margin-bottom:20px;">
+               <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
             </div>
 
-            <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
-               <h4>Historia (${logs.size()})</h4>
-
-               <div id="logs" style="font-size:x-small;">
-                  <g:each in="${logs}" var="log">
-                     <div class="comment" style="margin: 10px;5px;">
-                        <div class="comment-user"
-                             style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
-                           ${log.user.fullName} ${log.date}
-                        </div>
-                        <g:if test="${log.changes}">
-                           <ul>
-                              <g:each in="${log.changes}" var="change">
-                                 <g:set var="property" value="issue.${change.property}"/>
-                                 <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em>
-                                 </li>
-                              </g:each>
-                           </ul>
-                        </g:if>
-                        <div>
-                           ${log.comment}
-                        </div>
-                     </div>
+            <div style="margin-top: 20px;margin-bottom:20px;">
+               <ul>
+                  <g:each in="${issue.childs}" var="child">
+                     <li>
+                        <g:link action="view" id="${child.code}">[${child.code}] ${child.summary}</g:link>
+                     </li>
                   </g:each>
-               </div>
-
-               <div style="margin: 5px;">
-                  <g:form action="addComment" id="${issue.code}" class="form-stacked">
-                     <div class="clearfix">
-                        <label>Agregar comentario</label>
-                        <div class="input">
-                           <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
-                        </div>
-                     </div>
-                     <div >
-                        <g:submitButton class="btn" name="addComment" value="Agregar comentario"/>
-                     </div>
-                  </g:form>
-               </div>
+               </ul>
             </div>
          </div>
-         <div class="span4 columns">
-            <table style="width:100%;">
-               <g:if test="${issue.parent}">
-                  <tr>
-                     <td>Padre</td>
-                     <td><g:link controller="issues" action="view"
-                                 id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
-                  </tr>
-               </g:if>
-               <tr>
-                  <td>Entrega</td>
-                  <td><g:link controller="milestone" action="index"
-                              id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>
-               </tr>
-               <tr>
-                  <td>Fecha de entrega</td>
-                  <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
-               </tr>
-               <tr>
-                  <td>Tipo</td>
-                  <td>${issue.issueType.name}</td>
-               </tr>
-               <tr>
-                  <td>Estado</td>
-                  <td>${issue.status.name}</td>
-               </tr>
-               <tr>
-                  <td>Prioidad</td>
-                  <td>${issue.priority.name}</td>
-               </tr>
-               <tr>
-                  <td>Categoria</td>
-                  <td>${issue.category?.name}</td>
-               </tr>
-               <tr>
-                  <td>Subscriptores</td>
-                  <td>
+      </div>
+
+      <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
+         <h4>Historia (${logs.size()})</h4>
+
+         <div id="logs" style="font-size:x-small;">
+            <g:each in="${logs}" var="log">
+               <div class="comment" style="margin: 10px;5px;">
+                  <div class="comment-user"
+                       style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
+                     ${log.user.fullName} ${log.date}
+                  </div>
+                  <g:if test="${log.changes}">
                      <ul>
-                        <g:each in="${issue.watchers}" var="watcher">
-                           <li>${watcher.fullName}</li>
+                        <g:each in="${log.changes}" var="change">
+                           <g:set var="property" value="issue.${change.property}"/>
+                           <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em>
+                           </li>
                         </g:each>
                      </ul>
-                  </td>
-               </tr>
-            </table>
+                  </g:if>
+                  <div>
+                     ${log.comment}
+                  </div>
+               </div>
+            </g:each>
+         </div>
 
+         <div style="margin: 5px;">
+            <g:form action="addComment" id="${issue.code}" class="form-stacked">
+               <div class="clearfix">
+                  <label>Agregar comentario</label>
+                  <div class="input">
+                     <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
+                  </div>
+               </div>
+               <div >
+                  <g:submitButton class="btn" name="addComment" value="Agregar comentario"/>
+               </div>
+            </g:form>
          </div>
       </div>
+   </div>
+   <div class="span4 columns">
+      <table style="width:100%;">
+         <g:if test="${issue.parent}">
+            <tr>
+               <td>Padre</td>
+               <td><g:link controller="issues" action="view"
+                           id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
+            </tr>
+         </g:if>
+         <tr>
+            <td>Entrega</td>
+            <td><g:link controller="milestone" action="index"
+                        id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>
+         </tr>
+         <tr>
+            <td>Fecha de entrega</td>
+            <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
+         </tr>
+         <tr>
+            <td>Tipo</td>
+            <td>${issue.issueType.name}</td>
+         </tr>
+         <tr>
+            <td>Estado</td>
+            <td>${issue.status.name}</td>
+         </tr>
+         <tr>
+            <td>Prioidad</td>
+            <td>${issue.priority.name}</td>
+         </tr>
+         <tr>
+            <td>Categoria</td>
+            <td>${issue.category?.name}</td>
+         </tr>
+         <tr>
+            <td>Subscriptores</td>
+            <td>
+               <ul>
+                  <g:each in="${issue.watchers}" var="watcher">
+                     <li>${watcher.fullName}</li>
+                  </g:each>
+               </ul>
+            </td>
+         </tr>
+      </table>
 
    </div>
+</div>
+
 
 <div id="assignIssueDialog" style="display:none;">
    <h1>Asignar Incidencia</h1>
@@ -206,7 +213,6 @@
       </div>
 
    </g:uploadForm>
-</div>
 </div>
 
 <div id="resolveIssueDialog" style="display:none;">

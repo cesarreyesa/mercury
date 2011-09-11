@@ -94,7 +94,11 @@
 
 <div class="container" style="margin-top: 50px;">
    <g:layoutBody/>
-   <div class="footer">
+</div>
+
+<div class="container">
+   <div class="footer" style="margin-top: 30px;">
+      <hr/>
       <p>
          <a href="https://github.com/cesarreyesa/mercury"
             target="_blank">Mercury</a> version 1.1.0
@@ -103,7 +107,6 @@
       %{--<p>Copyright &copy; 2010 Your Site.</p>--}%
    </div>
 </div>
-
 
 <div id="newIssueDialog" title="Nueva Incidencia" style="display:none;">
 

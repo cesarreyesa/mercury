@@ -95,3 +95,15 @@
   background: #666666;
   color: #ffffff;;
 }
+
+
+.box{
+   background-color: #eee;padding: 4px;margin-top:10px;margin-bottom:10px;
+}
+.box-inner{
+   background-color: #fff;border: 1px solid #aaa;padding: 4px;
+}
+
+span.small{
+   font-size: 90%;
+}
