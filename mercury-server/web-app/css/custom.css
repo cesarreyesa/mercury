@@ -107,3 +107,8 @@
 span.small{
    font-size: 90%;
 }
+
+a.completed{
+   text-decoration: line-through;
+   color: #BFBFBF;
+}
