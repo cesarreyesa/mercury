@@ -94,18 +94,16 @@
 
 <div class="container" style="margin-top: 50px;">
    <g:layoutBody/>
-</div>
-
-<div class="footer">
-   <div class="block">
+   <div class="footer">
       <p>
-         <a style="color:#fff;" href="https://github.com/cesarreyesa/mercury"
+         <a href="https://github.com/cesarreyesa/mercury"
             target="_blank">Mercury</a> version 1.1.0
       </p>
       %{--<div style="float:right;"><a href="http://nopalsoft.net/mercury/new" target="_blank">Enviar sugerencia</a></div>--}%
       %{--<p>Copyright &copy; 2010 Your Site.</p>--}%
    </div>
 </div>
+
 
 <div id="newIssueDialog" title="Nueva Incidencia" style="display:none;">
 
