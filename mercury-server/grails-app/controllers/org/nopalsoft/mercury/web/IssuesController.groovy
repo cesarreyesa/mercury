@@ -138,7 +138,25 @@ class IssuesController {
          def issue = new Issue()
          bindData issue, params, ['dueDate']
          issue.dueDate = params.dueDate ? Date.parse("dd/MM/yyyy", params.dueDate) : null
+
          if (issueService.newIssue(issue)) {
+
+            def file = request.getFile('attachment')
+            def fileName
+            if (file && !file.empty && file.size < (1024 * 5000)) {
+               def path = grailsApplication.config.attachmentsPath + issue.id + "/"
+               new File(path).mkdirs()
+               fileName = path + file.fileItem.fileName
+               file.transferTo(new File(fileName))
+
+               def attachment = new IssueAttachment(file.fileItem.fileName, params.attachmentDescription, User.get(springSecurityService.principal.id), new Date());
+               issue.addToAttachments(attachment);
+               issueService.saveIssue(issue, "<b>attachment</b> <i>" + file.fileItem.fileName + "</i> added<br/>" + attachment.description);
+
+            } else {
+               flash.warning = "No se agregaron los archivos adjuntos"
+            }
+
             flash.message = "Se creo correctamente."
             redirect(action: 'view', params: [id: issue.code])
          }

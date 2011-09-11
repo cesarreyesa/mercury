@@ -265,7 +265,7 @@ class IssueService {
       issue.lastUpdated = new Date()
 
       User editedBy = User.get(springSecurityService.principal.id)
-      def usersToSend = issue.watchers + issue.reporter
+      def usersToSend = (issue.watchers ?: []) + issue.reporter
 
       usersToSend.unique().findAll { it.id != editedBy.id }.each {User user ->
          try {

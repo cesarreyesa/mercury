@@ -21,7 +21,7 @@
 <div class="content">
    <h2 class="title">Nueva incidencia</h2>
 
-   <g:form action="save" name="issueForm" class="form-stacked">
+   <g:uploadForm action="save" name="issueForm" class="form-stacked">
       <g:hiddenField name="project.id" value="${project.id}"/>
       <g:hasErrors bean="${issue}">
          <div class="alert-message block-message error">
@@ -81,11 +81,21 @@
             </div>
 
             <div class="clearfix">
-               <label>Categoria</label>
+               <label for="category.id">Categoria</label>
 
                <div class="input"><g:select name="category.id" value="${issue.category?.id}" from="${categories}"
                                             optionKey="id"
                                             optionValue="name" noSelection="['':'Seleccione...']"/></div>
+            </div>
+
+            <div class="clearfix">
+               <label for="attachment">Adjuntar archivo</label>
+               <div class="input">
+                  <g:textField name="attachmentDescription" placeholder="Descripción"/>
+               </div>
+               <div class="input">
+                  <input type="file" name="attachment" id="attachment"/>
+               </div>
             </div>
          </div>
 
@@ -123,7 +133,7 @@
          <g:submitButton name="save" class="btn primary" value="Guardar"/>
          <g:link action="index">cancelar</g:link>
       </div>
-   </g:form>
+   </g:uploadForm>
 </div>
 
 <script type="text/javascript">

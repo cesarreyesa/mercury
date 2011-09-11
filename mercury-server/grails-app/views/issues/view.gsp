@@ -42,7 +42,7 @@
             <h2>${issue.code} ${issue.summary}</h2>
 
             <span class="small">
-               asignado a <strong>${issue.assignee.fullName}</strong>
+               asignado a <strong>${issue.assignee?.fullName}</strong>
             </span>
 
             <div style="margin-top: 20px;margin-bottom:20px;">
