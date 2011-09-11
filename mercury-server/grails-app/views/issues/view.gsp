@@ -108,7 +108,7 @@
             <tr>
                <td>Padre</td>
                <td><g:link controller="issues" action="view"
-                           id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
+                           id="${issue.parent?.code}">${issue.parent.code}</g:link></td>
             </tr>
          </g:if>
          <tr>
