@@ -25,36 +25,34 @@
 </ul>
 
 <div class="content">
-   <h2 class="title">Editar proyecto</h2>
+   <h2>Editar proyecto</h2>
 
-   <div class="inner">
-      <g:form action="updateProject" id="${project.id}" class="form">
-         <g:hasErrors bean="${project}">
-            <div class="errors">
-               <g:renderErrors bean="${project}" as="list"/>
-            </div>
-         </g:hasErrors>
-         <div class="clearfix">
-            <label for="code">Codigo</label>
-            <div class="input"><g:textField name="code" value="${project.code}"/></div>
+   <g:form action="updateProject" id="${project.id}" class="form">
+      <g:hasErrors bean="${project}">
+         <div class="errors">
+            <g:renderErrors bean="${project}" as="list"/>
          </div>
+      </g:hasErrors>
+      <div class="clearfix">
+         <label for="code">Codigo</label>
+         <div class="input"><g:textField name="code" value="${project.code}"/></div>
+      </div>
 
-         <div class="clearfix">
-            <label for="name">Nombre</label>
-            <div class="input"><g:textField name="name" value="${project.name}"/></div>
-         </div>
+      <div class="clearfix">
+         <label for="name">Nombre</label>
+         <div class="input"><g:textField name="name" value="${project.name}"/></div>
+      </div>
 
-         <div class="clearfix">
-            <label for="description">Descripci&oacute;n</label>
-            <div class="input"><g:textArea name="description" rows="5" cols="30" value="${project.description}"/></div>
-         </div>
+      <div class="clearfix">
+         <label for="description">Descripci&oacute;n</label>
+         <div class="input"><g:textArea name="description" rows="5" cols="30" value="${project.description}"/></div>
+      </div>
 
-         <div class="actions">
-            <g:submitButton name="save" class="btn primary" value="Guardar"/>
-            <g:link action="projects">cancelar</g:link>
-         </div>
-      </g:form>
-   </div>
+      <div class="actions">
+         <g:submitButton name="save" class="btn primary" value="Guardar"/>
+         <g:link action="projects">cancelar</g:link>
+      </div>
+   </g:form>
 </div>
 
 </body>
