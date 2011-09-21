@@ -5,13 +5,32 @@ import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.Comment
+import org.hibernate.criterion.DetachedCriteria
+import org.hibernate.criterion.Restrictions
+import org.springframework.orm.hibernate3.HibernateTemplate
 
 class MessagesService {
 
+   def sessionFactory
    def springSecurityService
    def mailService
 
    static transactional = true
+
+   def getMessages = { Project project, int offset, int maxResults ->
+      User user = User.get(springSecurityService.principal.id)
+
+      DetachedCriteria criteria = DetachedCriteria.forClass(Message.class)
+      criteria.add(Restrictions.eq("project", project))
+      def count = user.authorities.count { a -> a.authority == 'role_admin' }
+      if(count == 0){
+         def authIds = user.authorities.collect { r -> r.id}.asList()
+         criteria.createCriteria("followerRoles").add(Restrictions.in("id", authIds))
+      }
+
+      def hibernateTemplate = new HibernateTemplate(sessionFactory)
+      return (List<Message>) hibernateTemplate.findByCriteria(criteria)
+   }
 
    def newMessage = { Message message ->
       User user = User.get(springSecurityService.principal.id)

@@ -17,7 +17,9 @@ class MessagesController {
 
    def index = {
       def project = Project.get(session.project.id)
-      def messages = Message.findAllByProject(project, [sort:'dateCreated', order:'desc'])
+      def max = params.int('max') ?: 20
+      def offset = params.int('offset') ?: 0
+      def messages = messagesService.getMessages(project, offset, max)
       [messages: messages, project: project]
    }
 
