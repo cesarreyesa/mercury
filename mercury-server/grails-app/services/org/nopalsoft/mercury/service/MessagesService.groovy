@@ -8,6 +8,8 @@ import org.nopalsoft.mercury.domain.Comment
 import org.hibernate.criterion.DetachedCriteria
 import org.hibernate.criterion.Restrictions
 import org.springframework.orm.hibernate3.HibernateTemplate
+import org.hibernate.criterion.Disjunction
+import org.hibernate.criterion.CriteriaSpecification
 
 class MessagesService {
 
@@ -25,7 +27,11 @@ class MessagesService {
       def count = user.authorities.count { a -> a.authority == 'role_admin' }
       if(count == 0){
          def authIds = user.authorities.collect { r -> r.id}.asList()
-         criteria.createCriteria("followerRoles").add(Restrictions.in("id", authIds))
+         criteria.createAlias("followerRoles", "fr", CriteriaSpecification.LEFT_JOIN)
+         Disjunction disjunction = Restrictions.disjunction()
+         disjunction.add(Restrictions.in("fr.id", authIds))
+         disjunction.add(Restrictions.isEmpty("followerRoles"))
+         criteria.add(disjunction)
       }
 
       def hibernateTemplate = new HibernateTemplate(sessionFactory)
