@@ -37,7 +37,14 @@
             <h3><strong><g:link action="view" id="${message.id}">${message.title}</g:link></strong></h3>
             <span><g:formatDate date="${message.dateCreated}"
                                 format="E, dd MMM"/></span> :: <span>Created by ${message.user.fullName}</span>
-            <span style="float: right;">visible a: <g:each in="${message.followerRoles}" var="role" status="i">${role.authority}<g:if test="${i > 0}">, </g:if></g:each></span>
+            <span style="float: right;">visible a:
+               <g:if test="${message.followerRoles}">
+                  <g:each in="${message.followerRoles}" var="role" status="i">${role.authority}<g:if test="${i > 0}">, </g:if></g:each>
+               </g:if>
+               <g:else>
+                  todos
+               </g:else>
+            </span>
             <hr/>
 
             <p><g:markdownToHtml>${message.body}</g:markdownToHtml></p>
