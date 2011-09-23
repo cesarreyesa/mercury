@@ -10,6 +10,7 @@ import org.hibernate.criterion.Restrictions
 import org.springframework.orm.hibernate3.HibernateTemplate
 import org.hibernate.criterion.Disjunction
 import org.hibernate.criterion.CriteriaSpecification
+import org.hibernate.criterion.Order
 
 class MessagesService {
 
@@ -34,6 +35,7 @@ class MessagesService {
          criteria.add(disjunction)
       }
 
+      criteria.addOrder(Order.desc("dateCreated"))
       def hibernateTemplate = new HibernateTemplate(sessionFactory)
       return (List<Message>) hibernateTemplate.findByCriteria(criteria)
    }
