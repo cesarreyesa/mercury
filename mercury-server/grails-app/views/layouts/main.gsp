@@ -27,10 +27,9 @@
 
    <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
-   <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap-1.1.1.css')}" type="text/css"/>
+   <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css"/>
    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'base.css')}" type="text/css" media="screen"/>--}%
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css" media="screen"/>
-   <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.dialog2.css')}" type="text/css" media="screen"/>
    %{--<link rel="stylesheet" href="${resource(dir:'css/themes/default', file:'styles.css')}" type="text/css" media="screen" />--}%
    %{--<link rel="stylesheet" href="${resource(dir: 'css/themes/drastic-dark', file: 'styles.css')}" type="text/css" media="screen"/>--}%
 
@@ -40,7 +39,9 @@
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'application.js')}"></script>
-   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.dialog2.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-modal.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-dropdown.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-modal.js')}"></script>
    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.styledButton.js')}"></script>--}%
    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.8.6.custom.min.js')}"></script>--}%
    %{--<script type="text/javascript" src="/mercury-web/js/global.js${cmpVersion}"></script>--}%
@@ -48,15 +49,15 @@
 </head>
 
 <body>
-<div class="topbar">
-   <div class="fill">
+<div class="topbar" data-dropdown="dropdown">
+   <div class="topbar-inner">
       <div class="container">
          <h3>
             <g:link controller="home"
             action="chooseProject"
             params="[changeProject:'true']">Mercury</g:link>
          </h3>
-         <ul>
+         <ul class="nav">
             <g:pageProperty name="page.navbar"/>
          </ul>
          <g:form controller="issues" action="index" method="get">
@@ -73,16 +74,16 @@
             %{--nada--}%
             %{--</g:else>--}%
             %{--</li>--}%
-            <li class="menu">
-               <a href="#" class="menu"><img src="${resource(dir: 'images', file: 'cog.png')}"/></a>
-               <ul class="menu-dropdown">
+            <li class="dropdown">
+               <a href="#" class="dropdown-toggle"><img src="${resource(dir: 'images', file: 'cog.png')}"/></a>
+               <ul class="dropdown-menu">
                   <li><g:link controller="project">Configuraci&oacute;n</g:link></li>
                   <li><g:link controller="admin">Administraci&oacute;n</g:link></li>
                </ul>
             </li>
-            <li class="menu">
-               <a href="#" class="menu"><sec:ifLoggedIn>${session.user}</sec:ifLoggedIn></a>
-               <ul>
+            <li class="dropdown">
+               <a href="#" class="dropdown-toggle"><sec:ifLoggedIn>${session.user}</sec:ifLoggedIn></a>
+               <ul class="dropdown-menu">
                   <li><g:link controller="profile">Perfil</g:link></li>
                   <li><g:link controller="logout" class="logout">salir</g:link></li>
                </ul>

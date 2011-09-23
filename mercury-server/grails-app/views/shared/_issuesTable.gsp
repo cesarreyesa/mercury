@@ -19,7 +19,7 @@
    }
 </style>
 
-<table class="table issues" cellpadding="0" cellspacing="0">
+<table class="zebra-striped issues" cellpadding="0" cellspacing="0">
   <tr>
     <g:if test="${includeCheckbox}">
       <th class="first">

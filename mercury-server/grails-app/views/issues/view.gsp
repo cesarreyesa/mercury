@@ -156,94 +156,125 @@
 </div>
 
 
-<div id="assignIssueDialog" style="display:none;">
-   <h1>Asignar Incidencia</h1>
-   <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form-stacked">
-      <div class="clearfix">
-         <label for="assignee.id">Asignar a:</label>
-
-         <div class="input"><g:select name="assignee.id" value="${issue.assignee?.id}"
-                                      from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}"
-                                      optionKey="id"
-                                      optionValue="fullName" noSelection="${['':'Seleccione']}"/></div>
+<div id="assignIssueDialog" style="display:none;" class="modal">
+   <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form-stacked" style="padding-left: 0;">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>Asignar Incidencia</h3>
       </div>
+      <div class="modal-body">
+         <div class="clearfix">
+            <label for="assignee.id">Asignar a:</label>
 
-      <div class="clearfix">
-         <label for="assignComment">Comentario:</label>
+            <div class="input"><g:select name="assignee.id" value="${issue.assignee?.id}"
+                                         from="${issue.project.users.findAll{ it.enabled }.sort{ it.fullName }}"
+                                         optionKey="id"
+                                         optionValue="fullName" noSelection="${['':'Seleccione']}"/></div>
+         </div>
 
-         <div class="input"><g:textArea name="assignComment" class="xxlarge"/></div>
+         <div class="clearfix">
+            <label for="assignComment">Comentario:</label>
+
+            <div class="input"><g:textArea name="assignComment" class="xxlarge"/></div>
+         </div>
+      </div>
+      <div class="modal-footer">
+         <g:submitButton name="submit" value="Asignar" class="btn primary"/>
       </div>
    </g:form>
 </div>
 
-<div id="closeIssueDialog" style="display:none;">
-   <h1>Cerrar Incidencia</h1>
-   <g:form action="closeIssue" name="closeIssueForm" id="${issue.code}" class="form-stacked">
-      <div class="clearfix">
-         <label for="closeComment">Comentario:</label>
+<div id="closeIssueDialog" style="display:none;" class="modal">
+   <g:form action="closeIssue" name="closeIssueForm" id="${issue.code}" class="form-stacked" style="padding-left: 0;">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>Cerrar Incidencia</h3>
+      </div>
+      <div class="modal-body">
+         <div class="clearfix">
+            <label for="closeComment">Comentario:</label>
 
-         <div class="input"><g:textArea name="closeComment" style="width:500px;height:100px;"/></div>
+            <div class="input"><g:textArea name="closeComment" style="width:500px;height:100px;"/></div>
+         </div>
+      </div>
+      <div class="modal-footer">
+         <g:submitButton name="submit" value="Cerrar" class="btn primary"/>
       </div>
    </g:form>
 </div>
 
-<div id="addAttachmentDialog" style="display:none;">
-   <h1>Archivos adjuntos</h1>
-   <table>
-      <g:each in="${issue.attachments}" var="attachment">
-         <tr>
-            <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]"
-                        target="_blank">${attachment.description ?: attachment.file}</g:link></td>
-         </tr>
-      </g:each>
-   </table>
-   <hr/>
-   <g:uploadForm name="attachmentsForm" action="addAttachment" id="${issue.code}" class="form-stacked">
-      <h4>Agregar archivo adjunto</h4>
+<div id="addAttachmentDialog" style="display:none;" class="modal">
+   <g:uploadForm name="attachmentsForm" action="addAttachment" id="${issue.code}" class="form-stacked" style="padding-left: 0;">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>Archivos adjuntos</h3>
+      </div>
+      <div class="modal-body">
+         <table>
+            <g:each in="${issue.attachments}" var="attachment">
+               <tr>
+                  <td><g:link action="showAttachment" id="${issue.id}" params="[attachmentId:attachment.id]"
+                              target="_blank">${attachment.description ?: attachment.file}</g:link></td>
+               </tr>
+            </g:each>
+         </table>
+         <hr/>
+         <h4>Agregar archivo adjunto</h4>
 
-      <div class="clearfix">
-         <label>Archivo:</label>
-         <div class="input">
-            <input type="file" name="file"/>
+         <div class="clearfix">
+            <label>Archivo:</label>
+            <div class="input">
+               <input type="file" name="file"/>
+            </div>
+         </div>
+
+         <div class="clearfix">
+            <label>Descripcion:</label>
+
+            <div class="input">
+               <g:textField name="description"/>
+            </div>
          </div>
       </div>
-
-      <div class="clearfix">
-         <label>Descripcion:</label>
-
-         <div class="input">
-            <g:textField name="description"/>
-         </div>
+      <div class="modal-footer">
+         <g:submitButton name="submit" value="Adjuntar archivo" class="btn primary"/>
       </div>
-
    </g:uploadForm>
 </div>
 
-<div id="resolveIssueDialog" style="display:none;">
-   <h1>Resolver incidencia</h1>
-   <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form-stacked">
-      <div class="clearfix">
-         <label for="resolution">Resolucion:</label>
-
-         <div class="input"><g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name"
-                                      noSelection="['':'Seleccione...']"/></div>
+<div id="resolveIssueDialog" style="display:none;" class="modal">
+   <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form-stacked" style="padding-left: 0;">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>Resolver incidencia</h3>
       </div>
+      <div class="modal-body">
+         <div class="clearfix">
+            <label for="resolution">Resolucion:</label>
 
-      <div class="clearfix">
-         <label for="notifyToText">Notificar a:</label>
+            <div class="input"><g:select name="resolution" from="${Resolution.list()}" optionKey="id" optionValue="name"
+                                         noSelection="['':'Seleccione...']"/></div>
+         </div>
 
-         <div class="input">
-            <g:textField type="text" name="notifyToText" value="" class="autocomplete" style="width:100%;"/>
-            <g:hiddenField name="notifyTo"/>
-            %{--<g:select name="notifyTo" from="${issue.project.users.findAll{ it.enabled && it.id != issue.reporter.id }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="['':'Seleccione...']"/>--}%
-            <span class="help-inline">Si desea que alguien m&aacute;s, ademas de quien abrio la incidencia sea notificado.</span>
+         <div class="clearfix">
+            <label for="notifyToText">Notificar a:</label>
+
+            <div class="input">
+               <g:textField type="text" name="notifyToText" value="" class="autocomplete" style="width:100%;"/>
+               <g:hiddenField name="notifyTo"/>
+               %{--<g:select name="notifyTo" from="${issue.project.users.findAll{ it.enabled && it.id != issue.reporter.id }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="['':'Seleccione...']"/>--}%
+               <span class="help-inline">Si desea que alguien m&aacute;s, ademas de quien abrio la incidencia sea notificado.</span>
+            </div>
+         </div>
+
+         <div class="clearfix">
+            <label for="resolveComment">Comentario:</label>
+
+            <div class="input"><g:textArea name="resolveComment" style="width:100%;height:100px;"/></div>
          </div>
       </div>
-
-      <div class="clearfix">
-         <label for="resolveComment">Comentario:</label>
-
-         <div class="input"><g:textArea name="resolveComment" style="width:100%;height:100px;"/></div>
+      <div class="modal-footer">
+         <g:submitButton name="submit" value="Resolver" class="btn primary"/>
       </div>
    </g:form>
 </div>
@@ -251,55 +282,30 @@
 <script type="text/javascript">
    $(function() {
       if ($("#resolve")) {
-         $('#resolve').click(function(e) {
-            var position = $(this).position();
-            $("#resolveIssueDialog").dialog2({
-               width:550, modal: true, position: [position.left, position.top + $(this).height()],
-               buttons:{
-                  "Resolver":function() {
-                     $('#resolveIssueForm').submit();
-                  }
-               }
-            });
+         $("#resolveIssueDialog").modal({ keyboard: true, backdrop: true });
+
+         $('#resolve').click(function() {
+            $("#resolveIssueDialog").modal('show');
          });
       }
 
       if ($("#close")) {
+         $("#closeIssueDialog").modal({ keyboard: true, backdrop: true });
          $('#close').click(function(e) {
-            var position = $(this).position();
-            $("#closeIssueDialog").dialog({
-               width:550, modal: true, position: [position.left, position.top + $(this).height()],
-               buttons:{
-                  "Cerrar":function() {
-                     $('#closeIssueForm').submit();
-                  }
-               }
-            });
+            $("#closeIssueDialog").modal('show');
          });
       }
 
+      $("#assignIssueDialog").modal({ keyboard: true, backdrop: true });
       $('#assign').click(function () {
-         var position = $(this).position();
-         $("#assignIssueDialog").dialog2({
-            width:550, modal: true, position: [position.left, position.top + $(this).height()],
-            buttons:{
-               "Asignar": function() {
-                  $('#assignIssueForm').submit();
-               }
-            }
-         });
+         $("#assignIssueDialog").modal('show');
       });
+
+      $("#addAttachmentDialog").modal({ keyboard: true, backdrop: true });
       $('#attach').click(function () {
-         var position = $(this).position();
-         $("#addAttachmentDialog").dialog2({
-            width:550, modal: true, position: [position.left, position.top + $(this).height()],
-            buttons:{
-               "Adjuntar archivo":function() {
-                  $('#attachmentsForm').submit();
-               }
-            }
-         });
+         $("#addAttachmentDialog").modal('show');
       });
+
       $('#edit').click(function () {
          document.location.href = '${createLink(action:'edit', id: issue.code)}';
       });
