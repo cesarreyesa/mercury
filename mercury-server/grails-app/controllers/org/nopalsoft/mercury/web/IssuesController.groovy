@@ -31,10 +31,11 @@ class IssuesController {
             new IssueFilter(id: 4, name: 'Pendientes', status: 'open,progress', groupBy: GroupBy.Priority),
             new IssueFilter(id: 5, name: 'En Progreso', status: 'progress', assignee: user.username, groupBy: GroupBy.Priority),
             new IssueFilter(id: 6, name: 'Pendientes sin asignar', status: 'open,progress', assignee: 'null', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 7, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: user.username, groupBy: GroupBy.Priority),
-            new IssueFilter(id: 8, name: 'Cerrados en la ultima semana', status: 'closed', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 9, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', groupBy: GroupBy.Priority),
-            new IssueFilter(id: 10, name: 'Todas', groupBy: GroupBy.Priority)
+            new IssueFilter(id: 7, name: 'Resueltos', status: 'resolved', assignee: null, groupBy: GroupBy.Priority),
+            new IssueFilter(id: 8, name: 'Resueltos / Cerrados', status: 'closed,resolved', assignee: null, groupBy: GroupBy.Priority),
+            new IssueFilter(id: 9, name: 'Cerrados en la ultima semana', status: 'closed', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 10, name: 'Cerrados en la ultimas 2 semanas', status: 'closed', groupBy: GroupBy.Priority),
+            new IssueFilter(id: 11, name: 'Todas', groupBy: GroupBy.Priority)
       ]
       filters
    }
