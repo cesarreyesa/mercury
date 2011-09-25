@@ -291,6 +291,7 @@
 
       if ($("#close")) {
          $("#closeIssueDialog").modal({ keyboard: true, backdrop: true });
+         $('#closeIssueDialog').bind('shown', function(){ $('#closeComment').focus(); });
          $('#close').click(function(e) {
             $("#closeIssueDialog").modal('show');
          });
