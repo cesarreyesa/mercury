@@ -248,7 +248,7 @@ class IssueService {
             mailService.sendMail {
                to user.email
                subject "[NUEVA $issue.code] $issue.summary"
-               body view: "/emails/newIssue", model: [issue: issue, editedBy: createdBy]
+               body view: "/emails/newIssue", model: [issue: issue, createdBy: createdBy]
             }
          } catch (Exception ex) {
             println ex
