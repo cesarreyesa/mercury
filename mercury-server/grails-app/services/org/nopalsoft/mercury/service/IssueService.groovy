@@ -241,7 +241,9 @@ class IssueService {
       if (issue.assignee != null && !issue.assignee.equals(createdBy))
          usersToSend << issue.assignee
 
-      usersToSend.addAll(issue.watchers.asList())
+      if (issue.watchers) {
+          usersToSend.addAll(issue.watchers.asList())
+      }
 
       usersToSend.unique().each {User user ->
          try {
