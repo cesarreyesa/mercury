@@ -241,14 +241,16 @@ class IssueService {
       if (issue.assignee != null && !issue.assignee.equals(createdBy))
          usersToSend << issue.assignee
 
-      //usersToSend.addAll(issue.watchers.asList())
+      if (issue.watchers) {
+          usersToSend.addAll(issue.watchers.asList())
+      }
 
       usersToSend.unique().each {User user ->
          try {
             mailService.sendMail {
                to user.email
                subject "[NUEVA $issue.code] $issue.summary"
-               body view: "/emails/newIssue", model: [issue: issue, editedBy: createdBy]
+               body view: "/emails/newIssue", model: [issue: issue, createdBy: createdBy]
             }
          } catch (Exception ex) {
             println ex
@@ -309,7 +311,7 @@ class IssueService {
       def usersToSend = []
       if (!assignedBy.equals(assignee))
          usersToSend << assignee
-//    usersToSend.addAll(issue.watchers.asList())
+      usersToSend.addAll(issue.watchers.asList())
 
       usersToSend.unique().each {User user ->
          try {
@@ -361,7 +363,7 @@ class IssueService {
       if (addReporter && !currentUser.equals(issue.reporter))
          usersToNotificate << issue.reporter
 
-//    usersToNotificate.addAll(issue.watchers.asList())
+      usersToNotificate.addAll(issue.watchers.asList())
 
       if (usersToNotificate != null) {
          for (User user: usersToNotificate.unique()) {
