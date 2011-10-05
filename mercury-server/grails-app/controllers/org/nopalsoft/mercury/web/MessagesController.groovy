@@ -83,7 +83,7 @@ class MessagesController {
 
       messagesService.notifyComment(message, comment)
 
-      redirect(url:params.url)
+      redirect(url:params.url.replaceFirst(request.contextPath, ''))
    }
 
 }
