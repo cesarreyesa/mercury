@@ -8,12 +8,18 @@
 
 <style type="text/css">
    .comments{
-      background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;
+      padding-bottom:5px;
    }
 
    .comments .summary{
       /*background-color: #ccc;*/
       padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+   }
+
+   .comments .addComment{
+      padding-top: 10px;
    }
 
    .comments .addComment .title{
@@ -27,10 +33,9 @@
    }
 </style>
 
-<div class="comments">
+<div class="well comments">
    <div class="summary">
       ${conversation.comments.size() ?: 0} comentarios hasta ahora
-      <hr/>
    </div>
 
    <g:each in="${conversation.comments.sort { c -> c.dateCreated }}" var="comment">
@@ -43,8 +48,8 @@
       <g:form controller="${controller}" action="addComment" id="${conversation.id}">
          <g:hiddenField name="url" value="${request.forwardURI}"/>
          <div class="title">Agregar un comentario</div>
-         <g:textArea name="comment" class="text" rows="2" cols="30" style="height:100px;"/>
-         <g:submitButton name="addComment" class="button" value="Enviar"/>
+         <g:textArea name="comment" class="text" rows="2" cols="30" style="height:50px;"/>
+         <g:submitButton name="addComment" class="btn" value="Enviar"/>
       </g:form>
    </div>
 </div>
