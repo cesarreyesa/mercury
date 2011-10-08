@@ -103,7 +103,7 @@
    </div>
 </div>
 
-<div id="newIssueDialog" title="Nueva Incidencia" style="display:none;">
+<div id="newIssueDialog" title="Nueva Incidencia" style="display:none;width: 800px;" class="modal">
 
 </div>
 

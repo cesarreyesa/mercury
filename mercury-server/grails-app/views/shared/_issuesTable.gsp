@@ -89,12 +89,12 @@
 </table>
 
 <script type="text/javascript">
+   $("#newIssueDialog").modal({ keyboard: true });
+
    $('.addSubIssue').click(function(e) {
       e.preventDefault();
-      var position = $(this).position();
-      $("#newIssueDialog").dialog({
-         width:730, modal: true, position: [position.left - (730 / 2), position.top + $(this).height()]
-      });
+      $("#newIssueDialog").html('<div style="padding: 30px;">Loading...</div>');
+      $("#newIssueDialog").modal('show');
       $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('code') + '&reload=true');
    });
 </script>
