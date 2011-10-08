@@ -16,40 +16,62 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Mercury</title>
-  <link rel="stylesheet" href="${resource(dir:'css', file:'base.css')}" type="text/css" media="screen" />
-  <link rel="stylesheet" href="${resource(dir:'css/themes/drastic-dark', file:'styles.css')}" type="text/css" media="screen" />
+   <title>${message(code: 'application.name')}</title>
+   <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css"/>
+   <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css" media="screen"/>
 
   <script type="text/javascript" src="${resource(dir: 'js', file: 'global.js')}"></script>
 </head>
 <body>
 
-<div id="box">
-  <h1>Mercury</h1>
-  <p>Bug tracking, issue tracking and project management software.</p>
-  <div class="block" id="block-login">
-    <h2>Recuperar contrase&ntilde;a</h2>
-    <div class="content login">
-      <g:if test="${flash.message}">
-        <div class="flash">
-          <div class="message error">
-            ${flash.message}
-          </div>
-        </div>
-      </g:if>
-      <g:form action="sendRecoverPasswordRequest" name="loginForm" class="form">
-        <div class="group">
-          <label class="label">Email</label>
-          <g:textField name="email" value="${email}"/>
-        </div>
-        <div class="group navform wat-cf">
-          <button class="button" type="submit">
-            <img src="${resource(dir:'/images/icons', file:'key.png')}" alt="Enviar" /> Enviar
-          </button>
-        </div>
-      </g:form>
-    </div>
-  </div>
+<div class="topbar">
+   <div class="topbar-inner">
+      <div class="container">
+         <h3>
+            <g:link controller="home">${message(code: 'application.name')}</g:link>
+         </h3>
+      </div>
+   </div>
+</div>
+
+<div class="container" style="margin-top: 100px;">
+
+   <g:form action="sendRecoverPasswordRequest" name="loginForm" class="form">
+      <div class="modal" style="position: relative; top: auto; left: auto; margin: 0 auto; z-index: 1">
+         <div class="modal-header">
+            <h3>Recuperar contrase&ntilde;a</h3>
+         </div>
+
+         <div class="modal-body">
+            <div class="form">
+               <g:if test="${flash.message}">
+                  <div class="alert-message warning">
+                     <p>${flash.message}</p>
+                  </div>
+
+                  <div class="flash">
+                     <div class="message error">
+
+                     </div>
+                  </div>
+               </g:if>
+               <div class="clearfix">
+                  <label for="email">Email</label>
+
+                  <div class="input">
+                     <g:textField name="email" value="${email}"/>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+
+         <div class="modal-footer">
+            <button class="btn primary" type="submit">Enviar</button>
+         </div>
+      </div>
+   </g:form>
+
 </div>
 
 <script type="text/javascript">
