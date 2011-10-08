@@ -25,9 +25,12 @@
       <g:hiddenField name="project.id" value="${project.id}"/>
       <g:hasErrors bean="${issue}">
          <div class="alert-message block-message error">
-            <g:eachError bean="${issue}">
-               <p><g:message error="${it}"/></p>
-            </g:eachError>
+            <p>Hubo un error al crear la incidencia, revisa los siguientes mensajes:</p>
+            <ul>
+               <g:eachError bean="${issue}">
+                  <li><g:message error="${it}"/></li>
+               </g:eachError>
+            </ul>
          </div>
       </g:hasErrors>
       <div class="row">

@@ -36,7 +36,8 @@
    <script type="text/javascript" src="${resource(dir: 'js', file: 'application.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-modal.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-dropdown.js')}"></script>
-   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-modal.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-twipsy.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-popover.js')}"></script>
    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.8.6.custom.min.js')}"></script>--}%
    %{--<script type="text/javascript" src="/mercury-web/js/global.js${cmpVersion}"></script>--}%
    <g:layoutHead/>

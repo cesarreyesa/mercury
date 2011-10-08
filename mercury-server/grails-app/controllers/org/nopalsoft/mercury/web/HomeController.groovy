@@ -12,6 +12,9 @@ class HomeController {
    def springSecurityService
 
    def index = {
+      if (isMobileDevice()) {
+         redirect(controller: 'mobileHome')
+      }
       if (!session.project) {
          redirect(action: 'chooseProject')
       } else {
@@ -29,13 +32,8 @@ class HomeController {
 
    def chooseProject = {
       def user = User.get(springSecurityService.principal.id)
-      def model = [projects: Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])]
-      if(isMobileDevice()){
-         model.layout = 'iphone'
-         render(view: 'chooseProject', model: model)
-      }else{
-         render(view:'chooseProject', model: model)
-      }
+      def model = [projects: issueService.getProjectsForUser(user)]
+      render(view: 'chooseProject', model: model)
    }
 
    def changeProject = {

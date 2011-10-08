@@ -13,6 +13,14 @@
 
   <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
+   <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.mobile-1.0rc1.min.css')}" type="text/css"/>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.6.4.min.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.mobile-1.0rc1.min.js')}"></script>
+
+   %{--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />--}%
+   %{--<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>--}%
+   %{--<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>--}%
+
   <g:layoutHead/>
 </head>
 <body>

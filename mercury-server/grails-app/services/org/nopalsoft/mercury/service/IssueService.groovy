@@ -31,6 +31,10 @@ class IssueService {
    def springSecurityService
    def mailService
 
+   public List<Project> getProjectsForUser(User user){
+      return Project.executeQuery("select distinct project from Project project join project.users as user where user.id = ? order by project.name", [user.id])
+   }
+
    public Integer getTotalIssues(Project project) {
       return Issue.executeQuery("select count(*) from Issue where project = ?", [project])[0];
    }
