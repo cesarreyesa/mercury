@@ -9,9 +9,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-  <title><g:layoutTitle default="Mercury" /> :: Mercury</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title><g:layoutTitle default="Mercury"/> :: Mercury</title>
 
-  <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
+   <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.mobile-1.0rc1.min.css')}" type="text/css"/>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-1.6.4.min.js')}"></script>
@@ -21,9 +22,10 @@
    %{--<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>--}%
    %{--<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>--}%
 
-  <g:layoutHead/>
+   <g:layoutHead/>
 </head>
+
 <body>
-   <g:layoutBody/>
+<g:layoutBody/>
 </body>
 </html>

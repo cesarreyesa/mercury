@@ -22,7 +22,7 @@
       <div class="content-primary">
          <ul data-role="listview">
             <g:each in="${projects}" var="project">
-               <li><g:link>${project.name}</g:link></li>
+               <li><g:link controller="mobile" action="filters" params="[project: project.id]">${project.name}</g:link></li>
             </g:each>
          </ul>
       </div><!--/content-primary -->
