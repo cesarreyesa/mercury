@@ -77,7 +77,12 @@
                </ul>
             </li>
             <li class="dropdown">
-               <a href="#" class="dropdown-toggle"><sec:ifLoggedIn>${session.user}</sec:ifLoggedIn></a>
+               <a href="#" class="dropdown-toggle" style="padding-top: 5px;padding-bottom: 0;">
+                  <sec:ifLoggedIn>
+                     <img src="http://www.gravatar.com/avatar/${session.user.email.encodeAsMD5()}?s=30" />
+                     <span >${session.user}</span>
+                  </sec:ifLoggedIn>
+               </a>
                <ul class="dropdown-menu">
                   <li><g:link controller="profile">Perfil</g:link></li>
                   <li><g:link controller="logout" class="logout">salir</g:link></li>
