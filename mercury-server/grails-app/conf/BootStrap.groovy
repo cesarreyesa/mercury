@@ -1,6 +1,10 @@
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Role
 import org.codehaus.groovy.grails.commons.ApplicationHolder
+import org.nopalsoft.mercury.domain.Comment
+import org.nopalsoft.mercury.domain.IssueLog
+import org.nopalsoft.mercury.domain.Conversation
+import org.nopalsoft.mercury.domain.Issue
 
 class BootStrap {
 
@@ -22,6 +26,7 @@ class BootStrap {
       application.getArtefacts("Controller").each { klass -> addDynamicMethods(klass) }
 
       createAdminUser()
+      //migrateComents()
    }
 
    private addDynamicMethods(klass) {
@@ -60,6 +65,34 @@ class BootStrap {
             println "Admin user $username not created: ${admin.errors}"
          }
       }
+   }
+
+   private migrateComents(){
+      def issues = Issue.list()
+//def issues = [Issue.get((long)368)]
+      issues.each { Issue issue ->
+         def logs = IssueLog.findAllByIssue(issue)
+         def conversation = new Conversation()
+         if(issue.conversation){
+            conversation = issue.conversation
+         }
+         logs.each { IssueLog log ->
+            def comment = new Comment()
+            comment.content =  log.comment
+            comment.dateCreated = log.date
+            comment.user = log.user
+
+            if(log.changes){
+               comment.content += "\n\n" + log.changes.collect { c -> "**$c.property** cambio de **$c.originalValue** a **$c.newValue**" }.join("\n\n")
+            }
+            conversation.comments.add(comment)
+         }
+
+         conversation.save(flush:true)
+         issue.conversation = conversation
+         issue.save(flush:true)
+      }
+
    }
 
    def destroy = {

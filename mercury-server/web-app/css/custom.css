@@ -112,3 +112,15 @@ a.completed{
    text-decoration: line-through;
    color: #BFBFBF;
 }
+
+.label-large {
+  padding: 1px 3px 2px;
+  background-color: #bfbfbf;
+  /*font-size: 9.75px;*/
+  font-weight: bold;
+  color: #ffffff;
+  text-transform: uppercase;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}

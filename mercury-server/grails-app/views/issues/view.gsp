@@ -39,7 +39,7 @@
          <div class="box-inner">
             <span class="small">
                abierta por <strong>${issue.reporter.fullName}</strong> el <g:formatDate date="${issue.date}" format="MMM dd, yyyy"/></span>
-            <h2>${issue.code} ${issue.summary}</h2>
+            <h2><span class="label-large">${issue.code}</span> ${issue.summary}</h2>
 
             <span class="small">
                asignado a <strong>${issue.assignee?.fullName}</strong>
@@ -65,46 +65,8 @@
          </div>
       </div>
 
-      <div style="background-color:#F9F9FA;border: 1px solid #ccc;padding:5px;">
-         <h4>Historia (${logs.size()})</h4>
+      <g:render template="/shared/comments" model="[conversation: issue.conversation, controller:'issues']"/>
 
-         <div id="logs" style="font-size:x-small;">
-            <g:each in="${logs}" var="log">
-               <div class="comment" style="margin: 10px;5px;">
-                  <div class="comment-user"
-                       style="padding:4px;background-color:#F0F1F2;border-bottom: 1px solid #D4D5D6;">
-                     ${log.user.fullName} ${log.date}
-                  </div>
-                  <g:if test="${log.changes}">
-                     <ul>
-                        <g:each in="${log.changes}" var="change">
-                           <g:set var="property" value="issue.${change.property}"/>
-                           <li><strong>${change.property}</strong> cambiado de <em>${change.originalValue}</em> a <em>${change.newValue}</em>
-                           </li>
-                        </g:each>
-                     </ul>
-                  </g:if>
-                  <div>
-                     ${log.comment}
-                  </div>
-               </div>
-            </g:each>
-         </div>
-
-         <div style="margin: 5px;">
-            <g:form action="addComment" id="${issue.code}" class="form-stacked">
-               <div class="clearfix">
-                  <label>Agregar comentario</label>
-                  <div class="input">
-                     <g:textArea name="comment" rows="2" cols="30" style="width:100%;border: 2px solid #ccc;"/>
-                  </div>
-               </div>
-               <div >
-                  <g:submitButton class="btn" name="addComment" value="Agregar comentario"/>
-               </div>
-            </g:form>
-         </div>
-      </div>
    </div>
    <div class="span4 columns">
       <table style="width:100%;">

@@ -39,6 +39,7 @@ class Issue {
    Milestone milestone
    Category category
    Issue parent
+   Conversation conversation
 
    static hasMany = [attachments: IssueAttachment, watchers: User, childs: Issue]
 
@@ -61,6 +62,7 @@ class Issue {
       assignee(nullable: true)
       milestone(nullable: true)
       category(nullable: true)
+      conversation(nullable: true)
    }
 
    static mapping = {

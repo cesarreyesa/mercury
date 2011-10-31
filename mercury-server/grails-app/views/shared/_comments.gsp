@@ -55,6 +55,5 @@
 </div>
 
 <script type="text/javascript">
-   $(".button").button();
    //$('div.addComment textarea').markItUp(mySettings);
 </script>

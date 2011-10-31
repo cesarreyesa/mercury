@@ -22,6 +22,7 @@ import org.hibernate.criterion.Order
 import org.nopalsoft.mercury.domain.GroupBy
 import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.utils.SmartDate
+import org.nopalsoft.mercury.domain.Comment
 
 class IssueService {
 
@@ -402,28 +403,29 @@ class IssueService {
       }
    }
 
-   private void logIssue(Issue issue, String comment) {
-      def log = new IssueLog()
+   private void logIssue(Issue issue, String message) {
+      def conversation = issue.conversation
+      def comment = new Comment()
 
-      // obtiene la incidencia actual y trae los cambios
-      //    def oldIssue = (Issue) entityManager.get(Issue.class, issue.getId(), true)
+      // si existe un comentario lo agrega.
+      if (message != null) comment.content = message
+
+      //TODO: verificar si no viene de la session de hibernate
       def oldIssue = Issue.get(issue.id)
 
       def changes = getChanges(oldIssue, issue)
-      if (changes) log.changes << changes
 
-      log.date = new Date()
+      if (changes) {
+         comment.content += "\n\n" + changes.collect { c -> "**$c.property** cambio de **$c.originalValue** a **$c.newValue**" }.join("\n\n")
+      }
 
-      // si existe un comentario lo agrega.
-      if (comment != null) log.comment = comment
+      comment.dateCreated = new Date()
 
-      // obtiene al usuario
       User user = User.get(springSecurityService.principal.id)
-      log.user = user;
-      log.issue = issue;
+      comment.user = user;
 
-      if (!log.save(flush: true))
-         println log.errors
+      conversation.addToComments(comment)
+      conversation.save(flush:true)
    }
 
    private List<LogChange> getChanges(Issue oldIssue, Issue newIssue) {

@@ -16,6 +16,8 @@ import grails.plugins.springsecurity.Secured
 import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.domain.MilestoneStatus
 import grails.converters.JSON
+import org.nopalsoft.mercury.domain.Conversation
+import org.nopalsoft.mercury.domain.Comment
 
 @Secured(['user', 'role_admin'])
 class IssuesController {
@@ -83,6 +85,11 @@ class IssuesController {
 
    def view = {
       def issue = Issue.findByCode(params.id)
+      if(!issue.conversation){
+         issue.conversation = new Conversation()
+         issue.conversation.save(flush:true)
+         issue.save(flush:true)
+      }
       [issue: issue, logs: IssueLog.findAllByIssue(issue)]
    }
 
@@ -214,12 +221,27 @@ class IssuesController {
       redirect(action: 'view', params: [id: issue.code])
    }
 
+//   def addComment = {
+//      def issue = Issue.findByCode(params.id)
+//      issueService.saveIssue issue, params.comment
+//      flash.message = "Se asigno correctamente"
+//      redirect(action: 'view', params: [id: issue.code])
+//   }
+
    def addComment = {
-      def issue = Issue.findByCode(params.id)
-      issueService.saveIssue issue, params.comment
-      flash.message = "Se asigno correctamente"
-      redirect(action: 'view', params: [id: issue.code])
+      def conversation = Conversation.get(params.id)
+      def message = Issue.findByConversation(conversation)
+      def comment = new Comment()
+      comment.content = params.comment
+      comment.user = User.get(springSecurityService.principal.id)
+      conversation.addToComments(comment)
+      conversation.save(flush:true)
+
+      //messagesService.notifyComment(message, comment)
+
+      redirect(url:params.url.replaceFirst(request.contextPath, ''))
    }
+
 
    def addAttachment = {
       def issue = Issue.findByCode(params.id)
