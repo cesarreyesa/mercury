@@ -26,7 +26,7 @@ class BootStrap {
       application.getArtefacts("Controller").each { klass -> addDynamicMethods(klass) }
 
       createAdminUser()
-      //migrateComents()
+//      migrateComments()
    }
 
    private addDynamicMethods(klass) {
@@ -67,10 +67,13 @@ class BootStrap {
       }
    }
 
-   private migrateComents(){
+   private migrateComments(){
       def issues = Issue.list()
-//def issues = [Issue.get((long)368)]
+//      def issues = [Issue.findByCode('15')]
+      println "procesando ${issues.size()} issues"
+      def count = 1
       issues.each { Issue issue ->
+         println "procesando issue [${issue.code}] ${count++} de ${issues.size()}"
          def logs = IssueLog.findAllByIssue(issue)
          def conversation = new Conversation()
          if(issue.conversation){
@@ -78,14 +81,18 @@ class BootStrap {
          }
          logs.each { IssueLog log ->
             def comment = new Comment()
-            comment.content =  log.comment
+            if(log.comment)
+               comment.content =  log.comment
             comment.dateCreated = log.date
             comment.user = log.user
 
             if(log.changes){
                comment.content += "\n\n" + log.changes.collect { c -> "**$c.property** cambio de **$c.originalValue** a **$c.newValue**" }.join("\n\n")
             }
-            conversation.comments.add(comment)
+            if(comment.content){
+               comment.save(flush:true)
+               conversation.addToComments(comment)
+            }
          }
 
          conversation.save(flush:true)
