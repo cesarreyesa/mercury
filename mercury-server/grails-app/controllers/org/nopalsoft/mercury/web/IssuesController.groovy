@@ -18,6 +18,7 @@ import org.nopalsoft.mercury.domain.MilestoneStatus
 import grails.converters.JSON
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.Comment
+import org.nopalsoft.mercury.domain.PomodoroSession
 
 @Secured(['user', 'role_admin'])
 class IssuesController {
@@ -85,12 +86,13 @@ class IssuesController {
 
    def view = {
       def issue = Issue.findByCode(params.id)
-      if(!issue.conversation){
+      if(issue && !issue.conversation){
          issue.conversation = new Conversation()
          issue.conversation.save(flush:true)
          issue.save(flush:true)
       }
-      [issue: issue, logs: IssueLog.findAllByIssue(issue)]
+      def pomodoros = PomodoroSession.findAllByIssueAndCompleted(issue, true)
+      [issue: issue, pomodoros: pomodoros.size()]
    }
 
    def create = {
@@ -295,6 +297,23 @@ class IssuesController {
       issueService.resolveIssue issue, Resolution.get(params.resolution), params.resolveComment, notifyUsers
       flash.message = "Se resolvio correctamente"
       redirect(action: 'view', params: [id: issue.code])
+   }
+
+   def startPomodoroSession = {
+      def issue = Issue.findByCode(params.id)
+      def pomodoroSession = issueService.startPomodoroSession(issue)
+      render(contentType:"text/json"){
+         success =  true
+         pomodoroSessionId =  pomodoroSession.id
+      }
+   }
+
+   def endPomodoroSession = {
+      def pomodoroSession = PomodoroSession.get(params.id)
+      issueService.endPomodoroSession(pomodoroSession)
+      render(contentType:"text/json"){
+         success =  true
+      }
    }
 
    def users = {

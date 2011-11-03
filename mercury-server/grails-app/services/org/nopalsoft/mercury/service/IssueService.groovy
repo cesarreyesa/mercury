@@ -23,6 +23,8 @@ import org.nopalsoft.mercury.domain.GroupBy
 import org.nopalsoft.mercury.domain.Milestone
 import org.nopalsoft.mercury.utils.SmartDate
 import org.nopalsoft.mercury.domain.Comment
+import org.nopalsoft.mercury.domain.PomodoroSession
+import groovy.time.TimeCategory
 
 class IssueService {
 
@@ -482,5 +484,21 @@ class IssueService {
       }
    }
 
+   public PomodoroSession startPomodoroSession(Issue issue){
+      def pomodoroSession = new PomodoroSession()
+      pomodoroSession.issue = issue
+      pomodoroSession.dateStarted = new Date()
+      User user = User.get(springSecurityService.principal.id)
+      pomodoroSession.user = user
+      pomodoroSession.save(flush:true)
+      println pomodoroSession.errors
+      pomodoroSession
+   }
+
+   public void endPomodoroSession(PomodoroSession pomodoroSession){
+      pomodoroSession.dateEnd = new Date()
+      pomodoroSession.secondsElapsed = pomodoroSession.dateStarted - pomodoroSession.dateEnd
+      pomodoroSession.save(flush:true)
+   }
 
 }

@@ -17,16 +17,23 @@
    <g:render template="/shared/menu" model="[selected:'issues']"/>
 </content>
 
-<div class="issue-menu" style="margin-top:20px;">
-   <g:if test="${!issue.resolution}">
-      <button class="btn" id="resolve">Resolver</button>
-   </g:if>
-   <g:elseif test="${issue.status?.code != 'closed'}">
-      <button class="btn" id="close">Cerrar</button>
-   </g:elseif>
-   <button class="btn" id="assign">Asignar</button>
-   <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
-   <button class="btn" id="edit">Editar</button>
+<div class="row" style="margin-top:20px;">
+   <div class="span10">
+      <g:if test="${!issue.resolution}">
+         <button class="btn" id="resolve">Resolver</button>
+      </g:if>
+      <g:elseif test="${issue.status?.code != 'closed'}">
+         <button class="btn" id="close">Cerrar</button>
+      </g:elseif>
+      <button class="btn" id="assign">Asignar</button>
+      <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
+      <button class="btn" id="edit">Editar</button>
+      <button class="btn" id="pomodoro">Iniciar pomodoro</button>
+   </div>
+   <div class="span2">
+      <div id="pomodoroCountdown" class="countdown" style="height: 40px;width: 100px;display:none;"></div>
+   </div>
+
    %{--<div style="float:right;">--}%
    %{--<span id="back"><<</span>--}%
    %{--<span id="next">>></span>--}%
@@ -110,6 +117,12 @@
                      <li>${watcher.fullName}</li>
                   </g:each>
                </ul>
+            </td>
+         </tr>
+         <tr>
+            <td>Pomodoros</td>
+            <td>
+               ${pomodoros}-
             </td>
          </tr>
       </table>
@@ -321,6 +334,38 @@
                   return false;
                }
             });
+
+      var pomodoroRunning = false;
+      var pomodoroSessionId;
+      $('#pomodoro').click(function(e){
+         e.preventDefault();
+         if(!pomodoroRunning){
+            pomodoroRunning = true;
+            $.ajax({url: '${createLink(action:"startPomodoroSession", id: issue.code)}', dataType: 'json',
+               success: function(data){
+                  if(data.success){
+                     pomodoroSessionId = data.pomodoroSessionId
+                  }
+               }
+            });
+            $('#pomodoro').html('Invalidar pomodoro');
+            $("#pomodoroCountdown").css('display', '');
+            $('#pomodoroCountdown').countdown({until: '+25m', format: 'YOWDHMS', significant: 2,
+               onExpiry: function(){
+                  pomodoroRunning = false;
+                  $.ajax({url: '${createLink(action:"endPomodoroSession")}/' + pomodoroSessionId, dataType: 'json'});
+                  $('#pomodoro').html('Iniciar pomodoro');
+                  $('#pomodoroCountdown').countdown('destroy');
+                  $("#pomodoroCountdown").css('display', 'none');
+               }
+            });
+         }else{
+            pomodoroRunning = false;
+            $('#pomodoro').html('Iniciar pomodoro');
+            $('#pomodoroCountdown').countdown('destroy');
+            $("#pomodoroCountdown").css('display', 'none');
+         }
+      });
    });
 
    function extractLast(term) {
