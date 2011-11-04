@@ -355,7 +355,7 @@
             });
             $('#pomodoro').html('Invalidar pomodoro');
             $("#pomodoroCountdown").css('display', '');
-            $('#pomodoroCountdown').countdown({until: '+10s', format: 'YOWDHMS', significant: 2,
+            $('#pomodoroCountdown').countdown({until: '+25m', format: 'YOWDHMS', significant: 2,
                onExpiry: function(){
                   pomodoroRunning = false;
                   $.ajax({url: '${createLink(action:"endPomodoroSession")}/' + pomodoroSessionId, dataType: 'json'});
