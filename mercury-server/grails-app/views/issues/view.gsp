@@ -33,6 +33,11 @@
    <div class="span2">
       <div id="pomodoroCountdown" class="countdown" style="height: 40px;width: 100px;display:none;"></div>
    </div>
+   <div class="span4">
+      <div id="successMessage" class="alert-message success" style="display: none;">
+        <p><strong>Bien hecho!</strong> Haz terminado un pomodoro completo.</p>
+      </div>
+   </div>
 
    %{--<div style="float:right;">--}%
    %{--<span id="back"><<</span>--}%
@@ -122,7 +127,7 @@
          <tr>
             <td>Pomodoros</td>
             <td>
-               ${pomodoros}-
+               ${pomodoros}
             </td>
          </tr>
       </table>
@@ -350,11 +355,15 @@
             });
             $('#pomodoro').html('Invalidar pomodoro');
             $("#pomodoroCountdown").css('display', '');
-            $('#pomodoroCountdown').countdown({until: '+25m', format: 'YOWDHMS', significant: 2,
+            $('#pomodoroCountdown').countdown({until: '+10s', format: 'YOWDHMS', significant: 2,
                onExpiry: function(){
                   pomodoroRunning = false;
                   $.ajax({url: '${createLink(action:"endPomodoroSession")}/' + pomodoroSessionId, dataType: 'json'});
                   $('#pomodoro').html('Iniciar pomodoro');
+                  $('#successMessage').show();
+                  setTimeout(function(){
+                     $('#successMessage').fadeOut(2000);
+                  }, 2000);
                   $('#pomodoroCountdown').countdown('destroy');
                   $("#pomodoroCountdown").css('display', 'none');
                }

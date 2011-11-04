@@ -491,13 +491,14 @@ class IssueService {
       User user = User.get(springSecurityService.principal.id)
       pomodoroSession.user = user
       pomodoroSession.save(flush:true)
-      println pomodoroSession.errors
       pomodoroSession
    }
 
    public void endPomodoroSession(PomodoroSession pomodoroSession){
       pomodoroSession.dateEnd = new Date()
       pomodoroSession.secondsElapsed = pomodoroSession.dateStarted - pomodoroSession.dateEnd
+      println pomodoroSession.secondsElapsed
+      pomodoroSession.completed = true
       pomodoroSession.save(flush:true)
    }
 
