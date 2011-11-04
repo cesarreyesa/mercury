@@ -47,7 +47,7 @@
       <div class="comment">
          <p>
             <img src="http://www.gravatar.com/avatar/${session.user.email.encodeAsMD5()}?s=30" alt="gravatar">
-            <strong>${comment.user.fullName}</strong> <g:formatDate date="${comment.dateCreated}" format="MMM dd, yyyy, HH:mm"/>
+            <strong>${comment.user.fullName}</strong> <g:formatDate date="${comment.dateCreated}" format="MMM dd, yyyy @ HH:mm"/>
          </p>
          <p><g:markdownToHtml>${comment.content}</g:markdownToHtml></p>
       </div>
