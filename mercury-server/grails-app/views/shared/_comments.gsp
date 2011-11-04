@@ -31,6 +31,11 @@
       margin-bottom: 5px;
       margin-top: 5px;
    }
+
+   .comments .comment{
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+   }
 </style>
 
 <div class="well comments">
@@ -40,7 +45,10 @@
 
    <g:each in="${conversation.comments.sort { c -> c.dateCreated }}" var="comment">
       <div class="comment">
-         <p>${comment.dateCreated} | ${comment.user.fullName}</p>
+         <p>
+            <img src="http://www.gravatar.com/avatar/${session.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+            <strong>${comment.user.fullName}</strong> <g:formatDate date="${comment.dateCreated}" format="MMM dd, yyyy, HH:mm"/>
+         </p>
          <p><g:markdownToHtml>${comment.content}</g:markdownToHtml></p>
       </div>
    </g:each>
