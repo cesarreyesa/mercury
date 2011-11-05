@@ -4,7 +4,7 @@
   Time: 21:20:05
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.nopalsoft.mercury.domain.IssueComment" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
   <title>Dashboard</title>
@@ -16,24 +16,43 @@
   <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<div id="main" style="width:100%;">
-  <div class="block" id="block-text">
-    <div class="content">
-      <h2 class="title">Dashboard</h2>
-      <div class="inner">
-        <table>
-          <tr>
-            <td><div id="issuesByStatusDiv"></div></td>
-            <td><div id="issuesByPriorityDiv"></div></td>
-          </tr>
-          <tr>
-            <td><div id="issuesByAssigneeDiv"></div></td>
-            <td><div id="openIssuesByPriorityDiv"></div></td>
-          </tr>
-        </table>
+<div class="row">
+   <h2>Dashboard</h2>
+</div>
+<div class="row">
+   <div class="span8">
+      <h3>Activity Feed</h3>
+
+      <div class="activity-feed">
+         <g:each in="${activities}" var="activity">
+            <div class="activity">
+               <g:if test="${activity instanceof IssueComment}">
+                  <strong>${activity.user}</strong> <g:message code="comment.issue.${activity.action}"/>
+                  la incidencia <g:link controller="issues" action="view" id="${activity.issue.code}">${activity.issue.code}</g:link> <g:formatDate date="${activity.dateCreated}" format="MMM dd, yyyy @ HH:mm"/>
+               </g:if>
+               <g:else>
+                  <strong>${activity.user}</strong> ${activity.dateCreated}, ${activity.content}
+               </g:else>
+            </div>
+         </g:each>
       </div>
-    </div>
-  </div>
+   </div>
+   <div class="span8">
+      <table>
+        <tr>
+          <td><div id="issuesByStatusDiv"></div></td>
+        </tr>
+        <tr>
+          <td><div id="issuesByPriorityDiv"></div></td>
+        </tr>
+        <tr>
+          <td><div id="issuesByAssigneeDiv"></div></td>
+        </tr>
+        <tr>
+          <td><div id="openIssuesByPriorityDiv"></div></td>
+        </tr>
+      </table>
+   </div>
 </div>
 
 <script type="text/javascript">

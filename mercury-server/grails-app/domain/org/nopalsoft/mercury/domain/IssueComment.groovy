@@ -1,7 +1,10 @@
 package org.nopalsoft.mercury.domain
 
-class IssueComment {
+class IssueComment extends Comment {
 
-    static constraints = {
-    }
+   String action
+   Issue issue
+
+   static constraints = {
+   }
 }

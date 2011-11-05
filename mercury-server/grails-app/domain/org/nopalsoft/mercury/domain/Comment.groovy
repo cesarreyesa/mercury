@@ -2,6 +2,7 @@ package org.nopalsoft.mercury.domain
 
 class Comment {
 
+   Project project
    User user
    Date dateCreated
    String content
