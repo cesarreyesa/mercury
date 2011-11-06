@@ -27,8 +27,11 @@
          <g:each in="${activities}" var="activity">
             <div class="activity">
                <g:if test="${activity instanceof IssueComment}">
-                  <strong>${activity.user}</strong> <g:message code="comment.issue.${activity.action}"/>
+                  <strong>${activity.user}</strong> <span class="label"><g:message code="comment.issue.${activity.action}"/></span>
                   la incidencia <g:link controller="issues" action="view" id="${activity.issue.code}">${activity.issue.code}</g:link> <g:formatDate date="${activity.dateCreated}" format="MMM dd, yyyy @ HH:mm"/>
+                  <g:if test="${activity.content}">
+                     <p>${activity.content}</p>
+                  </g:if>
                </g:if>
                <g:else>
                   <strong>${activity.user}</strong> ${activity.dateCreated}, ${activity.content}

@@ -19,6 +19,7 @@ import grails.converters.JSON
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.Comment
 import org.nopalsoft.mercury.domain.PomodoroSession
+import org.nopalsoft.mercury.domain.IssueComment
 
 @Secured(['user', 'role_admin'])
 class IssuesController {
@@ -233,10 +234,13 @@ class IssuesController {
 
    def addComment = {
       def conversation = Conversation.get(params.id)
-      def message = Issue.findByConversation(conversation)
-      def comment = new Comment()
+      def issue = Issue.findByConversation(conversation)
+      def comment = new IssueComment()
       comment.content = params.comment
       comment.user = User.get(springSecurityService.principal.id)
+      comment.action = "comment"
+      comment.issue = issue
+      comment.project = issue.project
       conversation.addToComments(comment)
       conversation.save(flush:true)
 
