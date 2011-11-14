@@ -241,6 +241,10 @@ class IssueSearchService {
    }
 
    public List<Comment> getActivities(User user, Project project) {
-      return Comment.findAllByProject(project)
+      return Comment.withCriteria {
+         eq("project", project)
+         order("dateCreated", "desc")
+         maxResults(50)
+      }
    }
 }

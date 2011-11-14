@@ -17,21 +17,31 @@
 </content>
 
 <div class="row">
-   <h2>Dashboard</h2>
-</div>
-<div class="row">
    <div class="span8">
-      <h3>Activity Feed</h3>
+      <h2 style="margin-bottom: 20px;">Actividad reciente</h2>
 
       <div class="activity-feed">
          <g:each in="${activities}" var="activity">
-            <div class="activity">
+            <div class="activity" style="clear: both;">
                <g:if test="${activity instanceof IssueComment}">
-                  <strong>${activity.user}</strong> <span class="label"><g:message code="comment.issue.${activity.action}"/></span>
-                  la incidencia <g:link controller="issues" action="view" id="${activity.issue.code}">${activity.issue.code}</g:link> <g:formatDate date="${activity.dateCreated}" format="MMM dd, yyyy @ HH:mm"/>
-                  <g:if test="${activity.content}">
-                     <p>${activity.content}</p>
-                  </g:if>
+                  <div>
+                     <strong>${activity.user}</strong> <strong><g:message code="comment.issue.${activity.action}"/></strong>
+                     la incidencia <g:link controller="issues" action="view" id="${activity.issue.code}">${activity.issue.code}</g:link>
+                     hace <f:humanTime time="${activity.dateCreated}"/>
+                  </div>
+                  <div>
+                     <div style="float: left;">
+                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+                     </div>
+                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
+                        <g:if test="${activity.action == 'create'}">
+                           <p>${activity.issue.summary}</p>
+                        </g:if>
+                        <g:if test="${activity.content}">
+                           <p>${activity.content}</p>
+                        </g:if>
+                     </div>
+                  </div>
                </g:if>
                <g:else>
                   <strong>${activity.user}</strong> ${activity.dateCreated}, ${activity.content}
@@ -41,6 +51,7 @@
       </div>
    </div>
    <div class="span8">
+      <h2>Dashboard</h2>
       <table>
         <tr>
           <td><div id="issuesByStatusDiv"></div></td>
