@@ -34,7 +34,7 @@ class HomeController {
 
    def chooseProject = {
       def user = User.get(springSecurityService.principal.id)
-      def model = [projects: issueService.getProjectsForUser(user)]
+      def model = [projects: issueSearchService.getProjectsForUser(user)]
       render(view: 'chooseProject', model: model)
    }
 

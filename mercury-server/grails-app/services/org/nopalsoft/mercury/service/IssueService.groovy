@@ -83,10 +83,10 @@ class IssueService {
    }
 
    public void saveIssue(Issue issue) {
-      saveIssue issue, ""
+      saveIssue issue, "", ""
    }
 
-   public void saveIssue(Issue issue, String comment) {
+   public void saveIssue(Issue issue, String comment, String action) {
       issue.lastUpdated = new Date()
 
       User editedBy = User.get(springSecurityService.principal.id)
@@ -104,14 +104,14 @@ class IssueService {
          }
       }
 
-      logIssue(issue, comment)
+      logIssue(issue, comment, action)
 
       issue.save(flush: true)
    }
 
    public void closeIssue(Issue issue, String comment) {
       issue.status = Status.findByCode('closed')
-      saveIssue(issue, comment)
+      saveIssue(issue, comment, 'close')
    }
 
    public void reassignIssue(Issue issue, String assignee, String comment) {
@@ -126,7 +126,7 @@ class IssueService {
 
       issue.setAssignee(assignee);
 
-      logIssue(issue, comment);
+      logIssue(issue, comment, 'assign');
       issue.save();
 
       User assignedBy = User.get(springSecurityService.principal.id)
@@ -165,7 +165,7 @@ class IssueService {
       // si se resuelve una incidencia esntonces la asigna al reoporter
       issue.assignee = issue.reporter
 
-      logIssue(issue, comment)
+      logIssue(issue, comment, 'resolve')
       issue.save(flush: true)
 
       // agrega a el usuario que reporto si es que no viene en la lista previa.
@@ -204,9 +204,12 @@ class IssueService {
       }
    }
 
-   private void logIssue(Issue issue, String message) {
+   private void logIssue(Issue issue, String message, String action) {
       def conversation = issue.conversation
-      def comment = new Comment()
+      def comment = new IssueComment()
+
+      comment.action = action
+      comment.issue = issue
 
       // si existe un comentario lo agrega.
       if (message != null) comment.content = message
@@ -221,9 +224,14 @@ class IssueService {
       }
 
       comment.dateCreated = new Date()
+      comment.project = issue.project
 
       User user = User.get(springSecurityService.principal.id)
       comment.user = user;
+      comment.save(flush: true)
+      if(comment.errors){
+         println comment.errors
+      }
 
       conversation.addToComments(comment)
       conversation.save(flush:true)
