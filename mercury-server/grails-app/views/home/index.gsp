@@ -4,7 +4,7 @@
   Time: 21:20:05
 --%>
 
-<%@ page import="org.nopalsoft.mercury.domain.IssueComment" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.nopalsoft.mercury.domain.MessageComment; org.nopalsoft.mercury.domain.IssueComment" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
   <title>Dashboard</title>
@@ -43,8 +43,38 @@
                      </div>
                   </div>
                </g:if>
+               <g:elseif test="${activity instanceof MessageComment}">
+                  <div>
+                     <strong>${activity.user}</strong> edit&oacute;
+                     el mensaje <g:link controller="messages" action="view" id="${activity.message.id}">${activity.message.title}</g:link>
+                     hace <f:humanTime time="${activity.dateCreated}"/>
+                  </div>
+                  <div>
+                     <div style="float: left;">
+                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+                     </div>
+                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
+                        %{--<g:if test="${activity.action == 'create'}">--}%
+                           %{--<p>${activity.message.body}</p>--}%
+                        %{--</g:if>--}%
+                        %{--<g:if test="${activity.content}">--}%
+                           %{--<p>${activity.content}</p>--}%
+                        %{--</g:if>--}%
+                     </div>
+                  </div>
+               </g:elseif>
                <g:else>
-                  <strong>${activity.user}</strong> ${activity.dateCreated}, ${activity.content}
+                  <div>
+                     <strong>${activity.user}</strong> hace <f:humanTime time="${activity.dateCreated}"/>
+                  </div>
+                  <div>
+                     <div style="float: left;">
+                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+                     </div>
+                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
+                        <p>${activity.content}</p>
+                     </div>
+                  </div>
                </g:else>
             </div>
          </g:each>
