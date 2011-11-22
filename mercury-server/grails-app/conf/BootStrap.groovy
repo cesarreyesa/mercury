@@ -5,10 +5,15 @@ import org.nopalsoft.mercury.domain.Comment
 import org.nopalsoft.mercury.domain.IssueLog
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.Issue
+import org.nopalsoft.mercury.domain.IssueComment
+import groovy.sql.Sql
+import org.eclipse.jdt.internal.compiler.util.CompoundNameVector
+import org.nopalsoft.mercury.domain.Message
 
 class BootStrap {
 
    def springSecurityService
+   def dataSource
 
    def init = {servletContext ->
       String.metaClass.'static'.randomString = { length ->
@@ -27,6 +32,7 @@ class BootStrap {
 
       createAdminUser()
 //      migrateComments()
+//      migrateCommentsV2()
    }
 
    private addDynamicMethods(klass) {
@@ -80,11 +86,13 @@ class BootStrap {
             conversation = issue.conversation
          }
          logs.each { IssueLog log ->
-            def comment = new Comment()
+            def comment = new IssueComment()
             if(log.comment)
                comment.content =  log.comment
             comment.dateCreated = log.date
             comment.user = log.user
+            comment.project = issue.project
+            comment.issue = issue
 
             if(log.changes){
                comment.content += "\n\n" + log.changes.collect { c -> "**$c.property** cambio de **$c.originalValue** a **$c.newValue**" }.join("\n\n")
@@ -100,6 +108,39 @@ class BootStrap {
          issue.save(flush:true)
       }
 
+   }
+
+   def migrateCommentsV2(){
+      def db = new Sql(dataSource)
+      println "creando columnas"
+      db.execute("alter table comment_ add column project_id bigint null")
+      db.execute("alter table comment_ add column class varchar(255) null")
+      println "recorriendo conversaciones"
+      def conversations = Conversation.list()
+      for(Conversation conversation: conversations){
+         for(Comment comment : conversation.comments){
+            def issue = Issue.findByConversation(conversation)
+            if(issue) {
+               db.execute("update comment_ set project_id = ?, class = ?, issue_id = ? where id = ?",
+                     [issue.project.id, 'org.nopalsoft.mercury.domain.IssueComment', issue.id, comment.id])
+            }else{
+               def message = Message.findByConversation(conversation)
+               if(!message) continue
+
+               db.execute("update comment_ set project_id = ?, class = ?, message_id = ? where id = ?",
+                     [message.project.id, 'org.nopalsoft.mercury.domain.MessageComment', message.id, comment.id])
+            }
+
+         }
+      }
+      println "eliminando comentarios huerfanos"
+      db.execute("delete from comment_ where id not in (select comment_id from conversation_comment_)")
+      db.execute("delete from conversation_comment_ where comment_id in (select id from comment_ where project_id is null)")
+      db.execute("delete from comment_ where project_id is null")
+      println "set not null a columnas"
+      db.execute("alter table comment_ alter column project_id set not null")
+      db.execute("alter table comment_ alter column class set not null")
+      println "fin"
    }
 
    def destroy = {

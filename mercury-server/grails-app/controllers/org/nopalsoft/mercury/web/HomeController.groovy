@@ -8,6 +8,7 @@ import grails.plugins.springsecurity.Secured
 @Secured(['user', 'role_admin'])
 class HomeController {
 
+   def issueSearchService
    def issueService
    def springSecurityService
 
@@ -20,11 +21,12 @@ class HomeController {
       } else {
          def user = User.get(springSecurityService.principal.id)
          def model = new HashMap<String, ?>();
-         model["issuesByStatus"] = issueService.getProjectStatusByStatus(session.project)
-         model["issuesByAssignee"] = issueService.getProjectStatusByAssignee(session.project, "open")
-         model["issuesByPriority"] = issueService.getProjectStatusByPriority(session.project, "open")
-         model["openIssuesByPriority"] = issueService.getOpenIssuesByPriority(session.project, user)
-         model["totalIssues"] = issueService.getTotalIssues(session.project)
+         model["issuesByStatus"] = issueSearchService.getProjectStatusByStatus(session.project)
+         model["issuesByAssignee"] = issueSearchService.getProjectStatusByAssignee(session.project, "open")
+         model["issuesByPriority"] = issueSearchService.getProjectStatusByPriority(session.project, "open")
+         model["openIssuesByPriority"] = issueSearchService.getOpenIssuesByPriority(session.project, user)
+         model["totalIssues"] = issueSearchService.getTotalIssues(session.project)
+         model.activities = issueSearchService.getActivities(user, session.project)
          model
 //      model.addAttribute("openIssues", issueManager.getTotalIssues(project, "open"));
       }
@@ -32,7 +34,7 @@ class HomeController {
 
    def chooseProject = {
       def user = User.get(springSecurityService.principal.id)
-      def model = [projects: issueService.getProjectsForUser(user)]
+      def model = [projects: issueSearchService.getProjectsForUser(user)]
       render(view: 'chooseProject', model: model)
    }
 

@@ -10,6 +10,7 @@ import org.nopalsoft.mercury.domain.Status
 @Secured(['user', 'role_admin'])
 class MilestoneController {
    def issueService
+   def issueSearchService
    def milestonesService
 
    def index = {
@@ -49,12 +50,12 @@ class MilestoneController {
          } else if (project.currentMilestone && !showUnassigned && params.id != 'pending') {
             if(milestones.contains(project.currentMilestone)) {
                milestone = project.currentMilestone
-                issues = issueService.getIssues (milestone, status, orderByProperties)
+                issues = issueSearchService.getIssues (milestone, status, orderByProperties)
             } else {
-               issues = issueService.getIssuesNotInMilestone(project, status, orderByProperties)
+               issues = issueSearchService.getIssuesNotInMilestone(project, status, orderByProperties)
             }
          } else {
-            issues = issueService.getIssuesNotInMilestone(project, status, orderByProperties)
+            issues = issueSearchService.getIssuesNotInMilestone(project, status, orderByProperties)
          }
 
           [milestone: milestone, milestones: milestones, issues: issues, showUnassigned: showUnassigned, status: status, statusList: Status.all]

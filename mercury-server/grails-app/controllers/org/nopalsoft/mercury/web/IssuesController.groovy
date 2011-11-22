@@ -19,21 +19,23 @@ import grails.converters.JSON
 import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.Comment
 import org.nopalsoft.mercury.domain.PomodoroSession
+import org.nopalsoft.mercury.domain.IssueComment
 
 @Secured(['user', 'role_admin'])
 class IssuesController {
 
    def issueService
+   def issueSearchService
    def springSecurityService
 
    def index = {
       def user = User.get(springSecurityService.principal.id)
-      def filters = issueService.getFilters(user)
+      def filters = issueSearchService.getFilters(user)
       def limit = params.int('max') ?: 50
       def start = params.int('offset') ?: 0
       def filterId = params.filter ? params.int('filter') : 1
       def filter = filters.find { it.id == filterId }
-      def issues = issueService.getIssues((Project) session.project, params.search, params.type, filter, "", "", "", start, limit)
+      def issues = issueSearchService.getIssues((Project) session.project, params.search, params.type, filter, "", "", "", start, limit)
       def issueGroups = [:]
       //refactorizar
       if (params.groupBy) {
@@ -79,7 +81,7 @@ class IssuesController {
          }
       }
       //refactorizar
-      def issuesCount = issueService.getIssuesCount((Project) session.project, params.search, params.type, filter, "", "", "")
+      def issuesCount = issueSearchService.getIssuesCount((Project) session.project, params.search, params.type, filter, "", "", "")
 
       [user: user, issues: issues, issueGroups: issueGroups, totalIssues: issuesCount, filters: filters, currentFilter: filter]
    }
@@ -232,10 +234,13 @@ class IssuesController {
 
    def addComment = {
       def conversation = Conversation.get(params.id)
-      def message = Issue.findByConversation(conversation)
-      def comment = new Comment()
+      def issue = Issue.findByConversation(conversation)
+      def comment = new IssueComment()
       comment.content = params.comment
       comment.user = User.get(springSecurityService.principal.id)
+      comment.action = "comment"
+      comment.issue = issue
+      comment.project = issue.project
       conversation.addToComments(comment)
       conversation.save(flush:true)
 
