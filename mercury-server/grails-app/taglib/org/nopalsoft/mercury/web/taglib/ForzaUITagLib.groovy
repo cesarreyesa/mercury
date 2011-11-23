@@ -1,9 +1,15 @@
 package org.nopalsoft.mercury.web.taglib
 
-import org.springframework.web.servlet.support.RequestContextUtils as RCU;
+import org.springframework.web.servlet.support.RequestContextUtils as RCU
+import org.nopalsoft.nectar.util.HumanTime;
 
 class ForzaUITagLib {
    static namespace = "f"
+
+   def humanTime = { attrs ->
+      Date time = attrs.date('time')
+      out << HumanTime.approximately(time.time - new Date().time)
+   }
 
    def paginate = { attrs ->
       def writer = out

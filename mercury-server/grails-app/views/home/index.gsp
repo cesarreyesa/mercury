@@ -4,7 +4,7 @@
   Time: 21:20:05
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.nopalsoft.mercury.domain.MessageComment; org.nopalsoft.mercury.domain.IssueComment" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
   <title>Dashboard</title>
@@ -16,24 +16,87 @@
   <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<div id="main" style="width:100%;">
-  <div class="block" id="block-text">
-    <div class="content">
-      <h2 class="title">Dashboard</h2>
-      <div class="inner">
-        <table>
-          <tr>
-            <td><div id="issuesByStatusDiv"></div></td>
-            <td><div id="issuesByPriorityDiv"></div></td>
-          </tr>
-          <tr>
-            <td><div id="issuesByAssigneeDiv"></div></td>
-            <td><div id="openIssuesByPriorityDiv"></div></td>
-          </tr>
-        </table>
+<div class="row">
+   <div class="span8">
+      <h2 style="margin-bottom: 20px;">Actividad reciente</h2>
+
+      <div class="activity-feed">
+         <g:each in="${activities}" var="activity">
+            <div class="activity" style="clear: both;">
+               <g:if test="${activity instanceof IssueComment}">
+                  <div>
+                     <strong>${activity.user}</strong> <strong><g:message code="comment.issue.${activity.action}"/></strong>
+                     la incidencia <g:link controller="issues" action="view" id="${activity.issue.code}">${activity.issue.code}</g:link>
+                     hace <f:humanTime time="${activity.dateCreated}"/>
+                  </div>
+                  <div>
+                     <div style="float: left;">
+                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+                     </div>
+                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
+                        <g:if test="${activity.action == 'create'}">
+                           <p>${activity.issue.summary}</p>
+                        </g:if>
+                        <g:if test="${activity.content}">
+                           <p>${activity.content}</p>
+                        </g:if>
+                     </div>
+                  </div>
+               </g:if>
+               <g:elseif test="${activity instanceof MessageComment}">
+                  <div>
+                     <strong>${activity.user}</strong> edit&oacute;
+                     el mensaje <g:link controller="messages" action="view" id="${activity.message.id}">${activity.message.title}</g:link>
+                     hace <f:humanTime time="${activity.dateCreated}"/>
+                  </div>
+                  <div>
+                     <div style="float: left;">
+                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+                     </div>
+                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
+                        %{--<g:if test="${activity.action == 'create'}">--}%
+                           %{--<p>${activity.message.body}</p>--}%
+                        %{--</g:if>--}%
+                        %{--<g:if test="${activity.content}">--}%
+                           %{--<p>${activity.content}</p>--}%
+                        %{--</g:if>--}%
+                     </div>
+                  </div>
+               </g:elseif>
+               <g:else>
+                  <div>
+                     <strong>${activity.user}</strong> hace <f:humanTime time="${activity.dateCreated}"/>
+                  </div>
+                  <div>
+                     <div style="float: left;">
+                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
+                     </div>
+                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
+                        <p>${activity.content}</p>
+                     </div>
+                  </div>
+               </g:else>
+            </div>
+         </g:each>
       </div>
-    </div>
-  </div>
+   </div>
+   <div class="span8">
+      <h2>Dashboard</h2>
+      <table>
+        <tr>
+          <td><div id="issuesByStatusDiv"></div></td>
+        </tr>
+        <tr>
+          <td><div id="issuesByPriorityDiv"></div></td>
+        </tr>
+        <tr>
+          <td><div id="issuesByAssigneeDiv"></div></td>
+        </tr>
+        <tr>
+          <td><div id="openIssuesByPriorityDiv"></div></td>
+        </tr>
+      </table>
+   </div>
 </div>
 
 <script type="text/javascript">
