@@ -69,10 +69,13 @@
                         <g:if test="${child.status.code == 'resolved' || child.status.code == 'closed'}">
                            <g:set var="childClass" value="completed"/>
                         </g:if>
-                        <g:link action="view" id="${child.code}" class="${childClass}">[${child.code}] ${child.summary}</g:link>
+                        <g:link action="view" id="${child.code}" class="addSubIssue ${childClass}">[${child.code}] ${child.summary}</g:link>
                      </li>
                   </g:each>
                </ul>
+            </div>
+            <div>
+               <a href="#" class="addSubIssue" data-code="${issue.code}">add sub issue</a>
             </div>
          </div>
       </div>
@@ -376,6 +379,14 @@
          }
       });
    });
+
+   $('.addSubIssue').click(function(e) {
+      e.preventDefault();
+      $("#newIssueDialog").html('<div style="padding: 30px;">Loading...</div>');
+      $("#newIssueDialog").modal('show');
+      $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('code') + '&reload=true');
+   });
+
 
    function extractLast(term) {
       return split(term).pop();
