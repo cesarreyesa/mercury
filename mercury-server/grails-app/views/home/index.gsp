@@ -22,61 +22,7 @@
 
       <div class="activity-feed">
          <g:each in="${activities}" var="activity">
-            <div class="activity" style="clear: both;">
-               <g:if test="${activity instanceof IssueComment}">
-                  <div>
-                     <strong>${activity.user}</strong> <strong><g:message code="comment.issue.${activity.action}"/></strong>
-                     la incidencia <g:link controller="issues" action="view" id="${activity.issue.code}">${activity.issue.code}</g:link>
-                     hace <f:humanTime time="${activity.dateCreated}"/>
-                  </div>
-                  <div>
-                     <div style="float: left;">
-                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
-                     </div>
-                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
-                        <g:if test="${activity.action == 'create'}">
-                           <p>${activity.issue.summary}</p>
-                        </g:if>
-                        <g:if test="${activity.content}">
-                           <p>${activity.content}</p>
-                        </g:if>
-                     </div>
-                  </div>
-               </g:if>
-               <g:elseif test="${activity instanceof MessageComment}">
-                  <div>
-                     <strong>${activity.user}</strong> edit&oacute;
-                     el mensaje <g:link controller="messages" action="view" id="${activity.message.id}">${activity.message.title}</g:link>
-                     hace <f:humanTime time="${activity.dateCreated}"/>
-                  </div>
-                  <div>
-                     <div style="float: left;">
-                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
-                     </div>
-                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
-                        %{--<g:if test="${activity.action == 'create'}">--}%
-                           %{--<p>${activity.message.body}</p>--}%
-                        %{--</g:if>--}%
-                        %{--<g:if test="${activity.content}">--}%
-                           %{--<p>${activity.content}</p>--}%
-                        %{--</g:if>--}%
-                     </div>
-                  </div>
-               </g:elseif>
-               <g:else>
-                  <div>
-                     <strong>${activity.user}</strong> hace <f:humanTime time="${activity.dateCreated}"/>
-                  </div>
-                  <div>
-                     <div style="float: left;">
-                        <img src="http://www.gravatar.com/avatar/${activity.user.email.encodeAsMD5()}?s=30" alt="gravatar">
-                     </div>
-                     <div style="float: left;color: #a0a0a0;padding-left: 10px;">
-                        <p>${activity.content}</p>
-                     </div>
-                  </div>
-               </g:else>
-            </div>
+            <g:render template="/shared/comment" model="[comment:activity, mode:'activity']"/>
          </g:each>
       </div>
    </div>

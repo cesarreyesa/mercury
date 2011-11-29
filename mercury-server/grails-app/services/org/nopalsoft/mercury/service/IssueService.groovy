@@ -39,19 +39,16 @@ class IssueService {
       def conversation = new Conversation()
       conversation.save(flush: true)
 
-      def comment = new IssueComment()
-      comment.dateCreated = new Date()
-      comment.action = "create"
+      def comment = new IssueComment(issue, "create")
       comment.user = createdBy
-      comment.project = issue.project
-      comment.issue = issue
-      comment.content = ""
       conversation.addToComments(comment)
       conversation.save(flush: true)
 
       issue.conversation = conversation
 
-      issue.save(flush: true)
+      if(!issue.save(flush: true)){
+         return false
+      }
 
 //    logIssue(issue, null);
       User lead = issue.project.lead
@@ -66,7 +63,6 @@ class IssueService {
       if (issue.watchers) {
           usersToSend.addAll(issue.watchers.asList())
       }
-
 
       usersToSend.unique().each {User user ->
          try {
@@ -124,7 +120,7 @@ class IssueService {
       // Log changes and add comment
       issue.setLastUpdated(new Date());
 
-      issue.setAssignee(assignee);
+      issue.assignee = assignee;
 
       logIssue(issue, comment, 'assign');
       issue.save();
@@ -206,13 +202,13 @@ class IssueService {
 
    private void logIssue(Issue issue, String message, String action) {
       def conversation = issue.conversation
-      def comment = new IssueComment()
+      def comment = new IssueComment(issue, action)
 
-      comment.action = action
-      comment.issue = issue
+      if(action == 'assign'){
+         comment.relatedUser = issue.assignee
+      }
 
-      // si existe un comentario lo agrega.
-      if (message != null) comment.content = message
+      comment.content = message
 
       //TODO: verificar si no viene de la session de hibernate
       def oldIssue = Issue.get(issue.id)
@@ -222,9 +218,6 @@ class IssueService {
       if (changes) {
          comment.content += "\n\n" + changes.collect { c -> "**$c.property** cambio de **$c.originalValue** a **$c.newValue**" }.join("\n\n")
       }
-
-      comment.dateCreated = new Date()
-      comment.project = issue.project
 
       User user = User.get(springSecurityService.principal.id)
       comment.user = user;

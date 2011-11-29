@@ -8,7 +8,7 @@ class Comment {
    String content
 
    static constraints = {
-      content maxSize: 4000
+      content(maxSize: 4000, nullable: true)
    }
 
    static mapping = {
