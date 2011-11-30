@@ -93,7 +93,7 @@
       </div>
 
       <div class="actions">
-         <g:submitButton name="save" class="btn primary" value="Guardar"/>
+         <button id="save" data-loading-text="guardando..." class="btn primary">Guardar</button>
          <g:link action="view" id="${issue.code}" class="button">cancelar</g:link>
       </div>
    </g:form>
@@ -104,6 +104,10 @@
       $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
       $('#summary').focus();
       $('#description').markItUp(mySettings);
+      $('#save').click(function () {
+         $('#save').button('loading');
+         $('#issueForm').submit();
+      });
    });
 </script>
 

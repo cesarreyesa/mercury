@@ -32,14 +32,15 @@
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery-ui-1.8.6.custom.css')}"/>
    <link rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.countdown.css')}"/>
 
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'application.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-modal.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-dropdown.js')}"></script>
-   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-twipsy.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-popover.js')}"></script>
+   <script type="text/javascript" src="${resource(dir: 'js', file: 'bootstrap-buttons.js')}"></script>
    <script type="text/javascript" src="${resource(dir: 'js', file: 'jquery.countdown.js')}"></script>
+
    %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'jquery-ui-1.8.6.custom.min.js')}"></script>--}%
    %{--<script type="text/javascript" src="/mercury-web/js/global.js${cmpVersion}"></script>--}%
    <g:layoutHead/>
