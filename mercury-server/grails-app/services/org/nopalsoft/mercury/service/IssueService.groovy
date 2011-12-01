@@ -41,6 +41,7 @@ class IssueService {
 
       def comment = new IssueComment(issue, "create")
       comment.user = createdBy
+      comment.content = ''
       conversation.addToComments(comment)
       conversation.save(flush: true)
 
@@ -208,7 +209,7 @@ class IssueService {
          comment.relatedUser = issue.assignee
       }
 
-      comment.content = message
+      comment.content = message ?: ''
 
       //TODO: verificar si no viene de la session de hibernate
       def oldIssue = Issue.get(issue.id)
