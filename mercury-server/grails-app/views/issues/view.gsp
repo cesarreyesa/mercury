@@ -69,7 +69,7 @@
                         <g:if test="${child.status.code == 'resolved' || child.status.code == 'closed'}">
                            <g:set var="childClass" value="completed"/>
                         </g:if>
-                        <g:link action="view" id="${child.code}" class="addSubIssue ${childClass}">[${child.code}] ${child.summary}</g:link>
+                        <g:link action="view" id="${child.code}" class="${childClass}">[${child.code}] ${child.summary}</g:link>
                      </li>
                   </g:each>
                </ul>
