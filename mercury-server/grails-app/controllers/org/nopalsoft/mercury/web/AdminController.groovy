@@ -11,7 +11,7 @@ class AdminController {
    def springSecurityService
 
    def index = {
-      def users = User.listOrderByUsername()
+      def users = User.list(sort:'username')
       [users: users]
    }
 
@@ -76,7 +76,7 @@ class AdminController {
    }
 
    def projects = {
-      def projects = Project.listOrderByName()
+      def projects = Project.list(order:'name')
       [projects: projects]
    }
 
