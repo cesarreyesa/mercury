@@ -4,9 +4,7 @@
   Time: 12:43:56
 --%>
 
-<g:if test="${session.project}">
-  <li class="first <g:if test="${selected == 'main'}">active"</g:if><g:else>"</g:else>>
-    <g:link controller="home">${session.project.name}</g:link></li>
+<g:if test="${session.workspace}">
 
   <li <g:if test="${selected == 'issues'}">class="active"</g:if>>
     <g:link controller="issues">Incidencias</g:link></li>

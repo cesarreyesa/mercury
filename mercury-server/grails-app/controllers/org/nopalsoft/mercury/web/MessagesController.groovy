@@ -16,7 +16,7 @@ class MessagesController {
    def springSecurityService
 
    def index = {
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
       def max = params.int('max') ?: 20
       def offset = params.int('offset') ?: 0
       def messages = messagesService.getMessages(project, offset, max)
@@ -24,7 +24,7 @@ class MessagesController {
    }
 
    def create = {
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
       def message = new Message()
       [message: message, project: project, roles: Role.listOrderByAuthority()]
    }
@@ -37,7 +37,7 @@ class MessagesController {
             flash.successMessage = "Se ha creado un mensaje"
             redirect(action: "index")
          }else{
-            def project = Project.get(session.project.id)
+            def project = Project.get(request.project.id)
             render(view: 'create', model: [message: message, project: project])
          }
       }else{
@@ -51,7 +51,7 @@ class MessagesController {
    }
 
    def edit = {
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
       def message = Message.get(params.id)
       render(view: 'create', model: [message: message, project: project])
    }
@@ -64,7 +64,7 @@ class MessagesController {
             flash.successMessage = "Se ha editado un mensaje"
             redirect(action: "view", params: [id: message.id])
          }else{
-            def project = Project.get(session.project.id)
+            def project = Project.get(request.project.id)
             render(view: 'edit', model: [message: message, project: project])
          }
       }else{

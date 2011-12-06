@@ -12,7 +12,7 @@ class ProjectController {
 
    def index = {
       User user = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!user.isProjectLead(project)){
          redirect(action:'index', controller: 'home')
@@ -25,7 +25,7 @@ class ProjectController {
 
    def save = {
       User user = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!user.isProjectLead(project)){
          redirect(action:'index', controller: 'home')
@@ -43,7 +43,7 @@ class ProjectController {
 
    def users = {
       User user = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!user.isProjectLead(project)){
          redirect(action:'index', controller: 'home')
@@ -56,7 +56,7 @@ class ProjectController {
 
    def addUser = {
       User currentUser = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!currentUser.isProjectLead(project)){
          redirect(action:'index', controller: 'home')
@@ -74,7 +74,7 @@ class ProjectController {
 
    def deleteUser = {
       User currentUser = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!currentUser.isProjectLead(project)){
          redirect(action:'index', controller: 'home')
@@ -92,7 +92,7 @@ class ProjectController {
 
    def categories = {
       User currentUser = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!currentUser.isProjectLead(project)){
          redirect(action:'index', controller: 'home')
@@ -104,7 +104,7 @@ class ProjectController {
 
    def addCategory = {
       User currentUser = User.get(springSecurityService.principal.id)
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
 
       if(!currentUser.isProjectLead(project)){
          redirect(action:'index', controller: 'home')

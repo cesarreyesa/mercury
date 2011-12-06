@@ -51,6 +51,8 @@
   google.setOnLoadCallback(drawVisualization);
 
   function drawVisualization() {
+
+<g:if test="${issuesByStatus}">
     // Create and populate the data table.
     var issuesByStatus = new google.visualization.DataTable();
     issuesByStatus.addColumn('string', 'Status');
@@ -63,43 +65,49 @@
 
     new google.visualization.PieChart(document.getElementById('issuesByStatusDiv')).
         draw(issuesByStatus, {width: 450, height: 300, title:"Resumen del proyecto"});
+</g:if>
 
-    var issuesByPriority = new google.visualization.DataTable();
-    issuesByPriority.addColumn('string', 'Priority');
-    issuesByPriority.addColumn('number', 'Issues');
-    issuesByPriority.addRows(${issuesByPriority.size()});
+<g:if test="${issuesByPriority}">
+     var issuesByPriority = new google.visualization.DataTable();
+     issuesByPriority.addColumn('string', 'Priority');
+     issuesByPriority.addColumn('number', 'Issues');
+     issuesByPriority.addRows(${issuesByPriority.size()});
 
-  <g:each in="${issuesByPriority}" var="summary" status="i">
-    issuesByPriority.setValue(${i}, 0, '${summary["priority"].name}');
-    issuesByPriority.setValue(${i}, 1, ${summary["count"]});
-  </g:each>
+   <g:each in="${issuesByPriority}" var="summary" status="i">
+     issuesByPriority.setValue(${i}, 0, '${summary["priority"].name}');
+     issuesByPriority.setValue(${i}, 1, ${summary["count"]});
+   </g:each>
 
-    new google.visualization.PieChart(document.getElementById('issuesByPriorityDiv')).
-        draw(issuesByPriority, {width: 450, height: 300, title:"Incidencias abiertas por prioridad"});
+     new google.visualization.PieChart(document.getElementById('issuesByPriorityDiv')).
+         draw(issuesByPriority, {width: 450, height: 300, title:"Incidencias abiertas por prioridad"});
+</g:if>
 
-    var issuesByAssignee = new google.visualization.DataTable();
-    issuesByAssignee.addColumn('string', 'Assignee');
-    issuesByAssignee.addColumn('number', 'Issues');
-    issuesByAssignee.addRows(${issuesByAssignee.size()});
-  <g:each in="${issuesByAssignee}" var="summary" status="i">
-    issuesByAssignee.setValue(${i}, 0, '${summary["assignee"].fullName}');
-    issuesByAssignee.setValue(${i}, 1, ${summary["count"]});
-  </g:each>
-    new google.visualization.PieChart(document.getElementById('issuesByAssigneeDiv')).
-        draw(issuesByAssignee, {width: 450, height: 300, title:"Incidencias abiertas por encargado"});
+<g:if test="${issuesByAssignee}">
+     var issuesByAssignee = new google.visualization.DataTable();
+     issuesByAssignee.addColumn('string', 'Assignee');
+     issuesByAssignee.addColumn('number', 'Issues');
+     issuesByAssignee.addRows(${issuesByAssignee.size()});
+   <g:each in="${issuesByAssignee}" var="summary" status="i">
+     issuesByAssignee.setValue(${i}, 0, '${summary["assignee"].fullName}');
+     issuesByAssignee.setValue(${i}, 1, ${summary["count"]});
+   </g:each>
+     new google.visualization.PieChart(document.getElementById('issuesByAssigneeDiv')).
+         draw(issuesByAssignee, {width: 450, height: 300, title:"Incidencias abiertas por encargado"});
+</g:if>
 
-    var openIssuesByPriority = new google.visualization.DataTable();
-    openIssuesByPriority.addColumn('string', 'Assignee');
-    openIssuesByPriority.addColumn('number', 'Issues');
-    openIssuesByPriority.addRows(${openIssuesByPriority.size()});
-  <g:each in="${openIssuesByPriority}" var="summary" status="i">
-    openIssuesByPriority.setValue(${i}, 0, '${summary["priority"].name}');
-    openIssuesByPriority.setValue(${i}, 1, ${summary["count"]});
-  </g:each>
-    new google.visualization.PieChart(document.getElementById('openIssuesByPriorityDiv')).
-        draw(openIssuesByPriority, {width: 450, height: 300, title:"Mis Pendientes por prioridad"});
-  }
-
+<g:if test="${openIssuesByPriority}">
+     var openIssuesByPriority = new google.visualization.DataTable();
+     openIssuesByPriority.addColumn('string', 'Assignee');
+     openIssuesByPriority.addColumn('number', 'Issues');
+     openIssuesByPriority.addRows(${openIssuesByPriority.size()});
+   <g:each in="${openIssuesByPriority}" var="summary" status="i">
+     openIssuesByPriority.setValue(${i}, 0, '${summary["priority"].name}');
+     openIssuesByPriority.setValue(${i}, 1, ${summary["count"]});
+   </g:each>
+     new google.visualization.PieChart(document.getElementById('openIssuesByPriorityDiv')).
+         draw(openIssuesByPriority, {width: 450, height: 300, title:"Mis Pendientes por prioridad"});
+   }
+</g:if>
 
 </script>
 

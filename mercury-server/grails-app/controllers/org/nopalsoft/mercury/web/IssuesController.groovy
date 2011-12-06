@@ -35,7 +35,7 @@ class IssuesController {
       def start = params.int('offset') ?: 0
       def filterId = params.filter ? params.int('filter') : 1
       def filter = filters.find { it.id == filterId }
-      def issues = issueSearchService.getIssues((Project) session.project, params.search, params.type, filter, "", "", "", start, limit)
+      def issues = issueSearchService.getIssues((Project) request.project, params.search, params.type, filter, "", "", "", start, limit)
       def issueGroups = [:]
       //refactorizar
       if (params.groupBy) {
@@ -81,7 +81,7 @@ class IssuesController {
          }
       }
       //refactorizar
-      def issuesCount = issueSearchService.getIssuesCount((Project) session.project, params.search, params.type, filter, "", "", "")
+      def issuesCount = issueSearchService.getIssuesCount((Project) request.project, params.search, params.type, filter, "", "", "")
 
       [user: user, issues: issues, issueGroups: issueGroups, totalIssues: issuesCount, filters: filters, currentFilter: filter]
    }
@@ -98,7 +98,7 @@ class IssuesController {
    }
 
    def create = {
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
       def issue = new Issue()
       def user = User.get(springSecurityService.principal.id)
       issue.reporter = user
@@ -111,7 +111,7 @@ class IssuesController {
    }
 
    def newIssueWindow = {
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
       def issue = new Issue()
       def user = User.get(springSecurityService.principal.id)
       issue.reporter = user
@@ -156,7 +156,7 @@ class IssuesController {
             redirect(action: 'view', params: [id: issue.code])
          }
          else {
-            def project = Project.get(session.project.id)
+            def project = Project.get(request.project.id)
             render(view: 'create', model: [issue: issue, project: project])
             return;
          }
@@ -175,7 +175,7 @@ class IssuesController {
             redirect(action: 'view', params: [id: issue.code])
          }
          else {
-            def project = Project.get(session.project.id)
+            def project = Project.get(request.project.id)
             render(view: 'create', model: [issue: issue, project: project])
             return;
          }
@@ -202,7 +202,7 @@ class IssuesController {
             flash.message = "Se creo correctamente."
             redirect(action: 'view', params: [id: issue.code])
          } catch (Exception ex) {
-            def project = Project.get(session.project.id)
+            def project = Project.get(request.project.id)
             render(view: 'edit', model: [issue: issue, project: project])
             return;
          }
@@ -322,7 +322,7 @@ class IssuesController {
    }
 
    def users = {
-      def project = Project.get(session.project.id)
+      def project = Project.get(request.project.id)
       def user = User.get(springSecurityService.principal.id)
       def users = project.users
             .findAll{ it.enabled && it.id != user.id && (!params.term || it.fullName.toLowerCase().contains(params.term.toLowerCase()))  }

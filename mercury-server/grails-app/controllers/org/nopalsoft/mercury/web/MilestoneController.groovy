@@ -14,12 +14,12 @@ class MilestoneController {
    def milestonesService
 
    def index = {
-      if (!session.project) {
+      if (!request.project) {
          redirect(controller: 'home')
       } else {
          def issues
          def milestone = null
-         def project = Project.load(session.project.id)
+         def project = Project.load(request.project.id)
          def id = params.long('id')
          def showUnassigned = params.boolean('showUnassigned')
 
@@ -99,7 +99,7 @@ class MilestoneController {
 
    def create = {
       def milestone = new Milestone()
-      def project = Project.load(session.project.id)
+      def project = Project.load(request.project.id)
       milestone.project = project
       milestone.name = params.name
       milestone.startDate = Date.parse("dd/MM/yyyy", params.startDate)

@@ -9,6 +9,8 @@ import org.nopalsoft.mercury.domain.IssueComment
 import groovy.sql.Sql
 import org.eclipse.jdt.internal.compiler.util.CompoundNameVector
 import org.nopalsoft.mercury.domain.Message
+import org.nopalsoft.mercury.domain.Project
+import org.nopalsoft.mercury.domain.Workspace
 
 class BootStrap {
 
@@ -31,6 +33,7 @@ class BootStrap {
       application.getArtefacts("Controller").each { klass -> addDynamicMethods(klass) }
 
       createAdminUser()
+//      migrateProjects()
 //      migrateComments()
 //      migrateCommentsV2()
    }
@@ -141,6 +144,19 @@ class BootStrap {
       db.execute("alter table comment_ alter column project_id set not null")
       db.execute("alter table comment_ alter column class set not null")
       println "fin"
+   }
+
+   def migrateProjects(){
+      def projects = Project.list()
+      def workspace = new Workspace()
+      workspace.name = "Default workspace"
+      workspace.owner = User.findByUsername('cesarreyesa')
+      if(workspace.save(flush: true)){
+         for(def project in projects){
+            project.workspace = workspace
+            project.save(flush: true)
+         }
+      }
    }
 
    def destroy = {

@@ -51,9 +51,14 @@
    <div class="topbar-inner">
       <div class="container">
          <h3>
-            <g:link controller="home"
-            action="chooseProject"
-            params="[changeProject:'true']">${message(code:'application.name')}</g:link>
+            <g:link controller="home">
+               <g:if test="${session.workspace}">
+                  ${session.workspace.name}
+               </g:if>
+               <g:else>
+                  ${message(code:'application.name')}
+               </g:else>
+            </g:link>
          </h3>
          <ul class="nav">
             <g:pageProperty name="page.navbar"/>
@@ -75,6 +80,11 @@
             <li class="dropdown">
                <a href="#" class="dropdown-toggle"><img src="${resource(dir: 'images', file: 'cog.png')}"/></a>
                <ul class="dropdown-menu">
+                  <li><a id="newWorkspaceLink" href="#"><g:message code="workspace.new"/></a></li>
+                  <li>
+                     <g:link controller="home" action="chooseWorkspace"
+                        params="[changeWorkspace:'true']"><g:message code="workspace.change"/></g:link>
+                  </li>
                   <li><g:link controller="project">Configuraci&oacute;n</g:link></li>
                   <li><g:link controller="admin">Administraci&oacute;n</g:link></li>
                </ul>
@@ -97,6 +107,15 @@
 </div>
 
 <div class="container" style="margin-top: 50px;">
+   <g:if test="${request.projects}">
+      <ul class="pills">
+         <li class=""><a href="#">Todos</a></li>
+         <g:each in="${request.projects}" var="p">
+            <li class="${(request.project != null && request.project == p) ? 'active' : ''}">
+               <g:link controller="home" action="changeProject" params="[projectId: p.id]">${p.name}</g:link></li>
+         </g:each>
+      </ul>
+   </g:if>
    <g:layoutBody/>
 </div>
 
@@ -116,16 +135,57 @@
 
 </div>
 
+<div id="newWorkspaceDialog" style="display:none;width: 400px;" class="modal">
+   <div class="modal-header">
+      <a href="#" class="close">×</a>
+      <h3>${message(code:'workspace.new')}</h3>
+   </div>
+
+   <div class="modal-body">
+      <g:form class="form-stacked">
+         <div class="clearfix">
+            <label>Nombre</label>
+            <div class="input">
+               <g:textField name="name" />
+            </div>
+         </div>
+      </g:form>
+   </div>
+   <div class="modal-footer">
+      <g:submitButton name="newWorkspace" value="Guardar" class="btn primary" id="newWorkspace"/>
+      <a href="#" class="btn" id="newIssueCancel">Cancelar</a>
+   </div>
+</div>
+
+<div id="changeWorkspaceDialog" style="display:none;width: 400px;" class="modal">
+   <div class="modal-header">
+      <a href="#" class="close">×</a>
+      <h3>${message(code:'workspace.change')}</h3>
+   </div>
+
+   <div class="modal-body">
+      <g:form class="form-stacked">
+         <div class="clearfix">
+            <label>Workspace</label>
+            <div class="input">
+
+            </div>
+         </div>
+      </g:form>
+   </div>
+   <div class="modal-footer">
+      <g:submitButton name="changeWorkspace" value="Guardar" class="btn primary" id="changeWorkspace"/>
+      <a href="#" class="btn" id="newIssueCancel">Cancelar</a>
+   </div>
+</div>
+
 <script type="text/javascript">
    $(function() {
-      %{--$('#newIssueLink').click(function(e) {--}%
-         %{--e.preventDefault();--}%
-         %{--var position = $(this).position();--}%
-         %{--$("#newIssueDialog").dialog({--}%
-            %{--width:830, modal: true, position: [$(document).width() - 830, position.top + $(this).height() + 20]--}%
-         %{--});--}%
-         %{--$("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}');--}%
-      %{--});--}%
+      $("#newWorkspaceDialog").modal({ keyboard: true });
+      $('#newWorkspaceLink').click(function(e) {
+         e.preventDefault();
+         $("#newWorkspaceDialog").modal('show');
+      });
    });
 </script>
 </body>
