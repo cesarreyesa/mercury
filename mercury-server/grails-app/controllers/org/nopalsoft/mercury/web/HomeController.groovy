@@ -23,14 +23,15 @@ class HomeController {
       } else {
          def user = User.get(springSecurityService.principal.id)
          def model = new HashMap<String, ?>();
-         model["issuesByStatus"] = issueSearchService.getProjectStatusByStatus(request.project)
-         model["issuesByAssignee"] = issueSearchService.getProjectStatusByAssignee(request.project, "open")
-         model["issuesByPriority"] = issueSearchService.getProjectStatusByPriority(request.project, "open")
-         model["openIssuesByPriority"] = issueSearchService.getOpenIssuesByPriority(request.project, user)
-         model["totalIssues"] = issueSearchService.getTotalIssues(request.project)
-         model.activities = issueSearchService.getActivities(user, request.project)
+         if(request.project){
+            model["issuesByStatus"] = issueSearchService.getProjectStatusByStatus(request.project)
+            model["issuesByAssignee"] = issueSearchService.getProjectStatusByAssignee(request.project, "open")
+            model["issuesByPriority"] = issueSearchService.getProjectStatusByPriority(request.project, "open")
+            model["openIssuesByPriority"] = issueSearchService.getOpenIssuesByPriority(request.project, user)
+            model["totalIssues"] = issueSearchService.getTotalIssues(request.project)
+            model.activities = issueSearchService.getActivities(user, request.project)
+         }
          model
-//      model.addAttribute("openIssues", issueManager.getTotalIssues(project, "open"));
       }
 
    }
@@ -71,6 +72,14 @@ class HomeController {
 //      cookie.domain = "/"
       cookie.path = "/"
       response.addCookie(cookie)
+   }
+
+   def newWorkspace = {
+      def workspace = new Workspace()
+      workspace.name = params.name
+      workspace.owner = User.get(springSecurityService.principal.id)
+      workspace.save(flush: true)
+      redirect(action: 'index')
    }
 
 }

@@ -40,9 +40,9 @@ class CustomFilters {
             }
             if(session.workspace){
                def projects = Project.findAllByWorkspace(session.workspace)
-               request.projects = projects
+               request.workspaceProjects = projects
                if(request.project){
-                  if(!projects.id.contains(request.project.id)){
+                  if(projects && !projects.id.contains(request.project.id)){
                      println "el proyecto $request.project.name no se encuentra dentro del workspace"
                      request.project = projects.first()
                      println "se selecciona el primer proyecto $request.project del workspace"
@@ -50,7 +50,7 @@ class CustomFilters {
                   }else{
                      println "el proyecto $request.project se encuentra dentro del workspace"
                   }
-               }else{
+               }else if(projects){
                   request.project = projects.first()
                   println "se selecciona el primer proyecto $request.project del workspace"
                }

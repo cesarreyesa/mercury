@@ -34,6 +34,13 @@
          </div>
       </g:hasErrors>
       <div class="clearfix">
+         <label for="workspace.id">Workspace</label>
+         <div class="input">
+            <g:select from="${workspaces}" name="workspace.id" optionKey="id" optionValue="name"/>
+         </div>
+      </div>
+
+      <div class="clearfix">
          <label for="code">Codigo</label>
          <div class="input"><g:textField name="code" value="${project.code}"/></div>
       </div>

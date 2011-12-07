@@ -4,6 +4,7 @@ import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Role
 import org.nopalsoft.mercury.domain.Project
 import grails.plugins.springsecurity.Secured
+import org.nopalsoft.mercury.domain.Workspace
 
 @Secured(['role_admin'])
 class AdminController {
@@ -101,7 +102,7 @@ class AdminController {
 
    def editProject = {
       def project = Project.get(params.id)
-      [project: project]
+      [project: project, workspaces: Workspace.list()]
    }
 
    def updateProject = {

@@ -107,10 +107,10 @@
 </div>
 
 <div class="container" style="margin-top: 50px;">
-   <g:if test="${request.projects}">
+   <g:if test="${request.workspaceProjects}">
       <ul class="pills">
          <li class=""><a href="#">Todos</a></li>
-         <g:each in="${request.projects}" var="p">
+         <g:each in="${request.workspaceProjects}" var="p">
             <li class="${(request.project != null && request.project == p) ? 'active' : ''}">
                <g:link controller="home" action="changeProject" params="[projectId: p.id]">${p.name}</g:link></li>
          </g:each>
@@ -136,25 +136,25 @@
 </div>
 
 <div id="newWorkspaceDialog" style="display:none;width: 400px;" class="modal">
-   <div class="modal-header">
-      <a href="#" class="close">×</a>
-      <h3>${message(code:'workspace.new')}</h3>
-   </div>
+   <g:form class="form-stacked" action="newWorkspace" controller="home">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>${message(code:'workspace.new')}</h3>
+      </div>
 
-   <div class="modal-body">
-      <g:form class="form-stacked">
-         <div class="clearfix">
-            <label>Nombre</label>
-            <div class="input">
-               <g:textField name="name" />
+      <div class="modal-body">
+            <div class="clearfix">
+               <label>Nombre</label>
+               <div class="input">
+                  <g:textField name="name" />
+               </div>
             </div>
-         </div>
-      </g:form>
-   </div>
-   <div class="modal-footer">
-      <g:submitButton name="newWorkspace" value="Guardar" class="btn primary" id="newWorkspace"/>
-      <a href="#" class="btn" id="newIssueCancel">Cancelar</a>
-   </div>
+      </div>
+      <div class="modal-footer">
+         <g:submitButton name="newWorkspace" value="Guardar" class="btn primary" id="newWorkspace"/>
+         <a href="#" class="btn" id="newWorkspaceCancel">Cancelar</a>
+      </div>
+   </g:form>
 </div>
 
 <div id="changeWorkspaceDialog" style="display:none;width: 400px;" class="modal">
