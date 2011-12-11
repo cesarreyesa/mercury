@@ -85,7 +85,9 @@
                      <g:link controller="home" action="chooseWorkspace"
                         params="[changeWorkspace:'true']"><g:message code="workspace.change"/></g:link>
                   </li>
-                  <li><g:link controller="project">Configuraci&oacute;n</g:link></li>
+                  <li><g:link controller="workspace">Configuraci&oacute;n del workspace</g:link></li>
+                  <li class="divider"></li>
+                  <li><g:link controller="project">Configuraci&oacute;n de proyecto</g:link></li>
                   <li><g:link controller="admin">Administraci&oacute;n</g:link></li>
                </ul>
             </li>

@@ -27,7 +27,7 @@ class CustomFilters {
             def workspaceCookie = getCookie(request, "workspace")
             if(workspaceCookie){
                def workspace = Workspace.get(Long.parseLong(workspaceCookie.value))
-               session.workspace = workspace
+               session.currentWorkspace = workspace
                println "tomando el workspace $workspace.name de los cookies"
             }
             if(!request.project){
@@ -38,8 +38,8 @@ class CustomFilters {
                   println "tomando el proyecto $project.name de los cookies"
                }
             }
-            if(session.workspace){
-               def projects = Project.findAllByWorkspace(session.workspace)
+            if(session.currentWorkspace){
+               def projects = Project.findAllByWorkspace(session.currentWorkspace)
                request.workspaceProjects = projects
                if(request.project){
                   if(projects && !projects.id.contains(request.project.id)){

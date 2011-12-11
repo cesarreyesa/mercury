@@ -18,7 +18,7 @@ class HomeController {
       if (isMobileDevice()) {
          redirect(controller: 'mobile')
       }
-      if (!session.workspace) {
+      if (!session.currentWorkspace) {
          redirect(action: 'chooseWorkspace')
       } else {
          def user = User.get(springSecurityService.principal.id)
@@ -43,7 +43,7 @@ class HomeController {
 
    def changeWorkspace = {
       def workspace = Workspace.get(params.workspace)
-      session.workspace = workspace
+      session.currentWorkspace = workspace
       setCookie(response, "workspace", workspace.id.toString(), 60 * 24 * 30)
 //      params.projects = Project.findAllByWorkspace(workspace)
       //      params.projects = Project.findAllByWorkspace(workspace)
