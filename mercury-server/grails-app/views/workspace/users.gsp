@@ -24,18 +24,8 @@
 
 <div class="content">
    <div class="inner" style="padding-top:20px;">
+      <g:link elementId="addLink" url="#">Agregar</g:link>
       <table class="table">
-         <tr>
-            <td colspan="3" style="text-align:right;"><g:link elementId="addLink" url="#">Agregar</g:link></td>
-         </tr>
-         <tr id="addUserTr" style="display:none;">
-            <td style="text-align:right;" colspan="3">
-               <g:form action="addUser" id="${workspace.id}">
-                  <g:textField name="userEmail" placeholder="email"/>
-                  <g:submitButton name="add" class="btn" value="Agregar usuario"/>
-               </g:form>
-            </td>
-         </tr>
          <tr>
             <th>Usuario</th>
             <th>Nombre</th>
@@ -57,11 +47,26 @@
    </div>
 </div>
 
+<div id="addUserDialog" style="display:none;" class="modal">
+   <g:form action="addUser" id="${workspace.id}">
+      <div class="modal-header">
+         <h2>Invitar usuario</h2>
+      </div>
+      <div class="modal-body">
+         <g:textField name="userEmail" placeholder="email"/>
+      </div>
+      <div class="modal-footer">
+         <g:submitButton name="add" class="btn primary" value="Agregar usuario"/>
+      </div>
+   </g:form>
+</div>
+
 <script type="text/javascript">
    $(function(){
+      $("#addUserDialog").modal({ keyboard: true, backdrop: true });
+
       $('#addLink').click(function(){
-         $('#addUserTr').toggle();
-         return false;
+         $("#addUserDialog").modal('show');
       });
    });
 </script>

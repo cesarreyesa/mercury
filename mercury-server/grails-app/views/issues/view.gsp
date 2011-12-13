@@ -293,14 +293,6 @@
       $('#edit').click(function () {
          document.location.href = '${createLink(action:'edit', id: issue.code)}';
       });
-//    $("#back").styledButton({
-//      'orientation' : 'alone',
-//      'action' : function () { alert( 'omfg' ) }
-//    });
-//    $("#next").styledButton({
-//      'orientation' : 'alone',
-//      'action' : function () { alert( 'omfg' ) }
-//    });
 
       $('#notifyToText')
             .bind("keydown", function(event) {
