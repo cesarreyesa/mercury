@@ -7,6 +7,7 @@ class WorkspaceInvitation {
    Workspace workspace
    String email
    User user
+   String token
 
    static constraints = {
       user(nullable: true)

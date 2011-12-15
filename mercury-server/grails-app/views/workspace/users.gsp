@@ -48,26 +48,41 @@
 </div>
 
 <div id="addUserDialog" style="display:none;" class="modal">
-   <g:form action="addUser" id="${workspace.id}">
-      <div class="modal-header">
-         <h2>Invitar usuario</h2>
-      </div>
-      <div class="modal-body">
-         <g:textField name="userEmail" placeholder="email"/>
-      </div>
-      <div class="modal-footer">
-         <g:submitButton name="add" class="btn primary" value="Agregar usuario"/>
-      </div>
-   </g:form>
+   <div class="modal-header">
+      <h2>Invitar usuario</h2>
+   </div>
+   <div class="modal-body ">
+      <g:form name="sendInviteForm" action="sendInvite" id="${workspace.id}">
+         <div class="form-stacked">
+            <div class="clearfix">
+               <label for="userEmail">
+                  Email
+               </label>
+               <div class="input">
+                  <g:textField name="userEmail" placeholder="email"/>
+               </div>
+            </div>
+         </div>
+      </g:form>
+   </div>
+   <div class="modal-footer">
+      <g:submitButton name="sendInviteButton" class="btn primary" value="Enviar invitación"/>
+   </div>
 </div>
 
 <script type="text/javascript">
    $(function(){
-      $("#addUserDialog").modal({ keyboard: true, backdrop: true });
+      $("#addUserDialog").modal({ keyboard: true, backdrop: false });
 
       $('#addLink').click(function(){
          $("#addUserDialog").modal('show');
       });
+
+      $('#sendInviteButton').click(function(e){
+         e.preventDefault();
+         $('#sendInviteForm').submit();
+      });
+
    });
 </script>
 

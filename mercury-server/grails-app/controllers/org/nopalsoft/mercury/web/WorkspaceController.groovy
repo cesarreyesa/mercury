@@ -7,6 +7,7 @@ import org.nopalsoft.mercury.domain.WorkspaceInvitation
 class WorkspaceController {
 
    def springSecurityService
+   def userService
 
    def index() {
       [workspace: Workspace.get(session.currentWorkspace.id)]
@@ -53,10 +54,16 @@ class WorkspaceController {
       }
       if (request.post) {
 
-         def user = User.get(params.long('user.id'))
-         if (invitation.save(flush: true)) {
-            flash.success = "Se agrego al usuario correctamente"
+         def user = User.findByEmail(params.userEmail)
+         if(user == null){
+            // se crea una invitacion
+            userService.inviteUser(workspace, params.userEmail)
+            flash.success = "Se envio la invitacion"
             redirect action: 'users'
+         }
+         else{
+            // el usuario ya existe, se asigna al workspace
+
          }
       }
    }
