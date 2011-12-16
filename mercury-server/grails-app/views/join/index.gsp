@@ -27,7 +27,7 @@
 
 <div class="container" style="margin-top: 100px;">
 
-   <g:form action="sendRecoverPasswordRequest" name="loginForm" class="form">
+   <g:form action="join" name="joinForm" class="form">
       <div class="modal" style="position: relative; top: auto; left: auto; margin: 0 auto; z-index: 1">
          <div class="modal-header">
             <h3>Crear una cuenta</h3>

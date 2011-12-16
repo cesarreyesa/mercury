@@ -11,5 +11,6 @@ class WorkspaceInvitation {
 
    static constraints = {
       user(nullable: true)
+      token(unique: true)
    }
 }

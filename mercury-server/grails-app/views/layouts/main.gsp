@@ -52,8 +52,8 @@
       <div class="container">
          <h3>
             <g:link controller="home">
-               <g:if test="${session.workspace}">
-                  ${session.workspace.name}
+               <g:if test="${session.currentWorkspace}">
+                  ${session.currentWorkspace.name}
                </g:if>
                <g:else>
                   ${message(code:'application.name')}

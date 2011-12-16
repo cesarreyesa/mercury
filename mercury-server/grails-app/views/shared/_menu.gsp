@@ -4,7 +4,7 @@
   Time: 12:43:56
 --%>
 
-<g:if test="${session.workspace}">
+<g:if test="${session.currentWorkspace}">
 
   <li <g:if test="${selected == 'issues'}">class="active"</g:if>>
     <g:link controller="issues">Incidencias</g:link></li>
