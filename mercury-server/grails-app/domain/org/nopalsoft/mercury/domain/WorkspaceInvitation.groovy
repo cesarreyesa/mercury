@@ -8,6 +8,8 @@ class WorkspaceInvitation {
    String email
    User user
    String token
+   Boolean processed
+   Boolean accepted
 
    static constraints = {
       user(nullable: true)

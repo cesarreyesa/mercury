@@ -59,7 +59,7 @@ class WorkspaceController {
             // se crea una invitacion
             userService.inviteUser(workspace, params.userEmail)
             flash.success = "Se envio la invitacion"
-            redirect action: 'users'
+            redirect action: 'users', id: workspace.id
          }
          else{
             // el usuario ya existe, se asigna al workspace

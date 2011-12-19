@@ -13,6 +13,7 @@ class HomeController {
    def issueSearchService
    def issueService
    def springSecurityService
+   def userService
 
    def index = {
       if (isMobileDevice()) {
@@ -38,7 +39,7 @@ class HomeController {
 
    def chooseWorkspace = {
       def user = User.get(springSecurityService.principal.id)
-      render(view: 'chooseWorkspace', model: [workspaces: Workspace.findAllByOwner(user)])
+      render(view: 'chooseWorkspace', model: [workspaces: userService.getWorkspaces(user)])
    }
 
    def changeWorkspace = {
@@ -78,6 +79,7 @@ class HomeController {
       def workspace = new Workspace()
       workspace.name = params.name
       workspace.owner = User.get(springSecurityService.principal.id)
+      workspace.addToUsers(workspace.owner)
       workspace.save(flush: true)
       redirect(action: 'index')
    }

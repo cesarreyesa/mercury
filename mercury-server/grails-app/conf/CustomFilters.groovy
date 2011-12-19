@@ -8,7 +8,7 @@ class CustomFilters {
    def springSecurityService
 
    def filters = {
-      chooseProject(controller: '*', action: '*') {
+      chooseProject(controller: '*') {
          before = {
             User user = null
             if(springSecurityService.principal instanceof org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser){

@@ -52,7 +52,7 @@
       <h2>Invitar usuario</h2>
    </div>
    <div class="modal-body ">
-      <g:form name="sendInviteForm" action="sendInvite" id="${workspace.id}">
+      <g:form name="sendInviteForm" action="inviteUser" id="${workspace.id}">
          <div class="form-stacked">
             <div class="clearfix">
                <label for="userEmail">
@@ -74,8 +74,10 @@
    $(function(){
       $("#addUserDialog").modal({ keyboard: true, backdrop: false });
 
-      $('#addLink').click(function(){
+      $('#addLink').click(function(e){
+         e.preventDefault();
          $("#addUserDialog").modal('show');
+         $('#userEmail').focus();
       });
 
       $('#sendInviteButton').click(function(e){
