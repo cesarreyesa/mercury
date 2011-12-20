@@ -7,6 +7,10 @@ class Workspace {
 
    static hasMany = [users: User]
 
+   Workspace() {
+      this.users = []
+   }
+
    static constraints = {
       name(blank: false)
    }
