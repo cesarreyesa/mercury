@@ -43,6 +43,12 @@
                                    return false;">eliminar</a></td>
             </tr>
          </g:each>
+         <g:each in="${pendingInvitations}" var="invitation">
+            <tr>
+               <td>${invitation.email}</td>
+               <td colspan="2">invitacion pendiente</td>
+            </tr>
+         </g:each>
       </table>
    </div>
 </div>
@@ -51,6 +57,7 @@
    <div class="modal-header">
       <h2>Invitar usuario</h2>
    </div>
+
    <div class="modal-body ">
       <g:form name="sendInviteForm" action="inviteUser" id="${workspace.id}">
          <div class="form-stacked">
@@ -58,6 +65,7 @@
                <label for="userEmail">
                   Email
                </label>
+
                <div class="input">
                   <g:textField name="userEmail" placeholder="email"/>
                </div>
@@ -65,22 +73,23 @@
          </div>
       </g:form>
    </div>
+
    <div class="modal-footer">
       <g:submitButton name="sendInviteButton" class="btn primary" value="Enviar invitación"/>
    </div>
 </div>
 
 <script type="text/javascript">
-   $(function(){
-      $("#addUserDialog").modal({ keyboard: true, backdrop: false });
+   $(function () {
+      $("#addUserDialog").modal({ keyboard:true, backdrop:false });
 
-      $('#addLink').click(function(e){
+      $('#addLink').click(function (e) {
          e.preventDefault();
          $("#addUserDialog").modal('show');
          $('#userEmail').focus();
       });
 
-      $('#sendInviteButton').click(function(e){
+      $('#sendInviteButton').click(function (e) {
          e.preventDefault();
          $('#sendInviteForm').submit();
       });

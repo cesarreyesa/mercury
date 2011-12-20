@@ -54,4 +54,8 @@ class UserService {
          body view: "/emails/addUserToWorkspace"
       }
    }
+
+   List<WorkspaceInvitation> getPendingInvitations(Workspace workspace) {
+      return WorkspaceInvitation.findAllByWorkspaceAndProcessed(workspace, false)
+   }
 }

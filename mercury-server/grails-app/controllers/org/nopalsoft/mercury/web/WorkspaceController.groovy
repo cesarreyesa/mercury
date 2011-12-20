@@ -22,8 +22,9 @@ class WorkspaceController {
          return
       }
       def users = User.findAllByEnabled(true)
+      def pendingInvitations = userService.getPendingInvitations(workspace)
 
-      [workspace: workspace, usersNotInWorkspace: users]
+      [workspace: workspace, usersNotInWorkspace: users, pendingInvitations: pendingInvitations]
    }
 
    def addUser = {

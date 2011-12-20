@@ -151,6 +151,8 @@ class BootStrap {
       def workspace = new Workspace()
       workspace.name = "Default workspace"
       workspace.owner = User.findByUsername('cesarreyesa')
+      workspace.users.add(workspace.owner)
+      workspace.users << projects.users.unique()
       if(workspace.save(flush: true)){
          for(def project in projects){
             project.workspace = workspace

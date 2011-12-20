@@ -6,7 +6,7 @@ import org.nopalsoft.mercury.domain.Project
 import grails.plugins.springsecurity.Secured
 import org.nopalsoft.mercury.domain.Workspace
 
-//@Secured(['role_admin'])
+@Secured(['role_admin'])
 class AdminController {
 
    def springSecurityService
