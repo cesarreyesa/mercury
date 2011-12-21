@@ -11,15 +11,15 @@
          <img src="http://www.gravatar.com/avatar/${comment.user.email.encodeAsMD5()}?s=30" alt="gravatar">
          <strong>${comment.user.fullName}</strong> <g:formatDate date="${comment.dateCreated}" format="MMM dd, yyyy @ HH:mm"/>
       </p>
-      <g:if test="${comment.action == 'assign' && comment.relatedUser}">
-         <strong><g:message code="comment.issue.${comment.action}"/></strong> la incidencia
+      <g:if test="${comment instanceof IssueComment}">
          <g:if test="${comment.action == 'assign' && comment.relatedUser}">
-            a ${comment.relatedUser}
+            <strong><g:message code="comment.issue.${comment.action}"/></strong> la incidencia
+            <g:if test="${comment.action == 'assign' && comment.relatedUser}">
+               a ${comment.relatedUser}
+            </g:if>
          </g:if>
       </g:if>
-      <g:else>
-         <p><g:markdownToHtml>${comment.content}</g:markdownToHtml></p>
-      </g:else>
+      <p><g:markdownToHtml>${comment.content}</g:markdownToHtml></p>
    </div>
 </g:if>
 <g:else>
