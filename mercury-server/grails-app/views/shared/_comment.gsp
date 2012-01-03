@@ -30,7 +30,7 @@
       <g:if test="${comment instanceof IssueComment}">
          <div>
             <strong>${comment.user}</strong> <strong><g:message code="comment.issue.${comment.action}"/></strong>
-            la incidencia <g:link controller="issues" action="view" id="${comment.issue.code}">${comment.issue.code}</g:link>
+            la incidencia <g:link controller="issues" action="view" id="${comment.issue.id}">${comment.issue.code}</g:link>
             <g:if test="${comment.action == 'assign' && comment.relatedUser}">
                a ${comment.relatedUser}
             </g:if>

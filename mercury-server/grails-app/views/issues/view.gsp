@@ -75,7 +75,7 @@
                </ul>
             </div>
             <div>
-               <a href="#" class="addSubIssue" data-code="${issue.code}">add sub issue</a>
+               <a href="#" class="addSubIssue" data-id="${issue.id}">add sub issue</a>
             </div>
          </div>
       </div>
@@ -89,7 +89,7 @@
             <tr>
                <td>Padre</td>
                <td><g:link controller="issues" action="view"
-                           id="${issue.parent?.code}">${issue.parent.code}</g:link></td>
+                           id="${issue.parent?.id}">${issue.parent.code}</g:link></td>
             </tr>
          </g:if>
          <tr>
@@ -187,7 +187,7 @@
 </div>
 
 <div id="addAttachmentDialog" style="display:none;" class="modal">
-   <g:uploadForm name="attachmentsForm" action="addAttachment" id="${issue.code}" class="form-stacked" style="padding-left: 0;">
+   <g:uploadForm name="attachmentsForm" action="addAttachment" id="${issue.id}" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a href="#" class="close">×</a>
          <h3>Archivos adjuntos</h3>
@@ -226,7 +226,7 @@
 </div>
 
 <div id="resolveIssueDialog" style="display:none;" class="modal">
-   <g:form action="resolveIssue" id="${issue.code}" name="resolveIssueForm" class="form-stacked" style="padding-left: 0;">
+   <g:form action="resolveIssue" id="${issue.id}" name="resolveIssueForm" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a href="#" class="close">×</a>
          <h3>Resolver incidencia</h3>
@@ -291,7 +291,7 @@
       });
 
       $('#edit').click(function () {
-         document.location.href = '${createLink(action:'edit', id: issue.code)}';
+         document.location.href = '${createLink(action:'edit', id: issue.id)}';
       });
 
       $('#notifyToText')
@@ -341,7 +341,7 @@
          e.preventDefault();
          if(!pomodoroRunning){
             pomodoroRunning = true;
-            $.ajax({url: '${createLink(action:"startPomodoroSession", id: issue.code)}', dataType: 'json',
+            $.ajax({url: '${createLink(action:"startPomodoroSession", id: issue.id)}', dataType: 'json',
                success: function(data){
                   if(data.success){
                      pomodoroSessionId = data.pomodoroSessionId
@@ -376,7 +376,7 @@
       e.preventDefault();
       $("#newIssueDialog").html('<div style="padding: 30px;">Loading...</div>');
       $("#newIssueDialog").modal('show');
-      $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('code') + '&reload=true');
+      $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('id') + '&reload=true');
    });
 
 

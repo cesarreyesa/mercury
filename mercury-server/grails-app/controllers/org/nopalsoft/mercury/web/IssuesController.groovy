@@ -87,7 +87,7 @@ class IssuesController {
    }
 
    def view = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       if(issue && !issue.conversation){
          issue.conversation = new Conversation()
          issue.conversation.save(flush:true)
@@ -103,7 +103,7 @@ class IssuesController {
       def user = User.get(springSecurityService.principal.id)
       issue.reporter = user
       if(params.parent){
-         issue.parent = Issue.findByCode(params.parent);
+         issue.parent = Issue.get(params.parent);
       }
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(project)
       def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: project, statusParam: MilestoneStatus.OPEN])
@@ -116,7 +116,7 @@ class IssuesController {
       def user = User.get(springSecurityService.principal.id)
       issue.reporter = user
       if(params.parent){
-         issue.parent = Issue.findByCode(params.parent);
+         issue.parent = Issue.get(params.parent);
          issue.assignee = issue.parent.assignee
          issue.priority = issue.parent.priority
          issue.issueType = issue.parent.issueType
@@ -146,14 +146,14 @@ class IssuesController {
 
                def attachment = new IssueAttachment(file.fileItem.fileName, params.attachmentDescription, User.get(springSecurityService.principal.id), new Date());
                issue.addToAttachments(attachment);
-               issueService.saveIssue(issue, "<b>attachment</b> <i>" + file.fileItem.fileName + "</i> added<br/>" + attachment.description);
+               issueService.saveIssue(issue, "<b>attachment</b> <i>" + file.fileItem.fileName + "</i> added<br/>" + attachment.description, 'addAttachment');
 
             } else {
                flash.warning = "No se agregaron los archivos adjuntos"
             }
 
             flash.message = "Se creo correctamente."
-            redirect(action: 'view', params: [id: issue.code])
+            redirect(action: 'view', params: [id: issue.id])
          }
          else {
             def project = Project.get(request.project.id)
@@ -172,7 +172,7 @@ class IssuesController {
          issue.dueDate = params.dueDate ? Date.parse("dd/MM/yyyy", params.dueDate) : null
          if (issueService.newIssue(issue)) {
             flash.message = "Se creo correctamente."
-            redirect(action: 'view', params: [id: issue.code])
+            redirect(action: 'view', params: [id: issue.id])
          }
          else {
             def project = Project.get(request.project.id)
@@ -185,7 +185,7 @@ class IssuesController {
    }
 
    def edit = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       def categories = org.nopalsoft.mercury.domain.Category.findAllByProject(issue.project)
       def milestones = Milestone.findAll("from Milestone m where m.project = :projectParam and (m.status is null or m.status = :statusParam) order by m.startDate", [projectParam: issue.project, statusParam: MilestoneStatus.OPEN])
       [issue: issue, project: issue.project, categories: categories, milestones: milestones]
@@ -200,7 +200,7 @@ class IssuesController {
          try {
             issueService.saveIssue(issue)
             flash.message = "Se creo correctamente."
-            redirect(action: 'view', params: [id: issue.code])
+            redirect(action: 'view', params: [id: issue.id])
          } catch (Exception ex) {
             def project = Project.get(request.project.id)
             render(view: 'edit', model: [issue: issue, project: project])
@@ -212,24 +212,24 @@ class IssuesController {
    }
 
    def assignIssue = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       issueService.reassignIssue issue, User.get(params.int('assignee.id')), params.assignComment
       flash.message = "Se asigno correctamente"
-      redirect(action: 'view', params: [id: issue.code])
+      redirect(action: 'view', params: [id: issue.id])
    }
 
    def closeIssue = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       issueService.closeIssue issue, params.closeComment
       flash.message = "Se cerro correctamente"
-      redirect(action: 'view', params: [id: issue.code])
+      redirect(action: 'view', params: [id: issue.id])
    }
 
 //   def addComment = {
 //      def issue = Issue.findByCode(params.id)
 //      issueService.saveIssue issue, params.comment
 //      flash.message = "Se asigno correctamente"
-//      redirect(action: 'view', params: [id: issue.code])
+//      redirect(action: 'view', params: [id: issue.id])
 //   }
 
    def addComment = {
@@ -251,7 +251,7 @@ class IssuesController {
 
 
    def addAttachment = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       def file = request.getFile('file')
       def fileName
       if (file && !file.empty && file.size < (1024 * 5000)) {
@@ -262,13 +262,13 @@ class IssuesController {
 
          def attachment = new IssueAttachment(file.fileItem.fileName, params.description, User.get(springSecurityService.principal.id), new Date());
          issue.addToAttachments(attachment);
-         issueService.saveIssue(issue, "<b>attachment</b> <i>" + file.fileItem.fileName + "</i> added<br/>" + attachment.description);
+         issueService.saveIssue(issue, "<b>attachment</b> <i>" + file.fileItem.fileName + "</i> added<br/>" + attachment.description, 'addAttachment');
 
          flash.message = "Se agrego el attachment correctamente"
-         redirect(action: 'view', params: [id: issue.code])
+         redirect(action: 'view', params: [id: issue.id])
 
       } else {
-         redirect(action: 'view', params: [id: issue.code])
+         redirect(action: 'view', params: [id: issue.id])
       }
    }
 
@@ -293,7 +293,7 @@ class IssuesController {
    }
 
    def resolveIssue = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       def notifyUsers = []
       if (params.notifyTo) {
          def ids = params.notifyTo.tokenize(",").findAll { it.toString().trim() != "" }.collect { it.toLong()}
@@ -301,11 +301,11 @@ class IssuesController {
       }
       issueService.resolveIssue issue, Resolution.get(params.resolution), params.resolveComment, notifyUsers
       flash.message = "Se resolvio correctamente"
-      redirect(action: 'view', params: [id: issue.code])
+      redirect(action: 'view', params: [id: issue.id])
    }
 
    def startPomodoroSession = {
-      def issue = Issue.findByCode(params.id)
+      def issue = Issue.get(params.id)
       def pomodoroSession = issueService.startPomodoroSession(issue)
       render(contentType:"text/json"){
          success =  true

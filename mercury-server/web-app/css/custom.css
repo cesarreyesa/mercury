@@ -132,3 +132,55 @@ a.completed{
 tr:hover .issueOptions, li:hover .issueOptions{
    visibility:visible;
 }
+
+.form-in-window {
+   padding-left: 0px;
+   margin-bottom: 0 !important;
+}
+
+.form-stacked-w {
+   padding-left: 0;
+   margin-bottom: 0;
+}
+.form-stacked-w fieldset {
+   padding-top: 9px;
+}
+.form-stacked-w legend {
+   padding-left: 0;
+}
+.form-stacked-w label {
+   display: block;
+   float: none;
+   width: auto;
+   font-weight: bold;
+   text-align: left;
+   line-height: 20px;
+   padding-top: 0;
+}
+.form-stacked-w .clearfix {
+   margin-bottom: 9px;
+}
+.form-stacked-w .clearfix div.input {
+   margin-left: 0;
+}
+.form-stacked-w .inputs-list {
+   margin-bottom: 0;
+}
+.form-stacked-w .inputs-list li {
+   padding-top: 0;
+}
+.form-stacked-w .inputs-list li label {
+   font-weight: normal;
+   padding-top: 0;
+}
+.form-stacked-w div.clearfix.error {
+   padding-top: 10px;
+   padding-bottom: 10px;
+   padding-left: 10px;
+   margin-top: 0;
+   margin-left: -10px;
+}
+.form-stacked-w .actions {
+   margin-left: -20px;
+   padding-left: 20px;
+}

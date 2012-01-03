@@ -45,7 +45,7 @@ class HomeController {
    def changeWorkspace = {
       def workspace = Workspace.get(params.workspace)
       session.currentWorkspace = workspace
-      setCookie(response, "workspace", workspace.id.toString(), 60 * 24 * 30)
+      setCookie(response, "workspace", workspace.id.toString(), 60 * 60 * 24 * 30)
 //      params.projects = Project.findAllByWorkspace(workspace)
       //      params.projects = Project.findAllByWorkspace(workspace)
       try {
@@ -61,7 +61,7 @@ class HomeController {
    def changeProject = {
       def project = Project.get(params.projectId)
       if (project) {
-         setCookie(response, "project", project.id.toString(), 60 * 24 * 30)
+         setCookie(response, "project", project.id.toString(), 60 * 60 * 24 * 30)
          request.project = project
       }
       redirect(action: 'index')

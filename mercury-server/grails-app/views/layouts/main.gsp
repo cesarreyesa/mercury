@@ -86,8 +86,12 @@
                         params="[changeWorkspace:'true']"><g:message code="workspace.change"/></g:link>
                   </li>
                   <li><g:link controller="workspace">Configuraci&oacute;n del workspace</g:link></li>
+
                   <li class="divider"></li>
-                  <li><g:link controller="project">Configuraci&oacute;n de proyecto</g:link></li>
+                  <li><a id="newProjectLink" href="#">Nuevo proyecto</a></li>
+                  <g:if test="${request.project}">
+                     <li><g:link controller="project">Configuraci&oacute;n de proyecto</g:link></li>
+                  </g:if>
                   <sec:ifAllGranted roles="role_admin">
                      <li><g:link controller="admin">Administraci&oacute;n</g:link></li>
                   </sec:ifAllGranted>
@@ -140,7 +144,7 @@
 </div>
 
 <div id="newWorkspaceDialog" style="display:none;width: 400px;" class="modal">
-   <g:form class="form-stacked" action="newWorkspace" controller="home">
+   <g:form class="form-stacked-w" action="newWorkspace" controller="home">
       <div class="modal-header">
          <a href="#" class="close">×</a>
          <h3>${message(code:'workspace.new')}</h3>
@@ -148,7 +152,7 @@
 
       <div class="modal-body">
             <div class="clearfix">
-               <label>Nombre</label>
+               <label for="name">Nombre</label>
                <div class="input">
                   <g:textField name="name" />
                </div>
