@@ -74,14 +74,6 @@ class Issue {
       watchers joinTable: [name: 'issue_watcher', key: 'issue_id', column: 'user_id']
    }
 }
-
-//  @Column(name = "date_closed")
-//  Date dateClosed;
-//
-//  @ManyToOne
-//  @JoinColumn(name = "milestone_id", nullable = true)
-//  Milestone milestone;
-//
 //  public Element toXml(String elementName) {
 //    Element el = DocumentHelper.createElement(elementName);
 //    el.addElement("id").addText(this.id.toString());

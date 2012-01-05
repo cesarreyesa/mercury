@@ -247,4 +247,20 @@ class IssueSearchService {
          maxResults(50)
       }
    }
+
+   public List<Issue> findIssues(Project project, String query) {
+      DetachedCriteria crit = DetachedCriteria.forClass(Issue.class);
+
+      crit.add(Restrictions.eq("project", project))
+
+      Disjunction disjunction = Restrictions.disjunction()
+      disjunction.add(Restrictions.like("code", query.toLowerCase(), MatchMode.ANYWHERE).ignoreCase())
+      disjunction.add(Restrictions.like("summary", query.toLowerCase(), MatchMode.ANYWHERE).ignoreCase())
+      disjunction.add(Restrictions.like("description", query.toLowerCase(), MatchMode.ANYWHERE).ignoreCase())
+
+      crit.add(disjunction)
+
+      def hibernateTemplate = new HibernateTemplate(sessionFactory)
+      return (List<Issue>) hibernateTemplate.findByCriteria(crit);
+   }
 }

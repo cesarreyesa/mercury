@@ -20,6 +20,7 @@ import org.nopalsoft.mercury.domain.Conversation
 import org.nopalsoft.mercury.domain.Comment
 import org.nopalsoft.mercury.domain.PomodoroSession
 import org.nopalsoft.mercury.domain.IssueComment
+import org.nopalsoft.mercury.domain.IssueDependsOn
 
 @Secured(['user', 'role_admin'])
 class IssuesController {
@@ -94,7 +95,7 @@ class IssuesController {
          issue.save(flush:true)
       }
       def pomodoros = PomodoroSession.findAllByIssueAndCompleted(issue, true)
-      [issue: issue, pomodoros: pomodoros.size()]
+      [issue: issue, pomodoros: pomodoros.size(), isseueDependsOn: IssueDependsOn.findByIssue(issue)]
    }
 
    def create = {
@@ -304,6 +305,25 @@ class IssuesController {
       redirect(action: 'view', params: [id: issue.id])
    }
 
+   def addDependsOn = {
+      def issue = Issue.get(params.id)
+      List<Issue> dependsOnIssues = []
+      if (params.dependsOnIds) {
+         def ids = params.dependsOnIds.tokenize(",").findAll { it.toString().trim() != "" }.collect { it.toLong()}
+         dependsOnIssues = Issue.findAll("from Issue issue where issue.id in (:ids)", [ids:ids])
+      }
+      if(dependsOnIssues){
+         def dependsOn = IssueDependsOn.findByIssue(issue) ?: new IssueDependsOn()
+         dependsOn.issue = issue
+         for(def i in dependsOnIssues){
+            dependsOn.dependsOn.add(i)
+         }
+         dependsOn.save(flush: true)
+         flash.message = "Se agrego una dependencia"
+      }
+      redirect(action: 'view', params: [id: issue.id])
+   }
+
    def startPomodoroSession = {
       def issue = Issue.get(params.id)
       def pomodoroSession = issueService.startPomodoroSession(issue)
@@ -333,6 +353,22 @@ class IssuesController {
                [
                   value : u.id,
                   label: u.fullName
+               ]
+            } as JSON
+         }
+      }
+   }
+
+   def list = {
+      def project = Project.get(request.project.id)
+      def issues = issueSearchService.findIssues(project, params.term)
+            .sort{ it.code }
+      withFormat {
+         json{
+            render issues.collect{ i ->
+               [
+                  value : i.id,
+                  label: i.summary
                ]
             } as JSON
          }

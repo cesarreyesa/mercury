@@ -118,6 +118,20 @@
             <td>${issue.category?.name}</td>
          </tr>
          <tr>
+            <td>Dependiente</td>
+            <td>
+               <g:if test="${isseueDependsOn}">
+                  <g:each in="${isseueDependsOn.dependsOn}" var="d">
+                     <g:link action="view" id="${d.id}">${d.code}</g:link>
+                  </g:each>
+                  <a href="#" id="dependsOnLinkMore">Agregar mas</a>
+               </g:if>
+               <g:else>
+                  <a href="#" id="dependsOnLink">Ninguna</a>
+               </g:else>
+            </td>
+         </tr>
+         <tr>
             <td>Subscriptores</td>
             <td>
                <ul>
@@ -262,6 +276,29 @@
    </g:form>
 </div>
 
+<div id="dependsOnDialog" style="display:none;" class="modal">
+   <g:form action="addDependsOn" id="${issue.id}" name="addDependsOnForm" class="form-stacked-w" style="padding-left: 0;">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>Depende de</h3>
+      </div>
+      <div class="modal-body">
+         <div class="clearfix">
+            <label for="dependsOnText">Depende de:</label>
+
+            <div class="input">
+               <g:textField name="dependsOnText" class="autocomplete" style="width:100%;"/>
+               <g:hiddenField name="dependsOnIds"/>
+            </div>
+         </div>
+
+      </div>
+      <div class="modal-footer">
+         <g:submitButton name="submit" value="Guardar" class="btn primary"/>
+      </div>
+   </g:form>
+</div>
+
 <script type="text/javascript">
    $(function() {
       if ($("#resolve")) {
@@ -370,6 +407,16 @@
             $("#pomodoroCountdown").css('display', 'none');
          }
       });
+
+      $('#dependsOnDialog').modal({ keyboard: true, backdrop: true });
+      $('#dependsOnLink').click(function(e){
+         e.preventDefault();
+         showDependsOnWindow();
+      });
+      $('#dependsOnLinkMore').click(function(e){
+         e.preventDefault();
+         showDependsOnWindow();
+      });
    });
 
    $('.addSubIssue').click(function(e) {
@@ -379,6 +426,51 @@
       $("#newIssueDialog").load('${createLink(controller:'issues', action:'newIssueWindow')}' + '?parent=' + $(this).data('id') + '&reload=true');
    });
 
+   $('#dependsOnText')
+      .bind("keydown", function(event) {
+         if (event.keyCode === $.ui.keyCode.TAB &&
+               $(this).data("autocomplete").menu.active) {
+            event.preventDefault();
+         }
+      })
+      .autocomplete({
+         source: function(request, response) {
+            $.getJSON('${createLink(action:'list')}', {
+               term: extractLast(request.term)
+            }, response);
+         },
+         search: function() {
+            // custom minLength
+            var term = extractLast(this.value);
+            if (term.length < 2) {
+               return false;
+            }
+         },
+         focus: function() {
+            // prevent value inserted on focus
+            return false;
+         },
+         select: function(event, ui) {
+            var texts = split(this.value);
+            texts.pop();
+            texts.push(ui.item.label);
+            texts.push("");
+            this.value = texts.join(", ");
+
+            var ids = split($('#dependsOnIds').val());
+            ids.pop();
+            ids.push(ui.item.value);
+            ids.push("");
+            $('#dependsOnIds').val(ids.join(", "));
+
+            return false;
+         }
+   });
+
+   function showDependsOnWindow(){
+      $('#dependsOnDialog').modal('show');
+
+   }
 
    function extractLast(term) {
       return split(term).pop();
