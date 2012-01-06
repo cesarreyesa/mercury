@@ -85,10 +85,14 @@
                      <g:link controller="home" action="chooseWorkspace"
                         params="[changeWorkspace:'true']"><g:message code="workspace.change"/></g:link>
                   </li>
-                  <li><g:link controller="workspace">Configuraci&oacute;n del workspace</g:link></li>
+                  <g:if test="${session.currentWorkspace}">
+                     <li><g:link controller="workspace">Configuraci&oacute;n del workspace</g:link></li>
+                  </g:if>
 
                   <li class="divider"></li>
-                  <li><a id="newProjectLink" href="#">Nuevo proyecto</a></li>
+                  <g:if test="${session.currentWorkspace}">
+                     <li><a id="newProjectLink" href="#">Nuevo proyecto</a></li>
+                  </g:if>
                   <g:if test="${request.project}">
                      <li><g:link controller="project">Configuraci&oacute;n de proyecto</g:link></li>
                   </g:if>
@@ -165,6 +169,28 @@
    </g:form>
 </div>
 
+<div id="newProjectDialog" style="display:none;width: 400px;" class="modal">
+   <g:form class="form-stacked-w" action="newProject" controller="home">
+      <div class="modal-header">
+         <a href="#" class="close">×</a>
+         <h3>Nuevo proyecto</h3>
+      </div>
+
+      <div class="modal-body">
+            <div class="clearfix">
+               <label for="projectName">Nombre</label>
+               <div class="input">
+                  <g:textField name="projectName" />
+               </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+         <g:submitButton name="newProject" value="Guardar" class="btn primary" id="newProject"/>
+         <a href="#" class="btn" id="newProjectCancel">Cancelar</a>
+      </div>
+   </g:form>
+</div>
+
 <div id="changeWorkspaceDialog" style="display:none;width: 400px;" class="modal">
    <div class="modal-header">
       <a href="#" class="close">×</a>
@@ -193,6 +219,12 @@
       $('#newWorkspaceLink').click(function(e) {
          e.preventDefault();
          $("#newWorkspaceDialog").modal('show');
+      });
+
+      $("#newProjectDialog").modal({ keyboard: true });
+      $('#newProjectLink').click(function(e) {
+         e.preventDefault();
+         $("#newProjectDialog").modal('show');
       });
    });
 </script>

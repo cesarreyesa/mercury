@@ -12,8 +12,9 @@ class Project {
    static hasMany = [users: User]
 
    static constraints = {
-      code(blank: false)
+      code(nullable: true)
       name(blank: false)
+      description(blank: true, nullable: true)
       lastIssueId(nullable: true)
       currentMilestone(nullable: true)
       workspace(nullable: true)

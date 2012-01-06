@@ -84,4 +84,19 @@ class HomeController {
       redirect(action: 'index')
    }
 
+   def newProject = {
+      if(!session.currentWorkspace){
+         flash.message = "No se ha seleccionado un workspace"
+         redirect(action: 'index')
+      }
+      def user = User.get(springSecurityService.principal.id)
+      def project = new Project()
+      project.name = params.projectName
+      project.lead = user
+      project.workspace = Workspace.get(session.currentWorkspace.id)
+      project.addToUsers(user)
+      project.save(flush: true)
+      redirect(action: 'index')
+   }
+
 }

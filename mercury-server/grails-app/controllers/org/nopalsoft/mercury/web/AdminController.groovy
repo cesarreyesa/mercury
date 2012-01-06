@@ -49,7 +49,7 @@ class AdminController {
 
    def editRoles = {
       def user = User.get(params.id)
-      [user: user, roles: Role.listOrderByAuthority()]
+      [user: user, roles: Role.list()]
    }
 
    def addRole = {
