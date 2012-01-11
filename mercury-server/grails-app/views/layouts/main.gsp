@@ -23,7 +23,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-   <title><g:layoutTitle default="${message(code:'application.name')}"/> :: ${message(code:'application.name')}</title>
+   <title><g:layoutTitle default="${message(code: 'application.name')}"/> :: ${message(code: 'application.name')}</title>
 
    <link rel="Shortcut Icon" href="${resource(dir: 'images', file: 'favicon.ico')}">
 
@@ -56,7 +56,7 @@
                   ${session.currentWorkspace.name}
                </g:if>
                <g:else>
-                  ${message(code:'application.name')}
+                  ${message(code: 'application.name')}
                </g:else>
             </g:link>
          </h3>
@@ -83,7 +83,7 @@
                   <li><a id="newWorkspaceLink" href="#"><g:message code="workspace.new"/></a></li>
                   <li>
                      <g:link controller="home" action="chooseWorkspace"
-                        params="[changeWorkspace:'true']"><g:message code="workspace.change"/></g:link>
+                             params="[changeWorkspace: 'true']"><g:message code="workspace.change"/></g:link>
                   </li>
                   <g:if test="${session.currentWorkspace}">
                      <li><g:link controller="workspace">Configuraci&oacute;n del workspace</g:link></li>
@@ -104,8 +104,8 @@
             <li class="dropdown">
                <a href="#" class="dropdown-toggle" style="padding-top: 5px;padding-bottom: 0;">
                   <sec:ifLoggedIn>
-                     <img src="http://www.gravatar.com/avatar/${session.user.email.encodeAsMD5()}?s=30" />
-                     <span >${session.user}</span>
+                     <img src="http://www.gravatar.com/avatar/${session.user.email.encodeAsMD5()}?s=30"/>
+                     <span>${session.user}</span>
                   </sec:ifLoggedIn>
                </a>
                <ul class="dropdown-menu">
@@ -128,15 +128,21 @@
          </g:each>
       </ul>
    </g:if>
+   <g:elseif test="${session.currentWorkspace}">
+      <div class="alert-message warning">
+         No hay proyectos en este Workspace. <a id="newProjectLink2" href="#">Agregar un proyecto</a>
+      </div>
+   </g:elseif>
    <g:layoutBody/>
 </div>
 
 <div class="container">
    <div class="footer" style="margin-top: 30px;">
       <hr/>
+
       <p>
          <a href="https://github.com/cesarreyesa/mercury"
-            target="_blank">${message(code:'application.name')}</a> version 1.1.0
+            target="_blank">${message(code: 'application.name')}</a> version 1.1.0
       </p>
       %{--<div style="float:right;"><a href="http://nopalsoft.net/mercury/new" target="_blank">Enviar sugerencia</a></div>--}%
       %{--<p>Copyright &copy; 2010 Your Site.</p>--}%
@@ -151,17 +157,20 @@
    <g:form class="form-stacked-w" action="newWorkspace" controller="home">
       <div class="modal-header">
          <a href="#" class="close">×</a>
-         <h3>${message(code:'workspace.new')}</h3>
+
+         <h3>${message(code: 'workspace.new')}</h3>
       </div>
 
       <div class="modal-body">
-            <div class="clearfix">
-               <label for="name">Nombre</label>
-               <div class="input">
-                  <g:textField name="name" />
-               </div>
+         <div class="clearfix">
+            <label for="name">Nombre</label>
+
+            <div class="input">
+               <g:textField name="name"/>
             </div>
+         </div>
       </div>
+
       <div class="modal-footer">
          <g:submitButton name="newWorkspace" value="Guardar" class="btn primary" id="newWorkspace"/>
          <a href="#" class="btn" id="newWorkspaceCancel">Cancelar</a>
@@ -173,17 +182,20 @@
    <g:form class="form-stacked-w" action="newProject" controller="home">
       <div class="modal-header">
          <a href="#" class="close">×</a>
+
          <h3>Nuevo proyecto</h3>
       </div>
 
       <div class="modal-body">
-            <div class="clearfix">
-               <label for="projectName">Nombre</label>
-               <div class="input">
-                  <g:textField name="projectName" />
-               </div>
+         <div class="clearfix">
+            <label for="projectName">Nombre</label>
+
+            <div class="input">
+               <g:textField name="projectName"/>
             </div>
+         </div>
       </div>
+
       <div class="modal-footer">
          <g:submitButton name="newProject" value="Guardar" class="btn primary" id="newProject"/>
          <a href="#" class="btn" id="newProjectCancel">Cancelar</a>
@@ -194,19 +206,22 @@
 <div id="changeWorkspaceDialog" style="display:none;width: 400px;" class="modal">
    <div class="modal-header">
       <a href="#" class="close">×</a>
-      <h3>${message(code:'workspace.change')}</h3>
+
+      <h3>${message(code: 'workspace.change')}</h3>
    </div>
 
    <div class="modal-body">
       <g:form class="form-stacked">
          <div class="clearfix">
             <label>Workspace</label>
+
             <div class="input">
 
             </div>
          </div>
       </g:form>
    </div>
+
    <div class="modal-footer">
       <g:submitButton name="changeWorkspace" value="Guardar" class="btn primary" id="changeWorkspace"/>
       <a href="#" class="btn" id="newIssueCancel">Cancelar</a>
@@ -214,15 +229,19 @@
 </div>
 
 <script type="text/javascript">
-   $(function() {
-      $("#newWorkspaceDialog").modal({ keyboard: true });
-      $('#newWorkspaceLink').click(function(e) {
+   $(function () {
+      $("#newWorkspaceDialog").modal({ keyboard:true });
+      $('#newWorkspaceLink').click(function (e) {
          e.preventDefault();
          $("#newWorkspaceDialog").modal('show');
       });
 
-      $("#newProjectDialog").modal({ keyboard: true });
-      $('#newProjectLink').click(function(e) {
+      $("#newProjectDialog").modal({ keyboard:true });
+      $('#newProjectLink').click(function (e) {
+         e.preventDefault();
+         $("#newProjectDialog").modal('show');
+      });
+      $('#newProjectLink2').click(function (e) {
          e.preventDefault();
          $("#newProjectDialog").modal('show');
       });
