@@ -79,7 +79,7 @@
               &nbsp;
            </td>
            <td style="padding-left: 25px;">
-              <g:link controller="issues" action="view" id="${child.code}">${child.code} - ${child.summary}</g:link>
+              <g:link controller="issues" action="view" id="${child.id}">${child.code} - ${child.summary}</g:link>
               <span class="issueOptions" style="float: right;"><a href="#" class="addSubIssue" data-code="${child.code}">add sub issue</a></span>
            </td>
            <td colspan="4">&nbsp;</td>

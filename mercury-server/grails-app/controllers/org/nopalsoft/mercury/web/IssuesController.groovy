@@ -88,7 +88,11 @@ class IssuesController {
    }
 
    def view = {
-      def issue = Issue.get(params.id)
+      def issue = Issue.get(params.long('id'))
+      if(!issue){
+         render(view: '/error/notFound')
+         return
+      }
       if(issue && !issue.conversation){
          issue.conversation = new Conversation()
          issue.conversation.save(flush:true)
