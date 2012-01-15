@@ -98,6 +98,10 @@
                         id="${issue.milestone?.id}">${issue.milestone ? issue.milestone.name : "Sin asignar"}</g:link></td>
          </tr>
          <tr>
+            <td>Fecha de inicio</td>
+            <td><g:formatDate date="${issue.startDate}" format="EEE, dd MMM yyyy"/></td>
+         </tr>
+         <tr>
             <td>Fecha de entrega</td>
             <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
          </tr>

@@ -30,6 +30,7 @@ class Issue {
    Status status
    Date date
    Date lastUpdated
+   Date startDate
    Date dueDate
    Date dateResolved
    Project project
@@ -56,6 +57,7 @@ class Issue {
       summary(blank: false)
       description(nullable: true, maxSize: 4000)
       date(blank: false)
+      startDate(nullable: true)
       dueDate(nullable: true)
       resolution(nullable: true)
       dateResolved(nullable: true)

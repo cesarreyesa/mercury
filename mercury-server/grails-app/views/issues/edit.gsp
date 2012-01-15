@@ -52,6 +52,11 @@
             </div>
 
             <div class="clearfix">
+               <label for="dueDate">Fecha de inicio</label>
+               <div class="input"><g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}"/></div>
+            </div>
+
+            <div class="clearfix">
                <label for="dueDate">Fecha de entrega</label>
                <div class="input"><g:textField name="dueDate" value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}"/></div>
             </div>
@@ -101,6 +106,7 @@
 
 <script type="text/javascript">
    $(function () {
+      $("#startDate").datepicker({dateFormat: 'dd/mm/yy'});
       $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
       $('#summary').focus();
       $('#description').markItUp(mySettings);

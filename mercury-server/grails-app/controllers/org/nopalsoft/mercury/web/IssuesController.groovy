@@ -199,9 +199,11 @@ class IssuesController {
    def saveEdit = {
       if (request.isPost()) {
          def issue = Issue.get(params.id)
-         bindData issue, params, ['dueDate']
+         bindData issue, params, ['dueDate', 'startDate']
          if (params.dueDate)
             issue.dueDate = Date.parse("dd/MM/yyyy", params.dueDate)
+         if (params.startDate)
+            issue.startDate = Date.parse("dd/MM/yyyy", params.startDate)
          try {
             issueService.saveIssue(issue)
             flash.message = "Se creo correctamente."
