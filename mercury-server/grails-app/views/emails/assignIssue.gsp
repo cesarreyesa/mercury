@@ -11,7 +11,7 @@ Estado: ${message(code: 'status.' + issue.status.code)}
 Prioridad: ${message(code: 'priority.' + issue.priority.code)}
 ${message(code: 'issue.reporter')}: ${issue.reporter.fullName}
 
-URL: ${grailsApplication.config.grails.serverURL}/issues/view/${issue.code}
+URL: ${grailsApplication.config.grails.serverURL}/issues/view/${issue.id}
 
 Comentario: ${comment}
 

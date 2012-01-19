@@ -4,6 +4,7 @@ import org.nopalsoft.mercury.workflow.Action
 import org.nopalsoft.mercury.workflow.Workflow
 import org.springframework.util.Assert
 import org.nopalsoft.mercury.domain.*
+import org.apache.commons.lang.time.DateUtils
 
 class IssueService {
 
@@ -151,7 +152,7 @@ class IssueService {
       resolveIssue(issue, resolution, comment, null);
    }
 
-   public void resolveIssue(Issue issue, Resolution resolution, String comment, List<User> usersToNotificate) {
+   public void resolveIssue(Issue issue, Resolution resolution, String comment, List<User> usersToNotify) {
       // obtiene el nuevo estado del workflow
       issue.status = Status.findByCode(Workflow.getNextStatus(issue.status.code, Action.RESOLVE))
 
@@ -167,10 +168,10 @@ class IssueService {
 
       // agrega a el usuario que reporto si es que no viene en la lista previa.
       boolean addReporter = true
-      if (usersToNotificate == null) {
-         usersToNotificate = new ArrayList<User>()
+      if (usersToNotify == null) {
+         usersToNotify = new ArrayList<User>()
       }
-      for (User user: usersToNotificate) {
+      for (User user: usersToNotify) {
          if (user.equals(issue.reporter)) {
             addReporter = false
          }
@@ -181,17 +182,43 @@ class IssueService {
       // verificamos que el que reporta la incidencia no sea el mismo que la resuelve, en este caso no tiene sentido
       // enviar notificacion
       if (addReporter && !currentUser.equals(issue.reporter))
-         usersToNotificate << issue.reporter
+         usersToNotify << issue.reporter
 
-      usersToNotificate.addAll(issue.watchers.asList())
+      usersToNotify.addAll(issue.watchers.asList())
 
-      if (usersToNotificate != null) {
-         for (User user: usersToNotificate.unique()) {
+      if (usersToNotify != null) {
+         for (User user: usersToNotify.unique()) {
             try {
                mailService.sendMail {
                   to user.email
                   subject "[RESUELTA $issue.code] $issue.summary"
                   body view: "/emails/issueResolved", model: [issue: issue, resolution: resolution, comment: comment]
+               }
+            }
+            catch (Exception ex) {
+               // no hacemos nada
+            }
+         }
+      }
+   }
+   
+   public void remindStartIssue(Issue issue){
+      def usersToNotify = []
+
+      usersToNotify.add(issue.reporter)
+
+      if(issue.assignee)
+         usersToNotify.add(issue.assignee)
+
+      usersToNotify.addAll(issue.watchers.asList())
+
+      if (usersToNotify != null) {
+         for (User user: usersToNotify.unique()) {
+            try {
+               mailService.sendMail {
+                  to user.email
+                  subject "La tarea #${issue.code} esta programada para empezar hoy"
+                  body view: "/emails/issueStart", model: [issue: issue]
                }
             }
             catch (Exception ex) {
@@ -285,5 +312,9 @@ class IssueService {
    }
 
    Object getActivities(User user) {
+   }
+
+   public List<Issue> getIssuesScheduledForToday(){
+      return Issue.findAll("from Issue issue where issue.startDate <= ?", [DateUtils.truncate(new Date(), Calendar.DATE)])
    }
 }

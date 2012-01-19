@@ -21,7 +21,7 @@ ${issue.description}
 Comentario:
 ${comment}
 
-${grailsApplication.config.grails.serverURL}/issues/view/${issue.code}
+${grailsApplication.config.grails.serverURL}/issues/view/${issue.id}
 
 
 Este mail es generado automaticamente por Mercury.

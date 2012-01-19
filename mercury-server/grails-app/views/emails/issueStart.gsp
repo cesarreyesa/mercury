@@ -1,15 +1,14 @@
 <%--
   User: cesarreyes
-  Date: 21/11/10
-  Time: 20:33
+  Date: 18/01/12
+  Time: 23:25
 --%>
-Se ha resuelto la incidencia: ${issue.code}. Resolucion: ${resolution.code}
+La tarea #${issue.code} ha sido programada para iniciarse hoy.
 
+${issue.sumary}
 ${issue.description}
 
 ${grailsApplication.config.grails.serverURL}/issues/view/${issue.id}
-
-${comment}
 
 
 Este mail es generado automaticamente por Mercury.
