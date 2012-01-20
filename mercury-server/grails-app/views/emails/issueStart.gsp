@@ -5,7 +5,7 @@
 --%>
 La tarea #${issue.code} ha sido programada para iniciarse hoy.
 
-${issue.sumary}
+${issue.summary}
 ${issue.description}
 
 ${grailsApplication.config.grails.serverURL}/issues/view/${issue.id}

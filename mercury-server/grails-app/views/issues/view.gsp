@@ -158,7 +158,7 @@
 
 
 <div id="assignIssueDialog" style="display:none;" class="modal">
-   <g:form action="assignIssue" name="assignIssueForm" id="${issue.code}" class="form-stacked" style="padding-left: 0;">
+   <g:form action="assignIssue" name="assignIssueForm" id="${issue.id}" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a href="#" class="close">×</a>
          <h3>Asignar Incidencia</h3>
@@ -186,7 +186,7 @@
 </div>
 
 <div id="closeIssueDialog" style="display:none;" class="modal">
-   <g:form action="closeIssue" name="closeIssueForm" id="${issue.code}" class="form-stacked" style="padding-left: 0;">
+   <g:form action="closeIssue" name="closeIssueForm" id="${issue.id}" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a href="#" class="close">×</a>
          <h3>Cerrar Incidencia</h3>

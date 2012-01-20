@@ -13,6 +13,7 @@ class IssueService {
    def sessionFactory
    def springSecurityService
    def mailService
+   def groovyPageRenderer
 
    public boolean newIssue(Issue issue) {
       issue.lastUpdated = issue.date = new Date()
@@ -215,14 +216,15 @@ class IssueService {
       if (usersToNotify != null) {
          for (User user: usersToNotify.unique()) {
             try {
+               def contents = groovyPageRenderer.render(view:"/emails/issueStart", model:[issue: issue])
                mailService.sendMail {
                   to user.email
                   subject "La tarea #${issue.code} esta programada para empezar hoy"
-                  body view: "/emails/issueStart", model: [issue: issue]
+                  body contents
                }
             }
             catch (Exception ex) {
-               // no hacemos nada
+               ex.printStackTrace()
             }
          }
       }
