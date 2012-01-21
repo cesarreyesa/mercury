@@ -50,8 +50,8 @@ class UserService {
       workspace.save(flush: true)
       mailService.sendMail {
          to user.email
-         subject ''
-         body view: "/emails/addUserToWorkspace"
+         subject "${currentUser.fullName} te ha invitado al workspace ${workspace.name}"
+         body view: "/emails/addUserToWorkspace", model:  [user: user, workspace: workspace, currentUser: currentUser]
       }
    }
 

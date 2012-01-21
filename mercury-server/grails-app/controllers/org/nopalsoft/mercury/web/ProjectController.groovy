@@ -4,6 +4,7 @@ import org.nopalsoft.mercury.domain.Project
 import org.nopalsoft.mercury.domain.User
 import org.nopalsoft.mercury.domain.Milestone
 import grails.plugins.springsecurity.Secured
+import org.nopalsoft.mercury.domain.Workspace
 
 @Secured(['user', 'role_admin'])
 class ProjectController {
@@ -49,7 +50,14 @@ class ProjectController {
          redirect(action:'index', controller: 'home')
          return
       }
-      def users = User.findAllByEnabled(true)
+      if(!session.currentWorkspace){
+         redirect(action:'index', controller: 'home')
+         return
+      }
+
+      def workspace = Workspace.get(session.currentWorkspace.id)
+
+      def users = workspace.users
 
       [project: project, usersNotInProject: users]
    }

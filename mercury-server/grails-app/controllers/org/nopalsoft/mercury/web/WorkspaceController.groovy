@@ -64,7 +64,10 @@ class WorkspaceController {
          }
          else{
             // el usuario ya existe, se asigna al workspace
+            userService.addUserToWorkspace(workspace, user)
 
+            flash.success = "Se agrego a ${user.fullName} al workspace"
+            redirect action: 'users', id: workspace.id
          }
       }
    }

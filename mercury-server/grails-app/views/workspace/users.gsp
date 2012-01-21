@@ -17,6 +17,12 @@
    <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
+<g:if test="${flash.success}">
+   <div class="alert-message warning">
+      ${flash.success}
+   </div>
+</g:if>
+
 <ul class="tabs">
    <li><g:link>General</g:link></li>
    <li class="active"><g:link action="users">Usuarios</g:link></li>
