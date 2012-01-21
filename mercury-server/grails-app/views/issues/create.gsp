@@ -60,8 +60,12 @@
             </div>
 
             <div class="clearfix">
-               <label>Fecha de entrega</label>
+               <label for="startDate">Fecha de inicio</label>
+               <div class="input"><g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}"/></div>
+            </div>
 
+            <div class="clearfix">
+               <label>Fecha de entrega</label>
                <div class="input"><g:textField name="dueDate"
                                                value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}"
                                                class="text_field" style="width:100px;"/></div>

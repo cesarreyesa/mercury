@@ -72,6 +72,11 @@
 
          <div class="span3 columns">
             <div class="clearfix">
+               <label for="startDate">Fecha de inicio</label>
+               <div class="input"><g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}"/></div>
+            </div>
+
+            <div class="clearfix">
                <label for="milestone.id">Entrega</label>
                <div class="input">
                   <g:select name="milestone.id" value="${issue.milestone?.id}" from="${milestones}" optionKey="id"

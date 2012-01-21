@@ -22,7 +22,7 @@ class IssueService {
 
       // obtiene el codigo generado.
       Integer lastId = issue.project.lastIssueId ?: 0
-      issue.code = issue.project.code + "-" + String.valueOf((lastId + 1))
+      issue.code = String.valueOf((lastId + 1))
 
       issue.project.lastIssueId = lastId + 1
 
