@@ -10,6 +10,7 @@ import org.nopalsoft.mercury.domain.Workspace
 class AdminController {
 
    def springSecurityService
+   def mailService
 
    def index = {
       def users = User.list(sort:'username')
@@ -17,15 +18,24 @@ class AdminController {
    }
 
    def addUser = {
-      def user = new User()
+      def user = new User(enabled: true)
       [user: user]
    }
 
    def saveUser = {
       def user = new User()
       user.properties = params
-      user.password = springSecurityService.encodePassword(user.password)
+      String password = user.password ? user.password : String.randomString(8)
+      user.password = springSecurityService.encodePassword(password)
+      user.username = user.email
+      user.addToAuthorities(Role.findByAuthority("user"))
       if (user.save(flush: true)) {
+         mailService.sendMail {
+            to user.email
+            subject "Bienvenido a Nectar"
+            body view: "/emails/newUser", model: [user: user, password: password]
+         }
+
          redirect action: 'editUser', id: user.id
       } else {
          render(view: 'addUser', model: [user: user])

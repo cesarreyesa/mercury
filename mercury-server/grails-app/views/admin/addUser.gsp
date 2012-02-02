@@ -26,9 +26,10 @@
             <g:renderErrors bean="${user}" as="list"/>
          </div>
       </g:hasErrors>
+
       <div class="clearfix">
-         <label for="username">Usuario</label>
-         <div class="input"><g:textField name="username" value="${user.username}"/></div>
+         <label for="email">Email</label>
+         <div class="input"><g:textField name="email" value="${user.email}"/></div>
       </div>
 
       <div class="clearfix">
@@ -44,11 +45,6 @@
       <div class="clearfix">
          <label for="password">Contrase&ntilde;a</label>
          <div class="input"><g:passwordField name="password"/></div>
-      </div>
-
-      <div class="clearfix">
-         <label for="email">Email</label>
-         <div class="input"><g:textField name="email" value="${user.email}"/></div>
       </div>
 
       <div class="clearfix">
