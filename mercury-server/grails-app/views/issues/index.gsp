@@ -39,35 +39,33 @@
       </div>
    </div>
 
-   <div class="">
-      <div class="content">
-         <h2 class="title">
-            <a id="currentFilter" href="#">${currentFilter.name} &#9660;</a>
-         <span style="padding-right:20px;;float:right;font-size:x-small;font-weight:normal;">
-            <g:if test="${params.boolean('extendedView')}">
-               <g:link action="index" params="[extendedView:false]">Ocultar detalles</g:link></span>
-            </g:if>
-            <g:else>
-               <g:link action="index" params="[extendedView:true]">Mostrar detalles</g:link></span>
-            </g:else>
-         </h2>
+   <div class="content">
+      <h2 class="title">
+         <a id="currentFilter" href="#">${currentFilter.name} &#9660;</a>
+      <span style="padding-right:20px;;float:right;font-size:x-small;font-weight:normal;">
+         <g:if test="${params.boolean('extendedView')}">
+            <g:link action="index" params="[extendedView:false]">Ocultar detalles</g:link></span>
+         </g:if>
+         <g:else>
+            <g:link action="index" params="[extendedView:true]">Mostrar detalles</g:link></span>
+         </g:else>
+      </h2>
 
-         <div class="inner">
-            <div style="text-align:right;padding-bottom:0px;">
-               Mostrando <strong>${totalIssues}</strong> incidencias,
-            agrupado por: <a href="#" id="groupByAnchor"><strong><g:message
-                  code="issue.${currentFilter.groupBy.toString().toLowerCase()}"/></strong></a>
-            </div>
-            <g:each in="${issueGroups}" var="entry">
-               <h3>${entry.key.toString()}</h3>
-               <g:render template="/shared/issuesTable"
-                         model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
-            </g:each>
-            <div class="pagination">
-               <f:paginate total="${totalIssues}" maxsteps="4" max="50" params="${[filter: currentFilter.id]}"/>
-            </div>
-
+      <div class="inner">
+         <div style="text-align:right;padding-bottom:0px;">
+            Mostrando <strong>${totalIssues}</strong> incidencias,
+         agrupado por: <a href="#" id="groupByAnchor"><strong><g:message
+               code="issue.${currentFilter.groupBy.toString().toLowerCase()}"/></strong></a>
          </div>
+         <g:each in="${issueGroups}" var="entry">
+            <h3>${entry.key.toString()}</h3>
+            <g:render template="/shared/issuesTable"
+                      model="[issues:entry.value, extendedView:params.boolean('extendedView')]"/>
+         </g:each>
+         <div class="pagination">
+            <f:paginate total="${totalIssues}" maxsteps="4" max="50" params="${[filter: currentFilter.id]}"/>
+         </div>
+
       </div>
    </div>
 </div>

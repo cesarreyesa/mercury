@@ -28,7 +28,7 @@
             </tr>
          </table>
          <div class="actions">
-            <g:submitButton class="btn primary" name="changeWorkspace" value="Aceptar"/>
+            <g:submitButton class="btn btn-primary" name="changeWorkspace" value="Aceptar"/>
          </div>
       </g:form>
    </div>

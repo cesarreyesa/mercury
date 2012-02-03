@@ -36,7 +36,7 @@
       </div>
 
       <div class="actions">
-         <g:submitButton name="save" class="btn primary" value="Guardar"/>
+         <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
       </div>
    </g:form>
 

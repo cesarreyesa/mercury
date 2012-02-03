@@ -53,7 +53,7 @@
       </div>
 
       <div class="actions">
-         <button class="btn primary" type="submit">Guardar</button>
+         <button class="btn btn-primary" type="submit">Guardar</button>
          <g:link action="index" class="button">cancelar</g:link>
       </div>
    </g:form>

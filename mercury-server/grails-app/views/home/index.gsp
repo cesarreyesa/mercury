@@ -17,7 +17,7 @@
 </content>
 
 <div class="row">
-   <div class="span8">
+   <div class="span6">
       <h2 style="margin-bottom: 20px;">Actividad reciente</h2>
 
       <div class="activity-feed">
@@ -26,7 +26,7 @@
          </g:each>
       </div>
    </div>
-   <div class="span8">
+   <div class="span6">
       <h2>Dashboard</h2>
       <table>
         <tr>

@@ -81,7 +81,7 @@
    </div>
 
    <div class="modal-footer">
-      <g:submitButton name="sendInviteButton" class="btn primary" value="Enviar invitación"/>
+      <g:submitButton name="sendInviteButton" class="btn btn-primary" value="Enviar invitación"/>
    </div>
 </div>
 

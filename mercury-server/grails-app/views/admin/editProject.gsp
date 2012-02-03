@@ -56,7 +56,7 @@
       </div>
 
       <div class="actions">
-         <g:submitButton name="save" class="btn primary" value="Guardar"/>
+         <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
          <g:link action="projects">cancelar</g:link>
       </div>
    </g:form>

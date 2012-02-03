@@ -46,7 +46,7 @@
 </div>
 
 <div class="row">
-   <div class="span12 columns">
+   <div class="span8 columns">
       <div class="box">
          <div class="box-inner">
             <span class="small">
@@ -83,7 +83,7 @@
       <g:render template="/shared/comments" model="[conversation: issue.conversation, controller:'issues']"/>
 
    </div>
-   <div class="span4 columns">
+   <div class="span3 well">
       <table style="width:100%;">
          <g:if test="${issue.parent}">
             <tr>
@@ -180,7 +180,7 @@
          </div>
       </div>
       <div class="modal-footer">
-         <g:submitButton name="submit" value="Asignar" class="btn primary"/>
+         <g:submitButton name="submit" value="Asignar" class="btn btn-primary"/>
       </div>
    </g:form>
 </div>
@@ -199,7 +199,7 @@
          </div>
       </div>
       <div class="modal-footer">
-         <g:submitButton name="submit" value="Cerrar" class="btn primary"/>
+         <g:submitButton name="submit" value="Cerrar" class="btn btn-primary"/>
       </div>
    </g:form>
 </div>
@@ -238,7 +238,7 @@
          </div>
       </div>
       <div class="modal-footer">
-         <g:submitButton name="submit" value="Adjuntar archivo" class="btn primary"/>
+         <g:submitButton name="submit" value="Adjuntar archivo" class="btn btn-primary"/>
       </div>
    </g:uploadForm>
 </div>
@@ -275,7 +275,7 @@
          </div>
       </div>
       <div class="modal-footer">
-         <g:submitButton name="submit" value="Resolver" class="btn primary"/>
+         <g:submitButton name="submit" value="Resolver" class="btn btn-primary"/>
       </div>
    </g:form>
 </div>
@@ -298,7 +298,7 @@
 
       </div>
       <div class="modal-footer">
-         <g:submitButton name="submit" value="Guardar" class="btn primary"/>
+         <g:submitButton name="submit" value="Guardar" class="btn btn-primary"/>
       </div>
    </g:form>
 </div>
@@ -306,7 +306,7 @@
 <script type="text/javascript">
    $(function() {
       if ($("#resolve")) {
-         $("#resolveIssueDialog").modal({ keyboard: true, backdrop: true });
+//         $("#resolveIssueDialog").modal({ keyboard: true, backdrop: true });
 
          $('#resolve').click(function() {
             $("#resolveIssueDialog").modal('show');
@@ -314,19 +314,19 @@
       }
 
       if ($("#close")) {
-         $("#closeIssueDialog").modal({ keyboard: true, backdrop: true });
+//         $("#closeIssueDialog").modal({ keyboard: true, backdrop: true });
          $('#closeIssueDialog').bind('shown', function(){ $('#closeComment').focus(); });
          $('#close').click(function(e) {
             $("#closeIssueDialog").modal('show');
          });
       }
 
-      $("#assignIssueDialog").modal({ keyboard: true, backdrop: true });
+//      $("#assignIssueDialog").modal({ keyboard: true, backdrop: true });
       $('#assign').click(function () {
          $("#assignIssueDialog").modal('show');
       });
 
-      $("#addAttachmentDialog").modal({ keyboard: true, backdrop: true });
+//      $("#addAttachmentDialog").modal({ keyboard: true, backdrop: true });
       $('#attach').click(function () {
          $("#addAttachmentDialog").modal('show');
       });
@@ -412,7 +412,7 @@
          }
       });
 
-      $('#dependsOnDialog').modal({ keyboard: true, backdrop: true });
+//      $('#dependsOnDialog').modal({ keyboard: true, backdrop: true });
       $('#dependsOnLink').click(function(e){
          e.preventDefault();
          showDependsOnWindow();

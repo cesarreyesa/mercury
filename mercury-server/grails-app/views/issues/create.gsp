@@ -35,18 +35,18 @@
       </g:hasErrors>
       <div class="row">
          <div class="span8 columns">
-            <div class="clearfix">
+            <div class="control-group">
                <label for="summary">Resumen:</label>
 
-               <div class="input">
+               <div class="controls">
                   <g:textField name="summary" value="${issue.summary}" class="xlarge"/>
                </div>
             </div>
 
-            <div class="clearfix">
-               <label>Descripcion:</label>
+            <div class="control-group">
+               <label class="control-label" for="description">Descripcion:</label>
 
-               <div class="input"><g:textArea name="description" value="${issue.description}"
+               <div class="controls"><g:textArea name="description" value="${issue.description}"
                                               style="height:100px;width: 420px;"
                                               class="text_area"/></div>
             </div>
@@ -136,8 +136,8 @@
          </div>
       </div>
 
-      <div class="actions">
-         <g:submitButton name="save" class="btn primary" value="Guardar"/>
+      <div class="form-actions">
+         <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
          <g:link action="index">cancelar</g:link>
       </div>
    </g:uploadForm>

@@ -121,7 +121,7 @@
       </div>
    </div>
    <div class="modal-footer">
-      <g:submitButton name="newIssue" value="Guardar" class="btn primary" id="newIssueButton"/>
+      <g:submitButton name="newIssue" value="Guardar" class="btn btn-primary" id="newIssueButton"/>
       <a href="#" class="btn" id="newIssueCancel">Cancelar</a>
    </div>
 </g:form>

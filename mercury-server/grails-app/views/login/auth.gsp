@@ -26,12 +26,10 @@
 
 <body>
 
-<div class="topbar">
-   <div class="topbar-inner">
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
       <div class="container">
-         <h3>
-            <g:link controller="home">${message(code: 'application.name')}</g:link>
-         </h3>
+         <g:link controller="home" class="brand">${message(code: 'application.name')}</g:link>
       </div>
    </div>
 </div>
@@ -89,7 +87,7 @@
          </div>
 
          <div class="modal-footer">
-            <button class="btn primary" type="submit">Entrar</button>
+            <button class="btn btn-primary" type="submit">Entrar</button>
             <g:link controller="login" action="forgotPassword">&iquest;Olvid&oacute; su contrase&ntilde;a?</g:link>
          </div>
       </div>

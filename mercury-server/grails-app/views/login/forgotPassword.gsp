@@ -67,7 +67,7 @@
          </div>
 
          <div class="modal-footer">
-            <button class="btn primary" type="submit">Enviar</button>
+            <button class="btn btn-primary" type="submit">Enviar</button>
          </div>
       </div>
    </g:form>

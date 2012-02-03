@@ -98,7 +98,7 @@
       </div>
 
       <div class="actions">
-         <button id="save" data-loading-text="guardando..." class="btn primary">Guardar</button>
+         <button id="save" data-loading-text="guardando..." class="btn btn-primary">Guardar</button>
          <g:link action="view" id="${issue.id}" class="button">cancelar</g:link>
       </div>
    </g:form>
