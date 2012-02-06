@@ -25,7 +25,6 @@
       <g:elseif test="${issue.status?.code != 'closed'}">
          <button class="btn" id="close">Cerrar</button>
       </g:elseif>
-      <button class="btn" id="assign">Asignar</button>
       <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
       <button class="btn" id="edit">Editar</button>
       <button class="btn" id="pomodoro">Iniciar pomodoro</button>
@@ -53,9 +52,24 @@
                abierta por <strong>${issue.reporter.fullName}</strong> el <g:formatDate date="${issue.date}" format="MMM dd, yyyy"/></span>
             <h2><span class="label-large">${issue.code}</span> ${issue.summary}</h2>
 
-            <span class="small">
-               asignado a <strong>${issue.assignee?.fullName}</strong>
-            </span>
+            <table>
+               <tr>
+                  <td>
+                     <span class="label label-info">asignado</span> a <strong>${issue.assignee?.fullName}</strong>
+                  </td>
+                  <td>
+                     <div class="btn-group">
+                        <a class="btn" href="#" id="assign"><i class="icon-user"></i> Asignar</a>
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                           <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                           <li><a href="#">Eliminar asignaci&oacute;n</a></li>
+                        </ul>
+                     </div>
+                  </td>
+               </tr>
+            </table>
 
             <div style="margin-top: 20px;margin-bottom:20px;">
                <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
