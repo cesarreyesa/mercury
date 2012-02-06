@@ -160,7 +160,7 @@
 <div id="assignIssueDialog" style="display:none;" class="modal">
    <g:form action="assignIssue" name="assignIssueForm" id="${issue.id}" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
-         <a href="#" class="close">×</a>
+         <a class="close" data-toggle="modal" href="#assignIssueDialog">×</a>
          <h3>Asignar Incidencia</h3>
       </div>
       <div class="modal-body">
@@ -246,7 +246,7 @@
 <div id="resolveIssueDialog" style="display:none;" class="modal">
    <g:form action="resolveIssue" id="${issue.id}" name="resolveIssueForm" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
-         <a href="#" class="close">×</a>
+         <a class="close" data-toggle="modal" href="#resolveIssueDialog">×</a>
          <h3>Resolver incidencia</h3>
       </div>
       <div class="modal-body">
@@ -306,10 +306,8 @@
 <script type="text/javascript">
    $(function() {
       if ($("#resolve")) {
-//         $("#resolveIssueDialog").modal({ keyboard: true, backdrop: true });
-
          $('#resolve').click(function() {
-            $("#resolveIssueDialog").modal('show');
+            $("#resolveIssueDialog").modal({ backdrop: false });
          });
       }
 
@@ -323,7 +321,7 @@
 
 //      $("#assignIssueDialog").modal({ keyboard: true, backdrop: true });
       $('#assign').click(function () {
-         $("#assignIssueDialog").modal('show');
+         $("#assignIssueDialog").modal({ backdrop: false });
       });
 
 //      $("#addAttachmentDialog").modal({ keyboard: true, backdrop: true });
