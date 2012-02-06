@@ -17,7 +17,7 @@
    <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<ul class="tabs">
+<ul class="nav nav-tabs">
    <li><g:link action="index">Usuarios</g:link></li>
    <li class="active"><g:link action="projects">Proyectos</g:link></li>
    <li><a href="#block-forms-2">Catalogos</a></li>

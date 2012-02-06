@@ -7,7 +7,7 @@ Se ha resuelto la incidencia: ${issue.code}. Resolucion: ${resolution.code}
 
 ${issue.description}
 
-${grailsApplication.config.grails.serverURL}/issues/view/${issue.id}
+${createLink(controller: "issues", action: "view", id: issue.id, absolute: true)}
 
 ${comment}
 

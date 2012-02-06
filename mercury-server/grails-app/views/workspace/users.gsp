@@ -23,7 +23,7 @@
    </div>
 </g:if>
 
-<ul class="tabs">
+<ul class="nav nav-tabs">
    <li><g:link>General</g:link></li>
    <li class="active"><g:link action="users">Usuarios</g:link></li>
 </ul>

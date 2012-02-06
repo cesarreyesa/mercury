@@ -16,7 +16,7 @@
    <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<ul class="tabs">
+<ul class="nav nav-tabs">
    <li class="first active"><g:link controller="project">General</g:link></li>
    <li><g:link action="categories">Categorias</g:link></li>
    <li><g:link controller="project" action="users">Usuarios</g:link></li>

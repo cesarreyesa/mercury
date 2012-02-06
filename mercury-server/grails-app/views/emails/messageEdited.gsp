@@ -4,7 +4,8 @@ Titulo:
 ${message.title}
 
 Puedes ver el mensaje completo en:
-${grailsApplication.config.grails.serverURL}/messages/view/${message.id}
+
+${createLink(controller: "messages", action: "view", id: message.id, absolute: true)}
 
 
 

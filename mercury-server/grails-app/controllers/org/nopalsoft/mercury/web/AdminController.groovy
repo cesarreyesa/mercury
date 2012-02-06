@@ -13,7 +13,7 @@ class AdminController {
    def mailService
 
    def index = {
-      def users = User.list(sort:'username')
+      def users = User.findAllByEnabled(params.active != 'inactive')
       [users: users]
    }
 

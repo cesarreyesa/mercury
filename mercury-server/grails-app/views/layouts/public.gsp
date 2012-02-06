@@ -3,9 +3,10 @@
   Date: 18/12/11
   Time: 10:42
 --%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
+   <meta charset="utf-8">
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
    <title><g:layoutTitle default="${message(code:'application.name')}"/> :: ${message(code:'application.name')}</title>
 
@@ -20,14 +21,11 @@
 </head>
 
 <body>
-<div class="topbar" data-dropdown="dropdown">
-   <div class="topbar-inner">
+
+<div class="navbar navbar-fixed-top">
+   <div class="navbar-inner">
       <div class="container">
-         <h3>
-            <g:link controller="home">
-               ${message(code:'application.name')}
-            </g:link>
-         </h3>
+         <g:link controller="home" class="brand">${message(code: 'application.name')}</g:link>
       </div>
    </div>
 </div>

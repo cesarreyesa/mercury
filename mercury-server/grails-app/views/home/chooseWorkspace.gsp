@@ -12,15 +12,15 @@
    <meta name="layout" content="${layout ?: 'main'}"/>
 </head>
 
-<body>
 <content tag="navbar">
    <g:render template="/shared/menu"/>
 </content>
 
-<div class="content">
-   <h2 class="title">Seleccione un workspace</h2>
+<body>
 
-   <div class="inner">
+<div class="content">
+   <g:if test="${workspaces}">
+      <h2>Seleccione un workspace</h2>
       <g:form action="changeWorkspace" class="form">
          <table>
             <tr>
@@ -31,9 +31,21 @@
             <g:submitButton class="btn btn-primary" name="changeWorkspace" value="Aceptar"/>
          </div>
       </g:form>
-   </div>
+   </g:if>
+   <g:else>
+      <div class="alert">
+         No perteneces a ningun workspace, puedes crear uno <a href="#" id="noWorkspacesCreateLink">aqu&iacute;</a>
+      </div>
+   </g:else>
 </div>
 
+<script type="text/javascript">
+   $('#noWorkspacesCreateLink').click(function (e) {
+      e.preventDefault();
+      $("#newWorkspaceDialog").modal('show');
+   });
+
+</script>
 </body>
 </html>
 

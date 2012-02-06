@@ -17,7 +17,7 @@
    <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<ul class="tabs">
+<ul class="nav nav-tabs">
    <li class="active"><g:link action="editUser" id="${user.id}">Editar</g:link></li>
    <li><g:link action="editRoles" id="${user.id}">Permisos</g:link></li>
 </ul>

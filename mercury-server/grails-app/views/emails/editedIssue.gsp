@@ -21,7 +21,7 @@ ${issue.description}
 Comentario:
 ${comment}
 
-${grailsApplication.config.grails.serverURL}/issues/view/${issue.id}
+${createLink(controller: "issues", action: "view", id: issue.id, absolute: true)}
 
 
 Este mail es generado automaticamente por Mercury.

@@ -125,7 +125,7 @@
       </ul>
    </g:if>
    <g:elseif test="${session.currentWorkspace}">
-      <div class="alert-message warning">
+      <div class="alert">
          No hay proyectos en este Workspace. <a id="newProjectLink2" href="#">Agregar un proyecto</a>
       </div>
    </g:elseif>

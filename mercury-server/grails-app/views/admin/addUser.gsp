@@ -20,39 +20,39 @@
 <div class="content">
    <h1>Agregar usuario</h1>
 
-   <g:form action="saveUser" class="form-stacked">
+   <g:form action="saveUser" class="form-inline">
       <g:hasErrors bean="${user}">
          <div class="errors">
             <g:renderErrors bean="${user}" as="list"/>
          </div>
       </g:hasErrors>
 
-      <div class="clearfix">
+      <div class="control-group">
          <label for="email">Email</label>
-         <div class="input"><g:textField name="email" value="${user.email}"/></div>
+         <div class="controls"><g:textField name="email" value="${user.email}"/></div>
       </div>
 
-      <div class="clearfix">
+      <div class="control-group">
          <label for="firstName">Nombre</label>
-         <div class="input"><g:textField name="firstName" value="${user.firstName}"/></div>
+         <div class="controls"><g:textField name="firstName" value="${user.firstName}"/></div>
       </div>
 
-      <div class="clearfix">
+      <div class="control-group">
          <label for="lastName">Apellido</label>
-         <div class="input"><g:textField name="lastName" value="${user.lastName}"/></div>
+         <div class="controls"><g:textField name="lastName" value="${user.lastName}"/></div>
       </div>
 
-      <div class="clearfix">
+      <div class="control-group">
          <label for="password">Contrase&ntilde;a</label>
-         <div class="input"><g:passwordField name="password"/></div>
+         <div class="controls"><g:passwordField name="password"/></div>
       </div>
 
-      <div class="clearfix">
+      <div class="control-group">
          <label for="enabled">Activo</label>
-         <div class="input"><g:checkBox name="enabled" value="${user.enabled}"/></div>
+         <div class="controls"><g:checkBox name="enabled" value="${user.enabled}"/></div>
       </div>
 
-      <div class="actions">
+      <div class="form-actions">
          <button class="btn btn-primary" type="submit">Guardar</button>
          <g:link action="index" class="button">cancelar</g:link>
       </div>

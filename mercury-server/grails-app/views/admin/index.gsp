@@ -19,7 +19,7 @@
    <g:render template="/shared/menu" model="[selected:'main']"/>
 </content>
 
-<ul class="tabs">
+<ul class="nav nav-tabs">
    <li class="active"><a href="#block-text">Usuarios</a></li>
    <li><g:link action="projects">Proyectos</g:link></li>
    <li><a href="#block-forms-2">Catalogos</a></li>
@@ -27,34 +27,44 @@
 </ul>
 
 <div class="content">
-   <h2 class="title">Usuarios</h2>
-
-   <div class="inner">
-      <table class="table">
-         <tr>
-            <td colspan="4" align="right"><g:link action="addUser">Agregar</g:link></td>
-         </tr>
-         <tr>
-            <th>Usuario</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            %{--<th>Idioma</th>--}%
-            <th>&nbsp;</th>
-         </tr>
-         <tbody>
-         <g:each in="${users}" var="user">
-            <tr>
-               <td>${user.username}</td>
-               <td>${user.fullName}</td>
-               <td>${user.email}</td>
-               %{--<td>${user.lastName}</td>--}%
-               <td class="last"><g:link action="editUser" id="${user.id}">editar</g:link> | <a href="#">eliminar</a>
-               </td>
-            </tr>
-         </g:each>
-         </tbody>
-      </table>
+   <div class="row">
+      <div class="span6">
+         <h2 class="title">Usuarios</h2>
+      </div>
+      <div class="span1 offset5">
+         <g:link action="addUser" class="btn btn-primary">Agregar</g:link>
+      </div>
    </div>
+
+
+   <p>
+   <div class="btn-group" data-toggle="buttons-radio">
+      <g:link params="[active:'active']" class="btn ${params.active != 'inactive' ? 'active' : ''}">Activos</g:link>
+      <g:link params="[active:'inactive']" class="btn ${params.active == 'inactive' ? 'active' : ''}">Inactivos</g:link>
+   </div>
+   </p>
+
+   <table class="table table-striped table-bordered table-condensed">
+      <tr>
+         <th>Usuario</th>
+         <th>Nombre</th>
+         <th>Email</th>
+         %{--<th>Idioma</th>--}%
+         <th>&nbsp;</th>
+      </tr>
+      <tbody>
+      <g:each in="${users}" var="user">
+         <tr>
+            <td>${user.username}</td>
+            <td>${user.fullName}</td>
+            <td>${user.email}</td>
+            %{--<td>${user.lastName}</td>--}%
+            <td class="last"><g:link action="editUser" id="${user.id}">editar</g:link> | <a href="#">eliminar</a>
+            </td>
+         </tr>
+      </g:each>
+      </tbody>
+   </table>
 </div>
 
 </body>

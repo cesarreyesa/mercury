@@ -17,7 +17,7 @@
 
 <body>
 
-<ul class="tabs">
+<ul class="nav nav-tabs">
    <li class="first active"><g:link controller="workspace">General</g:link></li>
    <li><g:link controller="workspace" action="users" id="${workspace.id}">Usuarios</g:link></li>
 </ul>
