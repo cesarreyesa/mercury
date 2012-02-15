@@ -35,14 +35,14 @@
             </div>
          </div>
       </g:if>
-      <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : 'Incidencias sin asignar'}</h2>
+      <h2 class="title">${milestone?.name ? 'Entrega: ' + milestone.name + ' ( ' + milestone.startDate.format("dd/MM/yyyy") + ' - ' + milestone.endDate.format("dd/MM/yyyy") + ' )' : message(code: 'nectar.tasks') + ' sin asignar'}</h2>
       <div class="inner">
          <g:form action="addIssuesToMilestone">
             <g:hiddenField name="id" value="${milestone?.id ?: ''}"/>
             <div style="padding-bottom:10px;">
                Agregar a: <g:select name="milestone" from="${milestones}" optionKey="id" optionValue="name" noSelection="${['':'Seleccione']}"/>
                <g:submitButton name="submit" value="Agregar"/>
-               <span style="float:right;">Mostrando <strong>${issues.size()}</strong> incidencias <a href="#" id="issuesStatusFilter">${status.name}</a></span>
+               <span style="float:right;">Mostrando <strong>${issues.size()}</strong> <g:message code="nectar.tasks"/> <a href="#" id="issuesStatusFilter">${status.name}</a></span>
                <span id="close" style="float:right; margin-right:5px;">Cerrar Entrega</span>
             </div>
             <g:render template="/shared/issuesTable" model="[issues:issues, includeCheckbox:true, enableIssueSort: false/*milestone != null*/]"/>

@@ -21,7 +21,7 @@
          <h2 class="title">Reportes</h2>
          <div class="inner">
             <ul>
-               <li><g:link action="issues">Incidencias</g:link></li>
+               <li><g:link action="issues"><g:message code="nectar.tasks"/></g:link></li>
             </ul>
          </div>
       </div>

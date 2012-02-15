@@ -53,7 +53,7 @@
 
       <div class="inner">
          <div style="text-align:right;padding-bottom:0px;">
-            Mostrando <strong>${totalIssues}</strong> incidencias,
+            Mostrando <strong>${totalIssues}</strong> <g:message code="nectar.tasks.lower"/>,
          agrupado por: <a href="#" id="groupByAnchor"><strong><g:message
                code="issue.${currentFilter.groupBy.toString().toLowerCase()}"/></strong></a>
          </div>

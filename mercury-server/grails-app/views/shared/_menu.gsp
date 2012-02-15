@@ -7,7 +7,7 @@
 <g:if test="${session.currentWorkspace}">
 
   <li <g:if test="${selected == 'issues'}">class="active"</g:if>>
-    <g:link controller="issues">Incidencias</g:link></li>
+    <g:link controller="issues"><g:message code="nectar.tasks"/></g:link></li>
 
    <li <g:if test="${selected == 'messages'}">class="active"</g:if>>
      <g:link controller="messages">Mensajes</g:link></li>

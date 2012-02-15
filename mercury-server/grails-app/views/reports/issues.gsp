@@ -20,7 +20,7 @@
 <div id="main">
    <div class="block" id="block-tables">
       <div class="content">
-         <h2 class="title">Reporte de incidencias</h2>
+         <h2 class="title">Reporte de <g:message code="nectar.tasks"/></h2>
          <div class="inner">
             <g:form action="issues">
                <button id="projects">Proyectos</button>

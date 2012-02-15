@@ -64,15 +64,6 @@
          </g:form>
          <ul class="nav pull-right">
             <li><g:link controller="issues" action="create" elementId="newIssueLink">[+]</g:link></li>
-            %{--<li style="color: #ffffff;">Trabajando en:--}%
-            %{--<g:set var="workingOn" value="${session.user.workingOn()}"/>--}%
-            %{--<g:if test="${workingOn}">--}%
-            %{--<g:link controller="issues" action="view" id="${workingOn.code}">${workingOn.code}</g:link>--}%
-            %{--</g:if>--}%
-            %{--<g:else>--}%
-            %{--nada--}%
-            %{--</g:else>--}%
-            %{--</li>--}%
             <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="${resource(dir: 'images', file: 'cog.png')}"/><b class="caret"></b></a>
                <ul class="dropdown-menu">

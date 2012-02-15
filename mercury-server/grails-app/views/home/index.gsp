@@ -79,7 +79,7 @@
    </g:each>
 
      new google.visualization.PieChart(document.getElementById('issuesByPriorityDiv')).
-         draw(issuesByPriority, {width: 450, height: 300, title:"Incidencias abiertas por prioridad"});
+         draw(issuesByPriority, {width: 450, height: 300, title:"<g:message code="nectar.tasks"/> abiertas por prioridad"});
 </g:if>
 
 <g:if test="${issuesByAssignee}">
@@ -92,7 +92,7 @@
      issuesByAssignee.setValue(${i}, 1, ${summary["count"]});
    </g:each>
      new google.visualization.PieChart(document.getElementById('issuesByAssigneeDiv')).
-         draw(issuesByAssignee, {width: 450, height: 300, title:"Incidencias abiertas por encargado"});
+         draw(issuesByAssignee, {width: 450, height: 300, title:"<g:message code="nectar.tasks"/> abiertas por encargado"});
 </g:if>
 
 <g:if test="${openIssuesByPriority}">
