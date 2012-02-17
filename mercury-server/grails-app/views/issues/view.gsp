@@ -113,7 +113,7 @@
          </tr>
          <tr>
             <td>Fecha de inicio</td>
-            <td><g:formatDate date="${issue.startDate}" format="EEE, dd MMM yyyy"/></td>
+            <td><g:formatDate date="${issue.startDate}" format="EEE, dd MMM yyyy, HH:mm"/></td>
          </tr>
          <tr>
             <td>Fecha de entrega</td>

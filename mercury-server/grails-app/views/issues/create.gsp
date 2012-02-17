@@ -39,7 +39,7 @@
                <label for="summary">Resumen:</label>
 
                <div class="controls">
-                  <g:textField name="summary" value="${issue.summary}" class="xlarge"/>
+                  <g:textField name="summary" value="${issue.summary}" class="span6"/>
                </div>
             </div>
 
@@ -47,28 +47,45 @@
                <label class="control-label" for="description">Descripcion:</label>
 
                <div class="controls"><g:textArea name="description" value="${issue.description}"
-                                              style="height:100px;width: 420px;"
-                                              class="text_area"/></div>
+                                              style="height:100px;" class="span6" /></div>
             </div>
 
-            <div class="clearfix">
-               <label>Entrega</label>
+            <div class="accordion" id="accordion2">
+               <div class="accordion-group">
+                  <div class="accordion-heading">
+                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        Fechas
+                     </a>
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse">
+                     <div class="accordion-inner">
+                        <div class="control-group">
+                           <label>Entrega</label>
 
-               <div class="input"><g:select name="milestone.id" value="${issue.milestone?.id}" from="${milestones}"
-                                            optionKey="id"
-                                            optionValue="name" noSelection="['':'-Sin asignar-']"/></div>
-            </div>
+                           <div class="controls"><g:select name="milestone.id" value="${issue.milestone?.id}" from="${milestones}"
+                                                           optionKey="id"
+                                                           optionValue="name" noSelection="['':'-Sin asignar-']"/></div>
+                        </div>
 
-            <div class="clearfix">
-               <label for="startDate">Fecha de inicio</label>
-               <div class="input"><g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}"/></div>
-            </div>
+                        <div class="control-group">
+                           <label for="startDate">Fecha de inicio</label>
+                           <div class="controls">
+                              <g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}" style="width: 80px;"/>
+                              <g:textField name="startDate.hours" value="${formatDate(date:issue.startDate, format:'HH')}" style="width: 20px;"/> :
+                              <g:textField name="startDate.minutes" value="${formatDate(date:issue.startDate, format:'mm')}" style="width: 20px;"/>
+                              Repetir
+                              <g:select name="repeatMode" from="['Nunca', 'Cada dia', 'Cada semana', 'Todos los meses']"/>
+                           </div>
+                        </div>
 
-            <div class="clearfix">
-               <label>Fecha de entrega</label>
-               <div class="input"><g:textField name="dueDate"
-                                               value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}"
-                                               class="text_field" style="width:100px;"/></div>
+                        <div class="clearfix">
+                           <label>Fecha de entrega</label>
+                           <div class="input"><g:textField name="dueDate"
+                                                           value="${formatDate(date:issue.dueDate, format:'dd/MM/yyyy')}" style="width: 80px;"/></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
 
             <div class="clearfix">
@@ -146,6 +163,7 @@
 <script type="text/javascript">
    $(function() {
       $("#dueDate").datepicker({dateFormat: 'dd/mm/yy'});
+      $("#startDate").datepicker({dateFormat: 'dd/mm/yy'});
       $('#summary').focus();
       $('#description').markItUp(mySettings);
    });

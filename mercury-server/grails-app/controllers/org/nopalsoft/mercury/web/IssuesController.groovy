@@ -136,8 +136,15 @@ class IssuesController {
    def save = {
       if (request.isPost()) {
          def issue = new Issue()
-         bindData issue, params, ['dueDate']
+
+         bindData issue, params, ['dueDate', 'startDate']
          issue.dueDate = params.dueDate ? Date.parse("dd/MM/yyyy", params.dueDate) : null
+         issue.startDate = params.startDate ? Date.parse("dd/MM/yyyy", params.startDate) : null
+
+         if(issue.startDate && params['startDate.hours']){
+            issue.startDate.setHours(params.int('startDate.hours'))
+            issue.startDate.setMinutes(params.int('startDate.minutes'))
+         }
 
          if (issueService.newIssue(issue)) {
 
