@@ -24,13 +24,15 @@
 
 <div class="content">
 
-   <g:form action="save">
-      <h3>Configuracion del workspace</h3>
+   <h2>Configuracion del workspace</h2>
+
+   <g:form action="save" class="form">
       <g:hiddenField name="id" value="${workspace.id}"/>
-      <div class="clearfix">
+
+      <div class="control-group">
          <label for="name">Nombre</label>
 
-         <div class="input">
+         <div class="controls">
             <g:textField name="name" value="${workspace.name}"/>
          </div>
       </div>

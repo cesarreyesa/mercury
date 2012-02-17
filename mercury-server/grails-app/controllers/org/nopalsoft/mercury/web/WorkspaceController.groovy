@@ -12,6 +12,15 @@ class WorkspaceController {
    def index() {
       [workspace: Workspace.get(session.currentWorkspace.id)]
    }
+   
+   def save = {
+      def workspace = Workspace.get(params.id)
+      workspace.properties = params
+      if(!workspace.save(flush: true)){
+         flash.error = "No se pudo guardar los cambios."
+      }
+      redirect(action: "index")
+   }
 
    def users = {
       User user = User.get(springSecurityService.principal.id)
