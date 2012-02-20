@@ -180,8 +180,14 @@ class IssuesController {
    def saveAjax = {
       if (request.isPost()) {
          def issue = new Issue()
-         bindData issue, params, ['dueDate']
+         bindData issue, params, ['dueDate', 'startDate']
          issue.dueDate = params.dueDate ? Date.parse("dd/MM/yyyy", params.dueDate) : null
+         issue.startDate = params.startDate ? Date.parse("dd/MM/yyyy", params.startDate) : null
+
+         if(issue.startDate && params['startDate.hours']){
+            issue.startDate.setHours(params.int('startDate.hours'))
+            issue.startDate.setMinutes(params.int('startDate.minutes'))
+         }
          if (issueService.newIssue(issue)) {
             flash.message = "Se creo correctamente."
             redirect(action: 'view', params: [id: issue.id])
@@ -209,8 +215,14 @@ class IssuesController {
          bindData issue, params, ['dueDate', 'startDate']
          if (params.dueDate)
             issue.dueDate = Date.parse("dd/MM/yyyy", params.dueDate)
-         if (params.startDate)
-            issue.startDate = Date.parse("dd/MM/yyyy", params.startDate)
+         if (params.startDate){
+            issue.startDate = params.startDate ? Date.parse("dd/MM/yyyy", params.startDate) : null
+
+            if(issue.startDate && params['startDate.hours']){
+               issue.startDate.setHours(params.int('startDate.hours'))
+               issue.startDate.setMinutes(params.int('startDate.minutes'))
+            }
+         }
          try {
             issueService.saveIssue(issue)
             flash.message = "Se creo correctamente."

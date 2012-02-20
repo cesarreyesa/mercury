@@ -5,6 +5,10 @@ import org.nopalsoft.mercury.workflow.Workflow
 import org.springframework.util.Assert
 import org.nopalsoft.mercury.domain.*
 import org.apache.commons.lang.time.DateUtils
+import mercury.server.DynamicReminderJob
+import org.quartz.Trigger
+import org.quartz.SimpleTrigger
+import org.codehaus.groovy.grails.plugins.quartz.GrailsTaskClassProperty
 
 class IssueService {
 
@@ -14,6 +18,8 @@ class IssueService {
    def springSecurityService
    def mailService
    def groovyPageRenderer
+   def quartzScheduler
+   def jobManagerService
 
    public boolean newIssue(Issue issue) {
       issue.lastUpdated = issue.date = new Date()
@@ -37,6 +43,14 @@ class IssueService {
       }
 
       issue.project.save(flush: true)
+
+      if(issue.startDate){
+         Trigger trigger = new SimpleTrigger("startDate-issue-${issue.id}-trigger",
+               GrailsTaskClassProperty.DEFAULT_TRIGGERS_GROUP, "mercury.server.DynamicReminderJob", "issues-startDate", issue.startDate, null, 0, 0)
+         trigger.setVolatility(true)
+         trigger.jobDataMap.putAll([issueId:issue.id])
+         quartzScheduler.scheduleJob(trigger)
+      }
 
       def conversation = new Conversation()
       conversation.save(flush: true)
@@ -104,6 +118,24 @@ class IssueService {
       }
 
       logIssue(issue, comment, action)
+
+      if(issue.startDate){
+         def currentTrigger = quartzScheduler.getTrigger("startDate-issue-${issue.id}-trigger", GrailsTaskClassProperty.DEFAULT_TRIGGERS_GROUP)
+         if(!currentTrigger){
+            Trigger trigger = new SimpleTrigger("startDate-issue-${issue.id}-trigger",
+                  GrailsTaskClassProperty.DEFAULT_TRIGGERS_GROUP, "mercury.server.DynamicReminderJob", "issues-startDate", issue.startDate, null, 0, 0)
+            trigger.setVolatility(true)
+            trigger.jobDataMap.putAll([issueId:issue.id])
+            quartzScheduler.scheduleJob(trigger)
+         }else{
+            def triggerName = "startDate-issue-${issue.id}-trigger"
+            Trigger trigger = new SimpleTrigger(triggerName,
+                  GrailsTaskClassProperty.DEFAULT_TRIGGERS_GROUP, "mercury.server.DynamicReminderJob", "issues-startDate", issue.startDate, null, 0, 0)
+            trigger.setVolatility(true)
+            trigger.jobDataMap.putAll([issueId:issue.id])
+            quartzScheduler.rescheduleJob(triggerName, GrailsTaskClassProperty.DEFAULT_TRIGGERS_GROUP, trigger)
+         }
+      }
 
       issue.save(flush: true)
    }
@@ -219,7 +251,7 @@ class IssueService {
                def contents = groovyPageRenderer.render(view:"/emails/issueStart", model:[issue: issue])
                mailService.sendMail {
                   to user.email
-                  subject "La tarea #${issue.code} esta programada para empezar hoy"
+                  subject "[${issue.project?.name}] ${issue.summary}"
                   body contents
                }
             }

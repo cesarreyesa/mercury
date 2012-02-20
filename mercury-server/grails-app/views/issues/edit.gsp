@@ -51,9 +51,15 @@
                                             optionValue="name" noSelection="['':'-Sin asignar-']"/></div>
             </div>
 
-            <div class="clearfix">
-               <label for="dueDate">Fecha de inicio</label>
-               <div class="input"><g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}"/></div>
+            <div class="control-group">
+               <label for="startDate">Fecha de inicio</label>
+               <div class="controls">
+                  <g:textField name="startDate" value="${formatDate(date:issue.startDate, format:'dd/MM/yyyy')}" style="width: 80px;"/>
+                  <g:textField name="startDate.hours" value="${formatDate(date:issue.startDate, format:'HH')}" style="width: 20px;"/> :
+                  <g:textField name="startDate.minutes" value="${formatDate(date:issue.startDate, format:'mm')}" style="width: 20px;"/>
+                  Repetir
+                  <g:select name="repeatMode" from="['Nunca', 'Cada dia', 'Cada semana', 'Todos los meses']"/>
+               </div>
             </div>
 
             <div class="clearfix">

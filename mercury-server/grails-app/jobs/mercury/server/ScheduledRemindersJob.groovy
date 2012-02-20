@@ -1,7 +1,7 @@
 package mercury.server
 
 
-class RemindersJob {
+class ScheduledRemindersJob {
    
    def issueService
    
