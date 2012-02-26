@@ -19,12 +19,6 @@
 
 <div class="row" style="margin-top:20px;">
    <div class="span10">
-      <g:if test="${!issue.resolution}">
-         <button class="btn" id="resolve">Resolver</button>
-      </g:if>
-      <g:elseif test="${issue.status?.code != 'closed'}">
-         <button class="btn" id="close">Cerrar</button>
-      </g:elseif>
       <button class="btn" id="attach">Archivos adjuntos (${issue.attachments.size()})</button>
       <button class="btn" id="edit">Editar</button>
       <button class="btn" id="pomodoro">Iniciar pomodoro</button>
@@ -48,28 +42,32 @@
    <div class="span8 columns">
       <div class="box">
          <div class="box-inner">
-            <span class="small">
-               abierta por <strong>${issue.reporter.fullName}</strong> el <g:formatDate date="${issue.date}" format="MMM dd, yyyy"/></span>
-            <h2><span class="label-large">${issue.code}</span> ${issue.summary}</h2>
+            <div class="row">
+               <div class="span6">
+                  <span class="small">
+                     abierta por <strong>${issue.reporter.fullName}</strong> el <g:formatDate date="${issue.date}" format="MMM dd, yyyy"/></span>
+                  <h2><span class="label-large">${issue.code}</span> ${issue.summary}</h2>
+               </div>
+               <div class="span1" style="float: right;">
+                  <g:if test="${issue.status?.code != 'closed'}">
+                     <button class="btn btn-success" id="close">Cerrar</button>
+                  </g:if>
+               </div>
+            </div>
 
-            <table>
-               <tr>
-                  <td>
-                     <span class="label label-info">asignado</span> a <strong>${issue.assignee?.fullName}</strong>
-                  </td>
-                  <td>
-                     <div class="btn-group">
-                        <a class="btn" href="#" id="assign"><i class="icon-user"></i> Asignar</a>
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                           <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                           <li><a href="#">Eliminar asignaci&oacute;n</a></li>
-                        </ul>
-                     </div>
-                  </td>
-               </tr>
-            </table>
+            <div style="background-color: #efefef; border-top: 1px dotted #555;border-bottom: 1px dotted #555;margin-top: 10px;margin-bottom: 10px;padding: 8px;">
+               <span class="label label-warning" style="font-size: large;"><g:message code="status.${issue.status.code}"/></span>
+               &nbsp;&nbsp;Asignado a <a href="#" id="assign">${issue.assignee ? issue.assignee?.fullName : 'nadie'}</a>
+
+               <div style="float: right;">
+                  Fecha de entrega: <g:if test="${issue.dueDate}">
+                     <g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/>
+                  </g:if>
+                  <g:else>
+                     ninguna
+                  </g:else>
+               </div>
+            </div>
 
             <div style="margin-top: 20px;margin-bottom:20px;">
                <p><g:markdownToHtml>${issue.description}</g:markdownToHtml></p>
@@ -116,16 +114,8 @@
             <td><g:formatDate date="${issue.startDate}" format="EEE, dd MMM yyyy, HH:mm"/></td>
          </tr>
          <tr>
-            <td>Fecha de entrega</td>
-            <td><g:formatDate date="${issue.dueDate}" format="EEE, dd MMM yyyy"/></td>
-         </tr>
-         <tr>
             <td>Tipo</td>
             <td>${issue.issueType.name}</td>
-         </tr>
-         <tr>
-            <td>Estado</td>
-            <td>${issue.status.name}</td>
          </tr>
          <tr>
             <td>Prioidad</td>
