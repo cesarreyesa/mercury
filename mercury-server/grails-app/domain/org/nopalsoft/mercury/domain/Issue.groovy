@@ -53,7 +53,7 @@ class Issue {
    User reporter
 
    static constraints = {
-      code(unique: true)
+      code(maxSize: 15)
       summary(blank: false)
       description(nullable: true, maxSize: 4000)
       date(blank: false)
@@ -76,35 +76,3 @@ class Issue {
       watchers joinTable: [name: 'issue_watcher', key: 'issue_id', column: 'user_id']
    }
 }
-//  public Element toXml(String elementName) {
-//    Element el = DocumentHelper.createElement(elementName);
-//    el.addElement("id").addText(this.id.toString());
-//    el.addElement("code").addText(this.code);
-//    el.addElement("summary").addText(this.summary);
-//    if (this.environment != null) el.addElement("environment").addText(this.environment);
-//    if (this.description != null) el.addElement("description").addText(this.description);
-//    el.addElement("date").addText(this.date.toString());
-//    el.addElement("lastUpdated").addText(this.lastUpdated == null ? "" : this.lastUpdated.toString());
-//    el.addElement("dueDate").addText(this.dueDate == null ? "" : this.dueDate.toString());
-//    el.addElement("completedPercentage").addText(this.completedPercentage == null ? "" : this.completedPercentage.toString());
-//    el.addElement("isArchived").addText(this.isArchived == null ? "" : this.isArchived.toString());
-//    if (this.project != null) el.add(this.project.toXml("project"));
-//    if (this.issueType != null) el.add(this.issueType.toXml("issueType"));
-//    if (this.status != null) el.add(this.status.toXml("status"));
-//    if (this.resolution != null) {
-//      el.addElement("resolutionText").addText(this.resolution.getName());
-//    } else {
-//      el.addElement("resolutionText").addText("SIN RESOLVER");
-//    }
-////        if(this.project != null) el.add(this.project.toXml("project"));
-//    if (this.priority != null) el.add(this.priority.toXml("priority"));
-//    if (this.assignee != null) el.add(this.assignee.toXml("assignee"));
-//    if (this.reporter != null) el.add(this.reporter.toXml("reporter"));
-////        if(reporter != null){
-////        	Element reporterEl = el.addElement("reportero");
-////        	reporterEl.addElement("name").addText(this.reporter.getFullName());
-////        }
-//
-//    return el;
-//  }
-//}

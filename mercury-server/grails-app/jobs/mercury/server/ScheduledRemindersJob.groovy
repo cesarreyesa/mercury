@@ -11,7 +11,7 @@ class ScheduledRemindersJob {
    def group = "IssuesGroup"
 
    def execute() {
-      def issues = issueService.getIssuesScheduledForToday()
+      def issues = issueService.getPendingIssuesScheduledForToday()
       for(def issue : issues){
          issueService.remindStartIssue(issue)
       }

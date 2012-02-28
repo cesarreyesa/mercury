@@ -7,7 +7,7 @@ quartz {
 environments {
    test {
       quartz {
-         autoStartup = true
+         autoStartup = false
       }
    }
 }

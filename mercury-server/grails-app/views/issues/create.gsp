@@ -24,7 +24,7 @@
    <g:uploadForm action="save" name="issueForm" class="form-stacked">
       <g:hiddenField name="project.id" value="${project.id}"/>
       <g:hasErrors bean="${issue}">
-         <div class="alert-message block-message error">
+         <div class="alert alert-error">
             <p>Hubo un error al crear la incidencia, revisa los siguientes mensajes:</p>
             <ul>
                <g:eachError bean="${issue}">
