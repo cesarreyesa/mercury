@@ -136,7 +136,7 @@
    </div>
 </div>
 
-<div id="newIssueDialog" title="Nueva Incidencia" style="display:none;width: 800px;" class="modal">
+<div id="newIssueDialog" title="Nueva ${message(code: 'nectar.task.lower')}" style="display:none;width: 800px;" class="modal">
 
 </div>
 
