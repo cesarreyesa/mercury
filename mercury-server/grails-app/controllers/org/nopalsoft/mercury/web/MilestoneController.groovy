@@ -73,7 +73,7 @@ class MilestoneController {
             addIssueToMilestone(it, milestone)
          }
       }
-      flash.success = "Las incidencias se han agregado correctamente a la entrega."
+      flash.success = "Las ${message(code: 'nectar.tasks.lower')} se han agregado correctamente a la entrega."
       redirect action: 'index', params: [id: params.id, showUnassigned: params.showUnassigned]
    }
 
@@ -119,7 +119,7 @@ class MilestoneController {
             milestone.save()
             redirect action: 'index'
          } else {
-            flash.message = "No se puede cerrar la entrega porque existen incidencias abiertas."
+            flash.message = "No se puede cerrar la entrega porque existen ${message(code: 'nectar.tasks.lower')} abiertas."
          }
 
       }

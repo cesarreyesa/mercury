@@ -70,10 +70,10 @@ class IssueService {
 //    logIssue(issue, null);
       User lead = issue.project.lead
       def usersToSend = []
-      // agregamos al lead siempre y cuando no sea el que crea la incidencia
+      // agregamos al lead siempre y cuando no sea el que crea la tarea
       if (!lead.equals(createdBy))
          usersToSend << lead
-      // agregamos al assignee siempre y cuando no sea el que crea la incidencia y no sea el lead
+      // agregamos al assignee siempre y cuando no sea el que crea la tarea y no sea el lead
       if (issue.assignee != null && !issue.assignee.equals(createdBy))
          usersToSend << issue.assignee
 
@@ -109,7 +109,7 @@ class IssueService {
          try {
             mailService.sendMail {
                to user.email
-               subject "Incidencia Editada. [$issue.code] $issue.summary"
+               subject "${message(code: 'nectar.task')} Editada. [$issue.code] $issue.summary"
                body view: "/emails/editedIssue", model: [issue: issue, editedBy: editedBy, comment: comment]
             }
          } catch (Exception ex) {
@@ -193,7 +193,7 @@ class IssueService {
       issue.resolution = resolution
       issue.dateResolved = new Date()
 
-      // si se resuelve una incidencia esntonces la asigna al reoporter
+      // si se resuelve una tarea esntonces la asigna al reoporter
       issue.assignee = issue.reporter
 
       logIssue(issue, comment, 'resolve')
@@ -212,7 +212,7 @@ class IssueService {
 
       User currentUser = User.get(springSecurityService.principal.id)
 
-      // verificamos que el que reporta la incidencia no sea el mismo que la resuelve, en este caso no tiene sentido
+      // verificamos que el que reporta la tarea no sea el mismo que la resuelve, en este caso no tiene sentido
       // enviar notificacion
       if (addReporter && !currentUser.equals(issue.reporter))
          usersToNotify << issue.reporter
@@ -348,7 +348,7 @@ class IssueService {
    Object getActivities(User user) {
    }
 
-   public List<Issue> getIssuesScheduledForToday(){
-      return Issue.findAll("from Issue issue where issue.startDate <= ?", [DateUtils.truncate(new Date(), Calendar.DATE)])
+   public List<Issue> getPendingIssuesScheduledForToday(){
+      return Issue.findAll("from Issue issue where issue.status.code != 'closed' and issue.startDate <= ?", [DateUtils.truncate(new Date(), Calendar.DATE)])
    }
 }

@@ -4,7 +4,7 @@
 <head>
    <meta name="layout" content="main"/>
    <title>
-      Nueva incidencia
+      Nueva ${message(code: 'nectar.task.lower')}
    </title>
    <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}"/>
    <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}"/>
@@ -19,13 +19,13 @@
 </content>
 
 <div class="content">
-   <h2 class="title">Nueva incidencia</h2>
+   <h2 class="title">Nueva ${message(code: 'nectar.task.lower')}</h2>
 
    <g:uploadForm action="save" name="issueForm" class="form-stacked">
       <g:hiddenField name="project.id" value="${project.id}"/>
       <g:hasErrors bean="${issue}">
          <div class="alert alert-error">
-            <p>Hubo un error al crear la incidencia, revisa los siguientes mensajes:</p>
+            <p>Hubo un error al crear la ${message(code: 'nectar.task.lower')}, revisa los siguientes mensajes:</p>
             <ul>
                <g:eachError bean="${issue}">
                   <li><g:message error="${it}"/></li>
@@ -89,7 +89,7 @@
             </div>
 
             <div class="clearfix">
-               <label>Tipo de incidencia</label>
+               <label>Tipo de ${message(code: 'nectar.task.lower')}</label>
 
                <div class="input"><g:select name="issueType.id" value="${issue.issueType?.id}"
                                             from="${IssueType.list()}" optionKey="id"

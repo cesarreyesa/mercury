@@ -4,7 +4,7 @@
 <head>
    <meta name="layout" content="plain"/>
    <title>
-      Nueva incidencia
+      Nueva ${message(code: 'nectar.task.lower')}
    </title>
    <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/skins/simple', file: 'style.css')}"/>
    <link rel="stylesheet" type="text/css" href="${resource(dir: 'js/sets/default', file: 'style.css')}"/>
@@ -17,7 +17,7 @@
 <g:form action="save" name="issueForm" class="form-stacked">
    <div class="modal-header">
       <a href="#" class="close">×</a>
-      <h3>Nueva incidencia</h3>
+      <h3>Nueva ${message(code: 'nectar.task.lower')}</h3>
    </div>
 
    <div class="modal-body">
@@ -46,7 +46,7 @@
             </div>
 
             <div class="clearfix">
-               <label for="issueType.id">Tipo de incidencia</label>
+               <label for="issueType.id">Tipo de ${message(code: 'nectar.task.lower')}</label>
                <div class="input">
                   <g:select name="issueType.id" value="${issue.issueType?.id}" from="${IssueType.list()}" optionKey="id"
                          optionValue="name"/>
@@ -139,7 +139,7 @@
       $('#newIssueButton').click(function(e){
          e.preventDefault();
          $.post('${createLink(controller:'issues', action: 'saveAjax')}', $('#issueForm').serialize(), function(data, textStatus){
-            $("#newIssueDialog").html('Incidencia creada exitosamente');
+            $("#newIssueDialog").html('${message(code: 'nectar.task')} creada exitosamente');
             setTimeout(function(){
                $('#newIssueDialog').dialog('close');
                <g:if test="${params.reload == 'true'}">

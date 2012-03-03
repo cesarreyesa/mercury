@@ -3,7 +3,7 @@
   Date: 02/01/11
   Time: 19:03
 --%>
-Se ha editado la incidencia: ${issue.code}. Editada por ${editedBy.fullName}
+Se ha editado la ${message(code: 'nectar.task.lower')}: ${issue.code}. Editada por ${editedBy.fullName}
 
 Tipo: ${message(code: 'issueType.' + issue.issueType.code)}
 Estado: ${message(code: 'status.' + issue.status.code)}

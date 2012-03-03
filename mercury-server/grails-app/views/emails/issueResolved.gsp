@@ -3,7 +3,7 @@
   Date: 21/11/10
   Time: 20:33
 --%>
-Se ha resuelto la incidencia: ${issue.code}. Resolucion: ${resolution.code}
+Se ha resuelto la ${message(code: 'nectar.task.lower')}: ${issue.code}. Resolucion: ${resolution.code}
 
 ${issue.description}
 

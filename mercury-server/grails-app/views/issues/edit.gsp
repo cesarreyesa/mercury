@@ -22,7 +22,7 @@
 </content>
 
 <div class="content">
-   <h2>Editar incidencia</h2>
+   <h2>Editar ${message(code: 'nectar.task.lower')}</h2>
 
    <g:form action="saveEdit" name="issueForm" class="form-stacked">
       <g:hiddenField name="id" value="${issue.id}"/>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="clearfix">
-               <label for="issueType.id">Tipo de incidencia</label>
+               <label for="issueType.id">Tipo de ${message(code: 'nectar.task.lower')}</label>
                <div class="input"><g:select name="issueType.id" value="${issue.issueType?.id}" from="${IssueType.list()}" optionKey="id"
                          optionValue="name"/></div>
             </div>

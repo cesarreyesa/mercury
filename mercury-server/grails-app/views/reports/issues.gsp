@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-   <title>Reporte de incidencias</title>
+   <title>Reporte de ${message(code: 'nectar.tasks.lower')}</title>
    <meta name="layout" content="main"/>
 </head>
 <body>

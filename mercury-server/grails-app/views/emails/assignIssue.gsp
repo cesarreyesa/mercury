@@ -3,7 +3,7 @@
   Date: 21/11/10
   Time: 20:27
 --%>
-${createdBy.fullName} le ha asignado una incidencia: ${issue.code}.
+${createdBy.fullName} le ha asignado una ${message(code: 'nectar.task.lower')}: ${issue.code}.
 
 Tipo: ${message(code: 'issueType.' + issue.issueType.code)}
 Estado: ${message(code: 'status.' + issue.status.code)}

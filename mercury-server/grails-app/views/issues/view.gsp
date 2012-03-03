@@ -165,7 +165,7 @@
    <g:form action="assignIssue" name="assignIssueForm" id="${issue.id}" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a class="close" data-toggle="modal" href="#assignIssueDialog">×</a>
-         <h3>Asignar Incidencia</h3>
+         <h3>Asignar ${message(code: 'nectar.task.lower')}</h3>
       </div>
       <div class="modal-body">
          <div class="clearfix">
@@ -193,7 +193,7 @@
    <g:form action="closeIssue" name="closeIssueForm" id="${issue.id}" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a href="#" class="close">×</a>
-         <h3>Cerrar Incidencia</h3>
+         <h3>Cerrar ${message(code: 'nectar.task.lower')}</h3>
       </div>
       <div class="modal-body">
          <div class="clearfix">
@@ -251,7 +251,7 @@
    <g:form action="resolveIssue" id="${issue.id}" name="resolveIssueForm" class="form-stacked" style="padding-left: 0;">
       <div class="modal-header">
          <a class="close" data-toggle="modal" href="#resolveIssueDialog">×</a>
-         <h3>Resolver incidencia</h3>
+         <h3>Resolver ${message(code: 'nectar.task.lower')}</h3>
       </div>
       <div class="modal-body">
          <div class="clearfix">
@@ -268,7 +268,7 @@
                <g:textField type="text" name="notifyToText" value="" class="autocomplete" style="width:100%;"/>
                <g:hiddenField name="notifyTo"/>
                %{--<g:select name="notifyTo" from="${issue.project.users.findAll{ it.enabled && it.id != issue.reporter.id }.sort{ it.fullName }}" optionKey="id" optionValue="fullName" noSelection="['':'Seleccione...']"/>--}%
-               <span class="help-inline">Si desea que alguien m&aacute;s, ademas de quien abrio la incidencia sea notificado.</span>
+               <span class="help-inline">Si desea que alguien m&aacute;s, ademas de quien abrio la ${message(code: 'nectar.task.lower')} sea notificado.</span>
             </div>
          </div>
 

@@ -3,7 +3,7 @@
   Date: 21/11/10
   Time: 16:06
 --%>
-Se ha creado una nueva incidencia: ${issue.code}. Creada por ${createdBy.fullName}
+Se ha creado una nueva ${message(code: 'nectar.task.lower')}: ${issue.code}. Creada por ${createdBy.fullName}
 
 Tipo: ${message(code: 'issueType.' + issue.issueType.code)}
 Estado: ${message(code: 'status.' + issue.status.code)}
