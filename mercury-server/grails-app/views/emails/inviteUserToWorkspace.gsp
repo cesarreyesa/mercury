@@ -1,5 +1,4 @@
-<%-- User: cesarreyes, Date: 14/12/11, Time: 23:31--%>
-${invitation.workspace.name} is getting organized on Nectar
+<%-- User: cesarreyes, Date: 14/12/11, Time: 23:31--%>${invitation.workspace.name} is getting organized on Nectar
 
 Join ${invitation.createdBy} and the rest of your team by clicking below
 

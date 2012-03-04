@@ -5,3 +5,5 @@ Puede ingresar con su email ${user.email} y su contraseña: ${password}.
 ${createLink(controller: 'home', absolute: true)}
 
 
+<g:render template="/emails/footer"/>
+

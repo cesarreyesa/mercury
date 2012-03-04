@@ -9,4 +9,4 @@ ${createLink(controller: "messages", action: "view", id: message.id, absolute: t
 
 
 
-Este mail es generado automaticamente por Mercury.
+<g:render template="/emails/footer"/>

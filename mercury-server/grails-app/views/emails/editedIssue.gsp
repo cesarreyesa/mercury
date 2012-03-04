@@ -1,9 +1,4 @@
-<%--
-  User: cesarreyes
-  Date: 02/01/11
-  Time: 19:03
---%>
-Se ha editado la ${message(code: 'nectar.task.lower')}: ${issue.code}. Editada por ${editedBy.fullName}
+<%-- User: cesarreyes Date: 02/01/11 Time: 19:03 --%>Se ha editado la ${message(code: 'nectar.task.lower')}: ${issue.code}. Editada por ${editedBy.fullName}
 
 Tipo: ${message(code: 'issueType.' + issue.issueType.code)}
 Estado: ${message(code: 'status.' + issue.status.code)}
@@ -24,4 +19,4 @@ ${comment}
 ${createLink(controller: "issues", action: "view", id: issue.id, absolute: true)}
 
 
-Este mail es generado automaticamente por Mercury.
+<g:render template="/emails/footer"/>
