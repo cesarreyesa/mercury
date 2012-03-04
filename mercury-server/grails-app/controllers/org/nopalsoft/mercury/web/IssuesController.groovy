@@ -99,7 +99,13 @@ class IssuesController {
          issue.save(flush:true)
       }
       def pomodoros = PomodoroSession.findAllByIssueAndCompleted(issue, true)
-      [issue: issue, pomodoros: pomodoros.size(), isseueDependsOn: IssueDependsOn.findByIssue(issue)]
+
+      def model = [issue: issue, pomodoros: pomodoros.size(), isseueDependsOn: IssueDependsOn.findByIssue(issue)]
+      if (isMobileDevice()) {
+         render(view:"/issues/mobile/view", model: model)
+         return
+      }
+      render(view: "view", model: model)
    }
 
    def create = {
