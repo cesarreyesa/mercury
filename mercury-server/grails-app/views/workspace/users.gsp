@@ -73,7 +73,7 @@
                </label>
 
                <div class="input">
-                  <g:textField name="userEmail" placeholder="email"/>
+                  <g:textField name="userEmail" placeholder="email" autocomplete="off"/>
                </div>
             </div>
          </div>
@@ -87,11 +87,10 @@
 
 <script type="text/javascript">
    $(function () {
-      $("#addUserDialog").modal({ keyboard:true, backdrop:false });
 
       $('#addLink').click(function (e) {
          e.preventDefault();
-         $("#addUserDialog").modal('show');
+         $("#addUserDialog").modal({ keyboard:true, backdrop:false });
          $('#userEmail').focus();
       });
 
