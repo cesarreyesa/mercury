@@ -18,52 +18,57 @@
 </content>
 
 <div class="content">
-   <h2 class="title">Update your profile</h2>
-
    <g:form action="save" class="form">
-      <g:hiddenField name="id" value="${user.id}"/>
-      <div class="clearfix">
-         <label for="username">Usuario:</label>
-         <div class="input"><g:textField name="username" value="${user.username}"/></div>
-      </div>
+      <fieldset>
+         <legend>Actualiza tu perfil</legend>
+         <g:hiddenField name="id" value="${user.id}"/>
+         <div class="controls">
+            <label for="email">Email</label>
+            <div class="control-group"><g:textField name="email" value="${user.email}"/></div>
+         </div>
 
-      <div class="clearfix">
-         <label for="firstName">Nombre</label>
-         <div class="input"><g:textField name="firstName" value="${user.firstName}"/></div>
-      </div>
+         <div class="controls">
+            <label for="firstName">Nombre</label>
+            <div class="control-group"><g:textField name="firstName" value="${user.firstName}"/></div>
+         </div>
 
-      <div class="clearfix">
-         <label for="lastName">Apellido</label>
-         <div class="input"><g:textField name="lastName" value="${user.lastName}"/></div>
-      </div>
+         <div class="controls">
+            <label for="lastName">Apellido</label>
+            <div class="control-group"><g:textField name="lastName" value="${user.lastName}"/></div>
+         </div>
 
-      <div class="clearfix">
-         <label for="email">Email</label>
-         <div class="input"><g:textField name="email" value="${user.email}"/></div>
-      </div>
-
-      <div class="actions">
-         <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
-      </div>
+         <div class="actions">
+            <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
+         </div>
+      </fieldset>
    </g:form>
-
-   <div style="margin-top:20px;"></div>
-
-   <h2 class="title">Cambie su contrase&ntilde;a</h2>
 
    <g:form action="changePassword" class="form">
-      <g:hiddenField name="id" value="${user.id}"/>
+      <fieldset>
+         <legend>Cambie su contrase&ntilde;a</legend>
+         <g:hiddenField name="id" value="${user.id}"/>
 
-      <div class="clearfix">
-         <label>Ingrese su nueva contrase&ntilde;a y confirmela</label>
-         <div class="input"><g:passwordField name="password"/>
-         <g:passwordField name="confirmPassword"/></div>
-      </div>
+         <div class="controls">
+            <label>Ingrese su nueva contrase&ntilde;a y confirmela</label>
+            <div class="control-group"><g:passwordField name="password"/>
+               <g:passwordField name="confirmPassword"/></div>
+         </div>
 
-      <div class="actions">
-         <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
-      </div>
+         <div class="actions">
+            <g:submitButton name="save" class="btn btn-primary" value="Guardar"/>
+         </div>
+      </fieldset>
    </g:form>
+
+
+   <fieldset>
+      <legend>Cambiar su imagen de perfil</legend>
+
+      <div class="controls">
+         <p>Para cambiar su imagen de perfil crea una cuenta gravatar. O si ya la tienes asocia tu correo que usas en Nectar a una imagen de perfil:
+            <a href="https://es.gravatar.com/site/signup" target="_blank">https://es.gravatar.com/site/signup</a></p>
+      </div>
+   </fieldset>
 </div>
 
 </body>
